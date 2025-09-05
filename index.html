@@ -324,7 +324,7 @@
             font-size: 28px;
         }
 
-        /* Модальные окна */
+        /* Модальные окна - ФИОЛЕТОВЫЕ */
         .modal {
             position: fixed;
             top: 0;
@@ -351,22 +351,23 @@
         }
 
         .modal-content {
-            background: rgba(20, 40, 30, 0.95);
+            background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 100%);
             border-radius: 20px;
             padding: 24px;
             width: 90%;
             max-width: 400px;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid rgba(74, 222, 128, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.5);
             backdrop-filter: blur(10px);
             transform: translateY(20px);
             transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
         }
 
         body.light-theme .modal-content {
-            background: rgba(220, 255, 235, 0.95);
-            border: 1px solid rgba(64, 166, 92, 0.3);
+            background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+            border: 1px solid rgba(168, 85, 247, 0.5);
         }
 
         .modal.active .modal-content {
@@ -379,20 +380,21 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+            border-bottom: 1px solid rgba(192, 132, 252, 0.5);
         }
 
         .modal-title {
             font-size: 22px;
             font-weight: 700;
-            color: #4ade80;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
         .modal-close {
             background: none;
             border: none;
             font-size: 24px;
-            color: #a6ffc9;
+            color: #e9d5ff;
             cursor: pointer;
             padding: 0;
             width: 30px;
@@ -416,31 +418,32 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #e6ffe6;
-        }
-
-        body.light-theme .settings-label {
-            color: #1a3b27;
+            color: #ffffff;
         }
 
         .settings-select {
             width: 100%;
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            background: rgba(10, 25, 20, 0.7);
-            color: #e6ffe6;
+            border: 1px solid rgba(192, 132, 252, 0.5);
+            background: rgba(107, 33, 168, 0.7);
+            color: #ffffff;
             font-size: 16px;
         }
 
         body.light-theme .settings-select {
-            background: rgba(192, 242, 212, 0.7);
-            color: #1a3b27;
+            background: rgba(168, 85, 247, 0.3);
+            color: #ffffff;
+        }
+
+        .settings-select option {
+            background: #6b21a8;
+            color: #ffffff;
         }
 
         .more-item {
             padding: 16px 0;
-            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+            border-bottom: 1px solid rgba(192, 132, 252, 0.5);
         }
 
         .more-item:last-child {
@@ -452,12 +455,13 @@
             padding: 14px;
             border-radius: 12px;
             border: none;
-            background: linear-gradient(145deg, #4ade80, #22c55e);
-            color: #0a1f15;
+            background: linear-gradient(145deg, #a855f7, #9333ea);
+            color: #ffffff;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
             transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
         }
 
         .more-button:active {
@@ -465,26 +469,30 @@
         }
 
         .more-button:disabled {
-            background: #2e2e2e;
-            color: #5e5e5e;
+            background: #4a5568;
+            color: #a0aec0;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
         .promo-input {
             width: 100%;
             padding: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            background: rgba(10, 25, 20, 0.7);
-            color: #e6ffe6;
+            border: 1px solid rgba(192, 132, 252, 0.5);
+            background: rgba(107, 33, 168, 0.7);
+            color: #ffffff;
             font-size: 16px;
             margin-bottom: 12px;
             text-align: center;
         }
 
         body.light-theme .promo-input {
-            background: rgba(192, 242, 212, 0.7);
-            color: #1a3b27;
+            background: rgba(168, 85, 247, 0.3);
+        }
+
+        .promo-input::placeholder {
+            color: #d8b4fe;
         }
 
         .reset-button {
@@ -492,12 +500,13 @@
             padding: 14px;
             border-radius: 12px;
             border: none;
-            background: linear-gradient(145deg, #ff4757, #ff3b3b);
+            background: linear-gradient(145deg, #ef4444, #dc2626);
             color: white;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
             transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
         }
 
         .reset-button:active {
@@ -508,11 +517,18 @@
             text-align: center;
             margin-top: 10px;
             font-size: 14px;
-            color: #a6ffc9;
+            color: #e9d5ff;
         }
 
-        body.light-theme .daily-reward-info {
-            color: #1a7e43;
+        .cheat-warning {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 10px;
+            color: #fecaca;
+            font-size: 14px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
     </style>
 </head>
@@ -573,6 +589,10 @@
                     <option value="dark" selected>Dark</option>
                     <option value="light">Light</option>
                 </select>
+            </div>
+
+            <div class="cheat-warning">
+                ⚠️ Anti-cheat: Max 60 clicks during penalty
             </div>
         </div>
     </div>
@@ -705,16 +725,16 @@
             }
         }
         
-        // Anti-cheat system
+        // Anti-cheat system (максимум 60 кликов во время наказания)
         function activateAntiCheat() {
             cheatDetected = true;
             bodyElement.classList.add('cheat-detected');
             
-            // Reduce clicks over time
+            // Reduce clicks over time with maximum of 60
             let reductionTime = 60; // 60 seconds
             const reductionInterval = setInterval(() => {
-                if (clicks > 0) {
-                    clicks = Math.max(0, clicks - 5);
+                if (clicks > 60) {
+                    clicks = Math.max(60, clicks - 5);
                     updateUI();
                 }
                 
@@ -729,7 +749,7 @@
         
         // Click on frog
         function handleFrogClick(e) {
-            if (cheatDetected) return;
+            if (cheatDetected && clicks >= 60) return;
             
             clicks++;
             totalClicks++;

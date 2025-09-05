@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cvapta Frog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a1f15 0%, #0c291d 50%, #0a1f15 100%);
+            color: #e6ffe6;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            touch-action: manipulation;
+            transition: background 0.5s ease;
+        }
+
+        body.light-theme {
+            background: linear-gradient(135deg, #e0f7e9 0%, #c8eed8 50%, #e0f7e9 100%);
+            color: #1a3b27;
+        }
+
+        body.low-graphics .bg-decoration,
+        body.low-graphics .click-effect,
+        body.low-graphics .floating-text {
+            display: none;
+        }
+
+        body.cheat-detected {
+            filter: hue-rotate(300deg) saturate(2);
+        }
+
+        body.cheat-detected .click-count,
+        body.cheat-detected .cps-counter,
+        body.cheat-detected .total-counter {
+            color: #ff3b3b !important;
+            text-shadow: 0 0 10px rgba(255, 59, 59, 0.5) !important;
+            border-color: rgba(255, 59, 59, 0.3) !important;
+        }
+        
+        /* Декоративные элементы фона */
+        .bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            background: rgba(64, 200, 120, 0.15);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-35px) translateX(-10px); }
+            75% { transform: translateY(-15px) translateX(15px); }
+        }
+        
+        .header {
+            padding: 16px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 25, 20, 0.7);
+            border-bottom: 1px solid rgba(64, 166, 92, 0.3);
+            height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .header {
+            background: rgba(192, 242, 212, 0.7);
+            border-bottom: 1px solid rgba(64, 166, 92, 0.3);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #4ade80;
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .logo {
+            color: #22a559;
+            text-shadow: 0 0 10px rgba(34, 165, 89, 0.3);
+        }
+        
+        .cps-counter {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(64, 166, 92, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            color: #a6ffc9;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .cps-counter {
+            background: rgba(64, 166, 92, 0.15);
+            color: #1a7e43;
+        }
+        
+        .total-counter {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(64, 166, 92, 0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #a6ffc9;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .total-counter {
+            background: rgba(64, 166, 92, 0.15);
+            color: #1a7e43;
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .click-count {
+            font-size: 46px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+            background: rgba(20, 40, 30, 0.6);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            min-width: 180px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .click-count {
+            color: #1a3b27;
+            background: rgba(192, 242, 212, 0.6);
+            border: 1px solid rgba(64, 166, 92, 0.3);
+            text-shadow: 0 0 5px rgba(74, 222, 128, 0.3);
+        }
+        
+        .frog-container {
+            position: relative;
+            margin: 10px 0 30px;
+        }
+        
+        .frog {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px rgba(74, 222, 128, 0.5),
+                inset 0 0 30px rgba(168, 255, 200, 0.4);
+            cursor: pointer;
+            transition: transform 0.1s;
+            font-size: 90px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.light-theme .frog {
+            box-shadow: 
+                0 0 30px rgba(74, 222, 128, 0.4),
+                inset 0 0 30px rgba(210, 255, 225, 0.6);
+        }
+        
+        .frog:active {
+            transform: scale(0.92);
+        }
+        
+        .click-effect {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.7) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: ripple 0.6s linear;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        
+        .floating-text {
+            position: absolute;
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 20px;
+            pointer-events: none;
+            animation: floatUp 1s ease-out forwards;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        body.cheat-detected .floating-text {
+            color: #ff3b3b;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-60px);
+                opacity: 0;
+            }
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(10, 25, 20, 0.7);
+            border-top: 1px solid rgba(64, 166, 92, 0.3);
+            padding: 16px 0;
+            height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        body.light-theme .bottom-nav {
+            background: rgba(192, 242, 212, 0.7);
+            border-top: 1px solid rgba(64, 166, 92, 0.3);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #9e9e9e;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0 10px;
+        }
+        
+        .nav-item.active {
+            color: #4ade80;
+        }
+
+        body.light-theme .nav-item.active {
+            color: #22a559;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            color: #0a1f15;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        body.light-theme .nav-item.active .nav-icon {
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            color: #ffffff;
+        }
+        
+        .main-frog-btn {
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            color: #0a1f15;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+            transform: translateY(-10px);
+            width: 60px;
+            height: 60px;
+            font-size: 28px;
+        }
+
+        /* Модальные окна */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        body.light-theme .modal {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: rgba(20, 40, 30, 0.95);
+            border-radius: 20px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            backdrop-filter: blur(10px);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        body.light-theme .modal-content {
+            background: rgba(220, 255, 235, 0.95);
+            border: 1px solid rgba(64, 166, 92, 0.3);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #4ade80;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #a6ffc9;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .settings-option {
+            margin-bottom: 20px;
+        }
+
+        .settings-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e6ffe6;
+        }
+
+        body.light-theme .settings-label {
+            color: #1a3b27;
+        }
+
+        .settings-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            background: rgba(10, 25, 20, 0.7);
+            color: #e6ffe6;
+            font-size: 16px;
+        }
+
+        body.light-theme .settings-select {
+            background: rgba(192, 242, 212, 0.7);
+            color: #1a3b27;
+        }
+
+        .more-item {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .more-item:last-child {
+            border-bottom: none;
+        }
+
+        .more-button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            color: #0a1f15;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .more-button:active {
+            transform: scale(0.98);
+        }
+
+        .more-button:disabled {
+            background: #2e2e2e;
+            color: #5e5e5e;
+            cursor: not-allowed;
+        }
+
+        .promo-input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            background: rgba(10, 25, 20, 0.7);
+            color: #e6ffe6;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        body.light-theme .promo-input {
+            background: rgba(192, 242, 212, 0.7);
+            color: #1a3b27;
+        }
+
+        .reset-button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(145deg, #ff4757, #ff3b3b);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .reset-button:active {
+            transform: scale(0.98);
+        }
+
+        .daily-reward-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #a6ffc9;
+        }
+
+        body.light-theme .daily-reward-info {
+            color: #1a7e43;
+        }
+    </style>
+</head>
+<body class="dark-theme medium-graphics">
+    <div class="bg-decoration" id="bg-decoration"></div>
+    
+    <div class="header">
+        <div class="cps-counter">
+            <span id="cps">0</span>/s
+        </div>
+        <div class="logo">Cvapta</div>
+        <div class="total-counter" id="total-counter">0</div>
+    </div>
+    
+    <div class="main-content">
+        <div class="click-count" id="click-count">0</div>
+        
+        <div class="frog-container">
+            <div class="frog" id="frog">🐸</div>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <div class="nav-item" id="more-btn">
+            <div class="nav-icon">🧊</div>
+            <div>More</div>
+        </div>
+        <div class="nav-item active" id="frog-btn">
+            <div class="nav-icon main-frog-btn">🐸</div>
+            <div>Frog</div>
+        </div>
+        <div class="nav-item" id="settings-btn">
+            <div class="nav-icon">⚙️</div>
+            <div>Settings</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно настроек -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Settings</h2>
+                <button class="modal-close" id="close-settings">×</button>
+            </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Graphics Quality</label>
+                <select class="settings-select" id="graphics-quality">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            
+            <div class="settings-option">
+                <label class="settings-label">Theme</label>
+                <select class="settings-select" id="theme-select">
+                    <option value="dark" selected>Dark</option>
+                    <option value="light">Light</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно More -->
+    <div class="modal" id="more-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">More</h2>
+                <button class="modal-close" id="close-more">×</button>
+            </div>
+            
+            <div class="more-item">
+                <button class="more-button" id="daily-reward">Daily Reward</button>
+                <div class="daily-reward-info" id="daily-reward-info">Available now!</div>
+            </div>
+            
+            <div class="more-item">
+                <input type="text" class="promo-input" id="promo-input" placeholder="Enter promo code">
+                <button class="more-button" id="promo-button">Redeem</button>
+            </div>
+            
+            <div class="more-item">
+                <button class="reset-button" id="reset-button">Reset Progress</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let clicks = 0;
+        let totalClicks = 0;
+        let cps = 0;
+        let clickTimestamps = [];
+        let cheatDetected = false;
+        let cheatTimer = null;
+        let lastDailyReward = 0;
+        let redeemedPromoCodes = [];
+        
+        // DOM elements
+        const frogElement = document.getElementById('frog');
+        const clickCountElement = document.getElementById('click-count');
+        const cpsElement = document.getElementById('cps');
+        const totalCounterElement = document.getElementById('total-counter');
+        const bgDecoration = document.getElementById('bg-decoration');
+        const bodyElement = document.body;
+        
+        // Modal elements
+        const settingsModal = document.getElementById('settings-modal');
+        const moreModal = document.getElementById('more-modal');
+        const settingsBtn = document.getElementById('settings-btn');
+        const moreBtn = document.getElementById('more-btn');
+        const closeSettings = document.getElementById('close-settings');
+        const closeMore = document.getElementById('close-more');
+        const graphicsQualitySelect = document.getElementById('graphics-quality');
+        const themeSelect = document.getElementById('theme-select');
+        const dailyRewardBtn = document.getElementById('daily-reward');
+        const dailyRewardInfo = document.getElementById('daily-reward-info');
+        const promoInput = document.getElementById('promo-input');
+        const promoButton = document.getElementById('promo-button');
+        const resetButton = document.getElementById('reset-button');
+        
+        // Load saved data
+        function loadGameData() {
+            const savedData = localStorage.getItem('frogClickerData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                clicks = data.clicks || 0;
+                totalClicks = data.totalClicks || 0;
+                lastDailyReward = data.lastDailyReward || 0;
+                redeemedPromoCodes = data.redeemedPromoCodes || [];
+                
+                // Apply saved settings
+                if (data.graphicsQuality) {
+                    graphicsQualitySelect.value = data.graphicsQuality;
+                    bodyElement.className = `${data.theme || 'dark'}-theme ${data.graphicsQuality || 'medium'}-graphics`;
+                }
+                if (data.theme) {
+                    themeSelect.value = data.theme;
+                }
+            }
+            updateUI();
+            updateDailyRewardInfo();
+        }
+        
+        // Save game data
+        function saveGameData() {
+            const data = {
+                clicks,
+                totalClicks,
+                lastDailyReward,
+                redeemedPromoCodes,
+                graphicsQuality: graphicsQualitySelect.value,
+                theme: themeSelect.value
+            };
+            localStorage.setItem('frogClickerData', JSON.stringify(data));
+        }
+        
+        // Create background bubbles
+        function createBubbles() {
+            for (let i = 0; i < 12; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 30 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.top = `${Math.random() * 100}%`;
+                
+                bubble.style.animationDelay = `${Math.random() * 10}s`;
+                bubble.style.animationDuration = `${15 + Math.random() * 15}s`;
+                
+                bgDecoration.appendChild(bubble);
+            }
+        }
+        
+        // Calculate CPS
+        function calculateCPS() {
+            const now = Date.now();
+            // Keep only clicks from the last second
+            clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
+            cps = clickTimestamps.length;
+            cpsElement.textContent = cps;
+            
+            // Anti-cheat system
+            if (cps > 15 && !cheatDetected) {
+                activateAntiCheat();
+            }
+        }
+        
+        // Anti-cheat system
+        function activateAntiCheat() {
+            cheatDetected = true;
+            bodyElement.classList.add('cheat-detected');
+            
+            // Reduce clicks over time
+            let reductionTime = 60; // 60 seconds
+            const reductionInterval = setInterval(() => {
+                if (clicks > 0) {
+                    clicks = Math.max(0, clicks - 5);
+                    updateUI();
+                }
+                
+                reductionTime--;
+                if (reductionTime <= 0) {
+                    clearInterval(reductionInterval);
+                    cheatDetected = false;
+                    bodyElement.classList.remove('cheat-detected');
+                }
+            }, 1000);
+        }
+        
+        // Click on frog
+        function handleFrogClick(e) {
+            if (cheatDetected) return;
+            
+            clicks++;
+            totalClicks++;
+            
+            // Record click timestamp for CPS calculation
+            clickTimestamps.push(Date.now());
+            
+            updateUI();
+            saveGameData();
+            
+            // Create ripple effect
+            if (!bodyElement.classList.contains('low-graphics')) {
+                const ripple = document.createElement('div');
+                ripple.classList.add('click-effect');
+                frogElement.parentElement.appendChild(ripple);
+                
+                // Position ripple at click location
+                const rect = frogElement.getBoundingClientRect();
+                const x = e.type.includes('touch') ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+                const y = e.type.includes('touch') ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+                ripple.style.left = `${x - 30}px`;
+                ripple.style.top = `${y - 30}px`;
+                
+                // Remove after animation
+                setTimeout(() => ripple.remove(), 600);
+            }
+            
+            // Create floating text
+            if (!bodyElement.classList.contains('low-graphics')) {
+                const floatingText = document.createElement('div');
+                floatingText.classList.add('floating-text');
+                floatingText.textContent = '+1';
+                const rect = frogElement.getBoundingClientRect();
+                const x = e.type.includes('touch') ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+                const y = e.type.includes('touch') ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
+                floatingText.style.left = `${x - 15}px`;
+                floatingText.style.top = `${y - 15}px`;
+                document.body.appendChild(floatingText);
+                
+                // Remove after animation
+                setTimeout(() => floatingText.remove(), 1000);
+            }
+        }
+        
+        // Update UI
+        function updateUI() {
+            clickCountElement.textContent = clicks.toLocaleString();
+            totalCounterElement.textContent = totalClicks.toLocaleString();
+        }
+        
+        // Update daily reward info
+        function updateDailyRewardInfo() {
+            const now = Date.now();
+            const timeSinceLastReward = now - lastDailyReward;
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            
+            if (timeSinceLastReward < twentyFourHours) {
+                const timeLeft = twentyFourHours - timeSinceLastReward;
+                const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
+                dailyRewardInfo.textContent = `Next reward in ${hoursLeft}h`;
+                dailyRewardBtn.disabled = true;
+            } else {
+                dailyRewardInfo.textContent = 'Available now!';
+                dailyRewardBtn.disabled = false;
+            }
+        }
+        
+        // Claim daily reward
+        function claimDailyReward() {
+            const now = Date.now();
+            const timeSinceLastReward = now - lastDailyReward;
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            
+            if (timeSinceLastReward >= twentyFourHours) {
+                clicks += 1000;
+                totalClicks += 1000;
+                lastDailyReward = now;
+                updateUI();
+                updateDailyRewardInfo();
+                saveGameData();
+                alert('Daily reward claimed: +1000 clicks!');
+            }
+        }
+        
+        // Redeem promo code
+        function redeemPromoCode() {
+            const code = promoInput.value.trim().toUpperCase();
+            if (code === 'CVAPTA') {
+                if (redeemedPromoCodes.includes('CVAPTA')) {
+                    alert('This promo code has already been redeemed!');
+                } else {
+                    clicks += 200;
+                    totalClicks += 200;
+                    redeemedPromoCodes.push('CVAPTA');
+                    updateUI();
+                    saveGameData();
+                    alert('Promo code redeemed: +200 clicks!');
+                    promoInput.value = '';
+                }
+            } else {
+                alert('Invalid promo code!');
+            }
+        }
+        
+        // Reset progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone!')) {
+                clicks = 0;
+                totalClicks = 0;
+                lastDailyReward = 0;
+                redeemedPromoCodes = [];
+                updateUI();
+                updateDailyRewardInfo();
+                saveGameData();
+                alert('Progress has been reset!');
+            }
+        }
+        
+        // Event listeners
+        frogElement.addEventListener('mousedown', handleFrogClick);
+        frogElement.addEventListener('touchstart', handleFrogClick, { passive: true });
+        
+        settingsBtn.addEventListener('click', () => settingsModal.classList.add('active'));
+        moreBtn.addEventListener('click', () => moreModal.classList.add('active'));
+        closeSettings.addEventListener('click', () => settingsModal.classList.remove('active'));
+        closeMore.addEventListener('click', () => moreModal.classList.remove('active'));
+        
+        graphicsQualitySelect.addEventListener('change', () => {
+            bodyElement.className = `${themeSelect.value}-theme ${graphicsQualitySelect.value}-graphics`;
+            saveGameData();
+        });
+        
+        themeSelect.addEventListener('change', () => {
+            bodyElement.className = `${themeSelect.value}-theme ${graphicsQualitySelect.value}-graphics`;
+            saveGameData();
+        });
+        
+        dailyRewardBtn.addEventListener('click', claimDailyReward);
+        promoButton.addEventListener('click', redeemPromoCode);
+        resetButton.addEventListener('click', resetProgress);
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === settingsModal) settingsModal.classList.remove('active');
+            if (e.target === moreModal) moreModal.classList.remove('active');
+        });
+        
+        // Initialize game
+        loadGameData();
+        createBubbles();
+        
+        // Update CPS every 100ms
+        setInterval(calculateCPS, 100);
+        
+        // Auto-save every 30 seconds
+        setInterval(saveGameData, 30000);
+    </script>
+</body>
+</html>

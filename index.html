@@ -899,7 +899,7 @@
         <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code">
         <button class="btn btn-accent" id="promo-btn">Activate</button>
         <div class="promo-codes-list">
-          <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;">Available codes: FROG250, CLICK500, GREEN1000</p>
+          <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;"> </p>
         </div>
       </div>
     </div>
@@ -1496,9 +1496,12 @@
         case 'GREEN1000':
           reward = 1000;
           break;
+        case 'COMEBACK':
+          reward = 10000;
+          break;
         default:
           showToast('Invalid promo code');
-          return;
+
       }
       
       clicks += reward;

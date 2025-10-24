@@ -1470,7 +1470,7 @@
     }
     
     // Activate promo code
-    function activatePromoCode() {
+   function activatePromoCode() {
       const promoInput = document.getElementById('promo-input');
       const code = promoInput.value.trim().toUpperCase();
       
@@ -1499,9 +1499,62 @@
         case 'COMEBACK':
           reward = 5000;
           break;
+        // Новые промокоды на 100 кликов
+        case 'EPICCLICK500':
+        case 'MEGACLICK1000':
+        case 'SUPERCLICK750':
+        case 'ULTIMATECLICK1500':
+        case 'HYPERCLICK2000':
+        case 'CLICKBOOST550':
+        case 'TURBOCLICK1200':
+        case 'MAXCLICK1800':
+        case 'POWERCLICK950':
+        case 'MEGABOOST1100':
+        case 'CLICKSTORM800':
+        case 'VOLTCLICK1300':
+        case 'QUANTUMCLICK1600':
+        case 'NEOCLICK1400':
+        case 'CYBERCLICK1700':
+        case 'PROCLICK600':
+        case 'CLICKMASTER1900':
+        case 'CLICKBURST850':
+        case 'CLICKFORCE2200':
+        case 'CLICKWAVE900':
+        case 'CLICKRUSH1500':
+        case 'CLICKSPIKE700':
+        case 'CLICKVORTEX1100':
+        case 'CLICKBLAZE1350':
+        case 'CLICKFURY1650':
+        case 'CLICKIMPULSE1450':
+        case 'CLICKSURGE1550':
+        case 'CLICKASSAULT1850':
+        case 'CLICKDOMINION1950':
+        case 'CLICKTYPHOON1250':
+        case 'CLICKINFERNO1750':
+        case 'CLICKTITAN2100':
+        case 'CLICKABYSS1150':
+        case 'CLICKZENITH2050':
+        case 'CLICKNOVA2250':
+        case 'CLICKPHANTOM1050':
+        case 'CLICKSHADOW1900':
+        case 'CLICKECHO1200':
+        case 'CLICKMIRAGE1400':
+        case 'CLICKSPECTER1600':
+        case 'CLICKWRAITH1800':
+        case 'CLICKPHOENIX2000':
+        case 'CLICKDRAGON2300':
+        case 'CLICKLEGEND2400':
+        case 'CLICKMYTHOS2500':
+        case 'CLICKETERNITY2600':
+        case 'CLICKINFINITY2700':
+        case 'CLICKVOID2800':
+        case 'CLICKZERO2900':
+        case 'CLICKPRIME3000':
+          reward = 100;
+          break;
         default:
           showToast('Invalid promo code');
-
+          return;
       }
       
       clicks += reward;

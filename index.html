@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cvapta Frog – Advanced</title>
+  <title>Cvapta Frog</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #5cf28a;
-      --primary-dark: #34c974;
-      --secondary: #4a90e2;
-      --accent: #9b59b6;
-      --danger: #e74c3c;
-      --warning: #f39c12;
-      --energy: #f1c40f;
+      --primary: #6b8e23;
+      --primary-dark: #556b2f;
+      --secondary: #7b9acc;
+      --accent: #9f8bc2;
+      --danger: #c46c6c;
+      --warning: #d2b48c;
       --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --text-light: #eafbee;
-      --text-dark: #1d3d2d;
-      --bg-dark: radial-gradient(circle at top, #0a1f15 0%, #0d241a 50%, #071510 100%);
-      --bg-light: radial-gradient(circle at top, #e9fef3 0%, #d5f8e6 50%, #c7efd9 100%);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text-light: #f5f5f5;
+      --text-dark: #2f4f2f;
+      --bg-dark: radial-gradient(circle at top, #1a2f1a 0%, #1e351e 50%, #152715 100%);
+      --bg-light: radial-gradient(circle at top, #f8fbf8 0%, #f0f7f0 50%, #e8f3e8 100%);
     }
     
     * { 
@@ -37,12 +36,10 @@
       overflow: hidden; 
       display: flex; 
       flex-direction: column; 
-      font-family: system-ui, -apple-system, sans-serif; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; 
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
     }
     
     body.light-theme { 
@@ -50,21 +47,54 @@
       color: var(--text-dark); 
     }
 
-    /* Античит оверлей */
+    body.light-theme .modal-content {
+      background: rgba(248, 251, 248, 0.95);
+      color: var(--text-dark);
+    }
+
+    body.light-theme .modal-close {
+      color: #7a8a7a;
+    }
+
+    body.light-theme .modal-close:active {
+      color: var(--primary);
+    }
+
+    body.light-theme .settings-select,
+    body.light-theme .more-item,
+    body.light-theme .stat-card,
+    body.light-theme .stats-chart,
+    body.light-theme .nav-icon,
+    body.light-theme .click-count {
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .bottom-nav {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    body.light-theme .nav-item {
+      color: #6a7a6a;
+    }
+
+    body.light-theme .nav-item.active {
+      color: var(--primary);
+    }
+
     .anti-cheat-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      background: linear-gradient(45deg, #8b4513, #a0522d);
       z-index: 10000;
       display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
     }
 
     .anti-cheat-overlay.active {
@@ -73,82 +103,30 @@
     }
 
     @keyframes alarmPulse {
-      0% { background: linear-gradient(45deg, #e74c3c, #c0392b); }
-      100% { background: linear-gradient(45deg, #c0392b, #e74c3c); }
+      0% { background: linear-gradient(45deg, #8b4513, #a0522d); }
+      100% { background: linear-gradient(45deg, #a0522d, #8b4513); }
     }
 
     .anti-cheat-message {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: bold;
       text-align: center;
       margin-bottom: 20px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    .anti-cheat-timer {
-      font-size: 48px;
-      font-weight: 900;
-      color: white;
-      text-shadow: 0 0 20px rgba(255,255,255,0.8);
+      color: #fff;
     }
 
     .cheater-detected {
-      font-size: 32px;
+      font-size: 28px;
       color: white;
       font-weight: 900;
       text-align: center;
     }
 
     .ban-timer {
-      font-size: 24px;
+      font-size: 20px;
       margin-top: 20px;
       color: white;
-    }
-    
-    .header { 
-      padding: 12px 15px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between; 
-      background: rgba(255,255,255,0.05); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--glass-border); 
-      position: relative; 
-      z-index: 10;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    
-    .logo { 
-      font-size: 22px; 
-      font-weight: 800; 
-      color: var(--primary);
-      text-shadow: 0 0 10px rgba(92, 242, 138, 0.3);
-    }
-    
-    .stats-container {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .stat-box {
-      background: var(--glass-bg);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 6px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      font-size: 12px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    
-    .stat-box i {
-      color: var(--primary);
-      font-size: 14px;
     }
     
     .main-content { 
@@ -157,28 +135,26 @@
       flex-direction: column; 
       align-items: center; 
       justify-content: center; 
-      padding: 15px;
+      padding: 20px;
       position: relative;
-      transform: translateZ(0);
-      will-change: transform;
     }
     
     .click-count { 
-      font-size: 32px; 
-      font-weight: 800; 
-      margin-bottom: 30px; 
+      font-size: 36px; 
+      font-weight: 700; 
+      margin-bottom: 40px; 
       background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 15px 25px; 
-      border-radius: 18px; 
+      backdrop-filter: blur(20px);
+      padding: 18px 30px; 
+      border-radius: 20px; 
       border: 1px solid var(--glass-border);
       color: inherit; 
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
       text-align: center;
       width: 90%;
-      max-width: 280px;
-      transition: transform 0.2s ease;
+      max-width: 300px;
+      transition: all 0.3s ease;
+      font-family: 'SF Pro Display', -apple-system, sans-serif;
     }
     
     .click-count.animate { 
@@ -187,69 +163,22 @@
     
     .frog-container { 
       position: relative; 
-      margin: 10px 0 25px; 
-    }
-
-    /* Энергия вокруг кнопки */
-    .energy-ring {
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: conic-gradient(
-        var(--energy) 0%, 
-        var(--energy) 0%, 
-        transparent 0%, 
-        transparent 100%
-      );
-      -webkit-mask: radial-gradient(circle, transparent 60px, black 61px);
-      mask: radial-gradient(circle, transparent 60px, black 61px);
-      z-index: 1;
-      transition: background 0.3s ease;
-    }
-
-    .energy-ring-background {
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: conic-gradient(
-        var(--glass-bg) 0%,
-        var(--glass-bg) 100%
-      );
-      -webkit-mask: radial-gradient(circle, transparent 60px, black 61px);
-      mask: radial-gradient(circle, transparent 60px, black 61px);
-      z-index: 0;
+      margin: 20px 0 30px; 
     }
     
     .frog { 
-      width: 140px; 
-      height: 140px; 
-      background: radial-gradient(circle at 30% 30%, var(--primary), var(--primary-dark)); 
-      border-radius: 50%; 
+      width: 200px; 
+      height: 200px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
-      box-shadow: 0 0 20px rgba(92,242,138,0.3), 
-                  inset 0 0 15px rgba(255,255,255,0.1); 
       cursor: pointer; 
-      font-size: 70px; 
+      font-size: 120px; 
       animation: breathe 4s infinite ease-in-out; 
       position: relative;
       z-index: 2;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
-      will-change: transform;
-    }
-    
-    .frog.disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      animation: none;
+      transition: transform 0.1s ease;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
     }
     
     @keyframes breathe { 
@@ -257,118 +186,96 @@
       50% { transform: scale(1.05); } 
     }
     
-    .frog:active:not(.disabled) { 
-      transform: scale(0.92); 
+    .frog:active { 
+      transform: scale(0.9); 
     }
 
-    .energy-text {
-      position: absolute;
-      bottom: -40px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      z-index: 3;
-    }
-
-    .energy-text.low {
-      color: var(--danger);
-    }
-    
     .click-effect { 
       position: absolute; 
       width: 50px; 
       height: 50px; 
-      background: radial-gradient(circle, rgba(92,242,138,0.5) 0%, transparent 70%); 
+      background: radial-gradient(circle, rgba(107, 142, 35, 0.4) 0%, transparent 70%); 
       border-radius: 50%; 
       pointer-events: none; 
-      animation: ripple 0.5s ease-out; 
-      transform: translateZ(0);
-      will-change: transform, opacity;
+      animation: ripple 0.6s ease-out; 
       z-index: 3;
     }
     
     @keyframes ripple { 
-      from { transform: scale(0.5); opacity: 1; } 
+      from { transform: scale(0.3); opacity: 1; } 
       to { transform: scale(2); opacity: 0; } 
     }
     
     .floating-text { 
       position: absolute; 
       color: var(--primary); 
-      font-weight: 800; 
-      font-size: 20px; 
+      font-weight: 700; 
+      font-size: 18px; 
       pointer-events: none; 
-      animation: floatUp 1s ease-out forwards; 
-      text-shadow: 0 0 5px rgba(0,0,0,0.3); 
-      transform: translateZ(0);
-      will-change: transform, opacity;
+      animation: floatUp 1.2s ease-out forwards; 
+      text-shadow: 0 1px 5px rgba(0,0,0,0.3); 
       z-index: 4;
     }
     
     @keyframes floatUp { 
       from { transform: translateY(0) scale(1); opacity: 1; } 
-      to { transform: translateY(-60px) scale(1.1); opacity: 0; } 
+      to { transform: translateY(-60px) scale(1.2); opacity: 0; } 
     }
     
     .bottom-nav { 
       display: flex; 
       justify-content: space-around; 
-      background: rgba(255,255,255,0.05); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.06); 
+      backdrop-filter: blur(15px);
       border-top: 1px solid var(--glass-border); 
-      padding: 10px 0; 
-      height: 70px; 
+      padding: 15px 0; 
+      height: 80px; 
       z-index: 10;
-      transform: translateZ(0);
     }
     
     .nav-item { 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
-      font-size: 11px; 
-      color: #aaa; 
+      font-size: 12px; 
+      color: #b8c4b8; 
       cursor: pointer; 
-      transition: all 0.2s ease; 
+      transition: all 0.3s ease; 
       flex: 1; 
+      padding: 5px;
     }
     
     .nav-item.active { 
       color: var(--primary); 
-      font-weight: bold; 
     }
     
     .nav-icon { 
-      font-size: 18px; 
-      margin-bottom: 4px; 
-      width: 40px; 
-      height: 40px; 
+      font-size: 20px; 
+      margin-bottom: 6px; 
+      width: 48px; 
+      height: 48px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
-      border-radius: 10px; 
+      border-radius: 12px; 
       background: var(--glass-bg);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-      transition: all 0.2s ease; 
+      transition: all 0.3s ease; 
     }
     
     .nav-item.active .nav-icon { 
-      background: radial-gradient(circle at 30% 30%, var(--primary), var(--primary-dark)); 
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
       color: white; 
-      transform: scale(1.1); 
+      transform: scale(1.05); 
     }
     
-    /* Модальные окна и остальные стили */
     .modal { 
       position: fixed; 
       top: 0; 
       left: 0; 
       width: 100%; 
       height: 100%; 
-      background: rgba(0,0,0,0.7); 
+      background: rgba(0,0,0,0.6); 
       display: flex; 
       align-items: center; 
       justify-content: center; 
@@ -376,8 +283,7 @@
       pointer-events: none; 
       transition: opacity 0.3s ease; 
       z-index: 1000; 
-      padding: 15px;
-      transform: translateZ(0);
+      padding: 20px;
     }
     
     .modal.active { 
@@ -386,27 +292,19 @@
     }
     
     .modal-content { 
-      background: rgba(20,30,25,0.9); 
+      background: rgba(40, 50, 40, 0.9); 
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-radius: 20px; 
-      padding: 20px; 
+      padding: 25px; 
       width: 100%; 
-      max-width: 400px; 
+      max-width: 360px; 
       max-height: 80vh; 
       overflow-y: auto; 
       border: 1px solid var(--glass-border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
       transform: translateY(30px) scale(0.95); 
       transition: transform 0.3s ease; 
       color: var(--text-light); 
-      transform: translateZ(0);
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    body.light-theme .modal-content { 
-      background: rgba(255,255,255,0.95); 
-      color: var(--text-dark); 
     }
     
     .modal.active .modal-content { 
@@ -417,9 +315,9 @@
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      margin-bottom: 15px; 
+      margin-bottom: 20px; 
       border-bottom: 1px solid var(--glass-border); 
-      padding-bottom: 10px; 
+      padding-bottom: 12px; 
     }
     
     .modal-title { 
@@ -431,25 +329,25 @@
     .modal-close { 
       border: none; 
       background: var(--glass-bg);
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px; 
       cursor: pointer; 
-      color: #bbb; 
-      transition: all 0.2s ease;
+      color: #a8b8a8; 
+      transition: all 0.3s ease;
     }
     
-    .modal-close:hover { 
-      color: #fff; 
-      background: rgba(255,255,255,0.15);
+    .modal-close:active { 
+      color: var(--primary); 
+      background: rgba(255,255,255,0.1);
     }
     
     .settings-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
     
     .settings-label { 
@@ -457,6 +355,8 @@
       margin-bottom: 6px; 
       display: block; 
       font-size: 14px;
+      color: var(--text-light);
+      opacity: 0.9;
     }
     
     .settings-select { 
@@ -473,38 +373,38 @@
       display: grid; 
       grid-template-columns: repeat(2, 1fr); 
       gap: 10px; 
-      margin-bottom: 15px; 
+      margin-bottom: 20px; 
     }
     
     .more-item { 
       background: var(--glass-bg);
-      border-radius: 14px; 
-      padding: 15px; 
+      border-radius: 16px; 
+      padding: 16px; 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
       text-align: center; 
       cursor: pointer; 
-      transition: all 0.2s ease; 
+      transition: all 0.3s ease; 
       border: 1px solid var(--glass-border);
-      transform: translateZ(0);
     }
     
     .more-item:active { 
       transform: scale(0.98); 
-      background: rgba(255,255,255,0.12); 
+      background: rgba(255,255,255,0.1); 
     }
     
     .more-icon { 
       font-size: 22px; 
       margin-bottom: 8px; 
-      width: 45px; 
-      height: 45px; 
+      width: 48px; 
+      height: 48px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
       background: var(--glass-bg);
+      transition: all 0.3s ease;
     }
     
     .more-title { 
@@ -520,100 +420,129 @@
     
     .daily-reward-item .more-icon { 
       color: var(--secondary); 
-      background: rgba(74, 144, 226, 0.1); 
+      background: rgba(123, 154, 204, 0.1); 
     }
     
     .promo-code-item .more-icon { 
       color: var(--accent); 
-      background: rgba(155, 89, 182, 0.1); 
+      background: rgba(159, 139, 194, 0.1); 
     }
     
     .stats-item .more-icon { 
       color: var(--primary); 
-      background: rgba(92, 242, 138, 0.1); 
+      background: rgba(107, 142, 35, 0.1); 
     }
     
     .reset-item .more-icon { 
       color: var(--danger); 
-      background: rgba(231, 76, 60, 0.1); 
+      background: rgba(196, 108, 108, 0.1); 
     }
-    
+
     .stats-section {
-      margin-bottom: 15px;
+      margin-bottom: 0;
     }
-    
-    .stats-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    
-    .time-filters {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .time-filter {
-      padding: 6px 12px;
-      border-radius: 10px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      font-size: 12px;
-      cursor: pointer;
-    }
-    
-    .time-filter.active {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .stats-chart {
-      height: 80px;
-      background: var(--glass-bg);
-      border-radius: 12px;
-      margin-bottom: 15px;
-      padding: 10px;
-      display: flex;
-      align-items: flex-end;
-      gap: 5px;
-      border: 1px solid var(--glass-border);
-    }
-    
-    .chart-bar {
-      flex: 1;
-      background: linear-gradient(to top, var(--primary), var(--primary-dark));
-      border-radius: 4px 4px 0 0;
-      transition: height 0.3s ease;
-      min-height: 5px;
-    }
-    
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
+      margin-top: 15px;
     }
     
     .stat-card {
       background: var(--glass-bg);
       border-radius: 12px;
-      padding: 12px;
-      border: 1px solid var(--glass-border);
+      padding: 15px;
       text-align: center;
+      border: 1px solid var(--glass-border);
+      transition: transform 0.2s ease;
+    }
+    
+    .stat-card:active {
+      transform: scale(0.98);
     }
     
     .stat-value {
       font-size: 20px;
-      font-weight: 800;
+      font-weight: 700;
       margin: 5px 0;
       color: var(--primary);
     }
     
     .stat-label {
-      font-size: 12px;
+      font-size: 11px;
       opacity: 0.8;
+    }
+
+    .stats-chart {
+      height: 140px;
+      background: var(--glass-bg);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      padding: 15px 10px 5px 10px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 4px;
+      border: 1px solid var(--glass-border);
+      position: relative;
+    }
+    
+    .chart-bar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      height: 100%;
+    }
+    
+    .chart-bar {
+      width: 100%;
+      background: linear-gradient(to top, var(--primary), var(--primary-dark));
+      border-radius: 3px 3px 0 0;
+      transition: height 0.5s ease;
+      min-height: 2px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .chart-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      border-radius: 3px 3px 0 0;
+    }
+    
+    .chart-label {
+      font-size: 9px;
+      margin-top: 4px;
+      opacity: 0.7;
+      text-align: center;
+      line-height: 1;
+    }
+    
+    .chart-value {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(0,0,0,0.7);
+      padding: 2px 4px;
+      border-radius: 3px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    
+    .chart-bar-container:hover .chart-value {
+      opacity: 1;
     }
     
     .btn {
@@ -624,7 +553,7 @@
       font-size: 15px; 
       font-weight: 600; 
       cursor: pointer; 
-      transition: all 0.2s ease; 
+      transition: all 0.3s ease; 
       margin-bottom: 10px; 
       text-align: center;
     }
@@ -634,24 +563,24 @@
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, var(--secondary), #357abd); 
+      background: linear-gradient(135deg, var(--secondary), #6a8bc8); 
       color: white; 
     }
     
-    .btn-primary:disabled { 
-      background: #3d5c49; 
-      color: #aacfb3; 
-      cursor: not-allowed; 
+    .btn-primary:disabled {
+      background: #95a5a6;
+      color: #bdc3c7;
+      cursor: not-allowed;
       transform: none;
     }
     
     .btn-accent {
-      background: linear-gradient(135deg, var(--accent), #8e44ad); 
+      background: linear-gradient(135deg, var(--accent), #8e7ab8); 
       color: white; 
     }
     
     .btn-danger {
-      background: linear-gradient(135deg, var(--danger), #c0392b); 
+      background: linear-gradient(135deg, var(--danger), #b85c5c); 
       color: white; 
     }
     
@@ -660,7 +589,7 @@
       bottom: 100px; 
       left: 50%; 
       transform: translateX(-50%); 
-      background: rgba(0,0,0,0.8); 
+      background: rgba(40, 50, 40, 0.9); 
       color: white; 
       padding: 12px 20px; 
       border-radius: 10px; 
@@ -671,94 +600,59 @@
       text-align: center;
       font-weight: 600;
       font-size: 14px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
     }
     
     .toast.show { 
       opacity: 1; 
     }
+
+    .reward-timer {
+      font-size: 14px;
+      margin-top: 10px;
+      color: var(--primary);
+      font-weight: 600;
+    }
     
-    @media (max-width: 360px) {
-      .header {
-        padding: 10px 12px;
-      }
-      
-      .logo {
-        font-size: 20px;
-      }
-      
-      .stat-box {
-        padding: 5px 10px;
-        font-size: 11px;
-      }
-      
+    @media (max-width: 380px) {
       .click-count {
-        font-size: 28px;
-        padding: 12px 20px;
+        font-size: 32px;
+        padding: 16px 25px;
       }
       
       .frog {
-        width: 120px;
-        height: 120px;
-        font-size: 60px;
-      }
-      
-      .energy-ring, .energy-ring-background {
-        width: 160px;
-        height: 160px;
-        top: -20px;
-        left: -20px;
+        width: 180px;
+        height: 180px;
+        font-size: 100px;
       }
       
       .more-grid {
         grid-template-columns: 1fr;
       }
       
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      
       .nav-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 16px;
-      }
-    }
-    
-    @media (max-width: 768px) and (max-height: 700px) {
-      .floating-text {
-        display: none;
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
       }
       
-      .click-effect {
-        animation-duration: 0.3s;
+      .modal-content {
+        padding: 20px;
       }
-    }
-    
-    body.pc-mode .frog {
-      width: 160px;
-      height: 160px;
-      font-size: 80px;
-    }
-    
-    body.pc-mode .energy-ring, 
-    body.pc-mode .energy-ring-background {
-      width: 200px;
-      height: 200px;
-      top: -20px;
-      left: -20px;
-    }
-    
-    body.pc-mode .click-count {
-      font-size: 36px;
-    }
-    
-    .cursor-tracker {
-      display: none;
+      
+      .stats-chart {
+        height: 120px;
+        padding: 12px 8px 3px 8px;
+      }
+      
+      .chart-label {
+        font-size: 8px;
+      }
     }
   </style>
 </head>
-<body class="dark-theme mobile-mode">
-  <!-- Античит оверлей -->
+<body class="dark-theme">
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
       ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
@@ -771,22 +665,11 @@
     </div>
   </div>
 
-  <div class="header">
-    <div class="logo">Cvapta</div>
-    <div class="stats-container">
-      <div class="stat-box"><i class="fas fa-bolt"></i> <span id="cps">0</span>/s</div>
-      <div class="stat-box"><i class="fas fa-trophy"></i> <span id="total-counter">0</span></div>
-    </div>
-  </div>
-
   <div class="main-content">
     <div class="click-count" id="click-count">0</div>
     
     <div class="frog-container">
-      <div class="energy-ring-background"></div>
-      <div class="energy-ring" id="energy-ring"></div>
-      <div class="frog" id="frog"></div>
-      <div class="energy-text" id="energy-text">Energy: 2500/2500</div>
+      <div class="frog" id="frog">🐸</div>
     </div>
   </div>
 
@@ -794,10 +677,6 @@
     <div class="nav-item" id="more-btn">
       <div class="nav-icon"><i class="fas fa-ellipsis-h"></i></div>
       <div>More</div>
-    </div>
-    <div class="nav-item active" id="frog-btn">
-      <div class="nav-icon"><i class="fas fa-frog"></i></div>
-      <div>Frog</div>
     </div>
     <div class="nav-item" id="settings-btn">
       <div class="nav-icon"><i class="fas fa-cog"></i></div>
@@ -813,25 +692,10 @@
         <button class="modal-close" id="close-settings">×</button>
       </div>
       <div class="settings-group">
-        <label class="settings-label">Graphics Quality</label>
-        <select class="settings-select" id="graphics-quality">
-          <option value="low">Low Performance</option>
-          <option value="medium" selected>Balanced</option>
-          <option value="high">High Quality</option>
-        </select>
-      </div>
-      <div class="settings-group">
         <label class="settings-label">Theme</label>
         <select class="settings-select" id="theme-select">
           <option value="dark" selected>Dark Mode</option>
           <option value="light">Light Mode</option>
-        </select>
-      </div>
-      <div class="settings-group">
-        <label class="settings-label">Device Mode</label>
-        <select class="settings-select" id="device-mode">
-          <option value="mobile" selected>Mobile Interface</option>
-          <option value="pc">Desktop Interface</option>
         </select>
       </div>
     </div>
@@ -847,25 +711,25 @@
       
       <div class="more-grid">
         <div class="more-item daily-reward-item" id="daily-reward-item">
-          <div class="more-icon"><i class="fas fa-calendar-day"></i></div>
+          <div class="more-icon"><i class="fas fa-gift"></i></div>
           <div class="more-title">Daily Reward</div>
           <div class="more-desc">Claim your daily clicks</div>
         </div>
         
         <div class="more-item promo-code-item" id="promo-code-item">
-          <div class="more-icon"><i class="fas fa-ticket-alt"></i></div>
+          <div class="more-icon"><i class="fas fa-tag"></i></div>
           <div class="more-title">Promo Codes</div>
           <div class="more-desc">Redeem bonus codes</div>
         </div>
         
         <div class="more-item stats-item" id="stats-item">
-          <div class="more-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
           <div class="more-title">Statistics</div>
           <div class="more-desc">View your progress</div>
         </div>
         
         <div class="more-item reset-item" id="reset-item">
-          <div class="more-icon"><i class="fas fa-trash-alt"></i></div>
+          <div class="more-icon"><i class="fas fa-undo"></i></div>
           <div class="more-title">Reset Progress</div>
           <div class="more-desc">Start over</div>
         </div>
@@ -881,8 +745,9 @@
         <button class="modal-close" id="close-daily">×</button>
       </div>
       <div class="reward-section">
-        <p>Claim your daily reward of 1000 clicks!</p>
+        <p style="margin-bottom: 20px; text-align: center; opacity: 0.9;">Claim your daily reward of 1000 clicks!</p>
         <button class="btn btn-primary" id="daily-reward-btn">Claim 1000 Clicks</button>
+        <div class="reward-timer" id="reward-timer"></div>
       </div>
     </div>
   </div>
@@ -895,12 +760,9 @@
         <button class="modal-close" id="close-promo">×</button>
       </div>
       <div class="promo-section">
-        <p>Enter a promo code to get bonus clicks!</p>
-        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code">
+        <p style="margin-bottom: 15px; text-align: center; opacity: 0.9;">Enter a promo code to get bonus clicks!</p>
+        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;">
         <button class="btn btn-accent" id="promo-btn">Activate</button>
-        <div class="promo-codes-list">
-          <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;"> </p>
-        </div>
       </div>
     </div>
   </div>
@@ -913,23 +775,13 @@
         <button class="modal-close" id="close-stats">×</button>
       </div>
       <div class="stats-section">
-        <div class="stats-header">
-          <h3>Click History</h3>
-          <div class="time-filters">
-            <div class="time-filter active" data-period="week">Week</div>
-            <div class="time-filter" data-period="month">Month</div>
-            <div class="time-filter" data-period="all">All Time</div>
-          </div>
-        </div>
-        
         <div class="stats-chart" id="stats-chart">
           <!-- Chart bars will be generated here -->
         </div>
-        
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-value" id="stat-total">0</div>
-            <div class="stat-label">Total Clicks</div>
+            <div class="stat-value" id="stat-today">0</div>
+            <div class="stat-label">Today</div>
           </div>
           <div class="stat-card">
             <div class="stat-value" id="stat-week">0</div>
@@ -940,8 +792,8 @@
             <div class="stat-label">This Month</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value" id="stat-today">0</div>
-            <div class="stat-label">Today</div>
+            <div class="stat-value" id="stat-avg-cps">0.0</div>
+            <div class="stat-label">Avg CPS</div>
           </div>
         </div>
       </div>
@@ -956,7 +808,7 @@
         <button class="modal-close" id="close-reset">×</button>
       </div>
       <div class="reset-section">
-        <p>This will permanently delete all your progress. This action cannot be undone!</p>
+        <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">This will permanently delete all your progress. This action cannot be undone!</p>
         <button class="btn btn-danger" id="reset-btn">Reset Progress</button>
       </div>
     </div>
@@ -965,32 +817,22 @@
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
-  <!-- Аудио для сирены -->
-  <audio id="siren-sound" loop>
-    <source src="siren.mp3" type="audio/mp3">
-    <!-- Замените siren.mp3 на путь к вашему файлу с сиреной -->
-  </audio>
-
   <script>
     // Game State
-    let clicks = 0, totalClicks = 0, cps = 0, clickTimestamps = [];
+    let clicks = 0;
+    let clickTimestamps = [];
     let lastDailyReward = 0;
     let usedPromoCodes = [];
+    let sessionStartTime = Date.now();
+    let totalSessionClicks = 0;
     let clickHistory = {
       daily: {},
-      weekly: [],
-      monthly: []
+      weekly: {},
+      monthly: {}
     };
     
-    // Energy System - 2500 кликов каждые 10 минут
-    const MAX_ENERGY = 2500;
-    const ENERGY_REGEN_TIME = 10 * 60 * 1000; // 10 minutes in milliseconds
-    let currentEnergy = MAX_ENERGY;
-    let lastEnergyUpdate = Date.now();
-    let isClickEnabled = true;
-    
     // Античит система
-    const MAX_CPS = 13; // Максимально разрешенные клики в секунду
+    const MAX_CPS = 13;
     let antiCheatActive = false;
     let cheatDetectionCount = 0;
     let isBanned = false;
@@ -999,11 +841,9 @@
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
-    const cpsElement = document.getElementById('cps');
-    const totalCounterElement = document.getElementById('total-counter');
-    const energyRingElement = document.getElementById('energy-ring');
-    const energyTextElement = document.getElementById('energy-text');
     const bodyElement = document.body;
+    const dailyRewardBtn = document.getElementById('daily-reward-btn');
+    const rewardTimerElement = document.getElementById('reward-timer');
     
     // Античит элементы
     const antiCheatOverlay = document.getElementById('anti-cheat-overlay');
@@ -1011,7 +851,6 @@
     const cheaterDetected = document.getElementById('cheater-detected');
     const banTimer = document.getElementById('ban-timer');
     const banTimeElement = document.getElementById('ban-time');
-    const sirenSound = document.getElementById('siren-sound');
 
     // Modals
     const settingsModal = document.getElementById('settings-modal');
@@ -1030,14 +869,11 @@
     const closePromo = document.getElementById('close-promo');
     const closeStats = document.getElementById('close-stats');
     const closeReset = document.getElementById('close-reset');
-    const dailyRewardBtn = document.getElementById('daily-reward-btn');
     const promoBtn = document.getElementById('promo-btn');
     const resetBtn = document.getElementById('reset-btn');
     
     // Settings Elements
-    const graphicsQualitySelect = document.getElementById('graphics-quality');
     const themeSelect = document.getElementById('theme-select');
-    const deviceModeSelect = document.getElementById('device-mode');
     
     // More Items
     const dailyRewardItem = document.getElementById('daily-reward-item');
@@ -1046,12 +882,11 @@
     const resetItem = document.getElementById('reset-item');
     
     // Statistics Elements
-    const statTotalElement = document.getElementById('stat-total');
+    const statTodayElement = document.getElementById('stat-today');
     const statWeekElement = document.getElementById('stat-week');
     const statMonthElement = document.getElementById('stat-month');
-    const statTodayElement = document.getElementById('stat-today');
+    const statAvgCPSElement = document.getElementById('stat-avg-cps');
     const statsChartElement = document.getElementById('stats-chart');
-    const timeFilters = document.querySelectorAll('.time-filter');
     
     // Toast
     const toastElement = document.getElementById('toast');
@@ -1063,71 +898,37 @@
       setupEventListeners();
       startGameLoop();
       checkBanStatus();
-      
-      // Обновляем энергию при загрузке
-      updateEnergy();
+      updateRewardTimer();
     }
     
     // Load game data from localStorage
     function loadGameData() {
       const savedClicks = localStorage.getItem('cvaptaClicks');
-      const savedTotalClicks = localStorage.getItem('cvaptaTotalClicks');
       const savedLastDailyReward = localStorage.getItem('cvaptaLastDailyReward');
       const savedUsedPromoCodes = localStorage.getItem('cvaptaUsedPromoCodes');
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
-      const savedEnergy = localStorage.getItem('cvaptaEnergy');
-      const savedLastEnergyUpdate = localStorage.getItem('cvaptaLastEnergyUpdate');
       const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
       
       if (savedClicks) clicks = parseInt(savedClicks);
-      if (savedTotalClicks) totalClicks = parseInt(savedTotalClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
       if (savedUsedPromoCodes) usedPromoCodes = JSON.parse(savedUsedPromoCodes);
       if (savedClickHistory) clickHistory = JSON.parse(savedClickHistory);
-      if (savedEnergy) currentEnergy = parseInt(savedEnergy);
-      if (savedLastEnergyUpdate) lastEnergyUpdate = parseInt(savedLastEnergyUpdate);
       if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
     }
     
     // Save game data to localStorage
     function saveGameData() {
       localStorage.setItem('cvaptaClicks', clicks.toString());
-      localStorage.setItem('cvaptaTotalClicks', totalClicks.toString());
       localStorage.setItem('cvaptaLastDailyReward', lastDailyReward.toString());
       localStorage.setItem('cvaptaUsedPromoCodes', JSON.stringify(usedPromoCodes));
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
-      localStorage.setItem('cvaptaEnergy', currentEnergy.toString());
-      localStorage.setItem('cvaptaLastEnergyUpdate', lastEnergyUpdate.toString());
       localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
     }
     
     // Update UI elements
     function updateUI() {
       clickCountElement.textContent = formatNumber(clicks);
-      totalCounterElement.textContent = formatNumber(totalClicks);
-      cpsElement.textContent = cps.toFixed(1);
-      
-      // Update energy ring
-      const energyPercentage = Math.max(0, (currentEnergy / MAX_ENERGY) * 100);
-      energyRingElement.style.background = `conic-gradient(
-        var(--energy) 0%, 
-        var(--energy) ${energyPercentage}%, 
-        transparent ${energyPercentage}%, 
-        transparent 100%
-      )`;
-      
-      energyTextElement.textContent = `Energy: ${Math.floor(currentEnergy)}/${MAX_ENERGY}`;
-      
-      if (currentEnergy <= 0) {
-        energyTextElement.classList.add('low');
-        frogElement.classList.add('disabled');
-      } else {
-        energyTextElement.classList.remove('low');
-        frogElement.classList.remove('disabled');
-      }
-      
-      // Update statistics
-      updateStatistics();
+      updateRewardButton();
     }
     
     // Format large numbers with commas
@@ -1149,7 +950,10 @@
       closeMore.addEventListener('click', () => toggleModal(moreModal));
       
       // Daily reward
-      dailyRewardItem.addEventListener('click', () => toggleModal(dailyRewardModal));
+      dailyRewardItem.addEventListener('click', () => {
+        updateRewardTimer();
+        toggleModal(dailyRewardModal);
+      });
       closeDaily.addEventListener('click', () => toggleModal(dailyRewardModal));
       dailyRewardBtn.addEventListener('click', claimDailyReward);
       
@@ -1159,7 +963,11 @@
       promoBtn.addEventListener('click', activatePromoCode);
       
       // Statistics
-      statsItem.addEventListener('click', () => toggleModal(statsModal));
+      statsItem.addEventListener('click', () => {
+        updateStatistics();
+        updateStatisticsChart();
+        toggleModal(statsModal);
+      });
       closeStats.addEventListener('click', () => toggleModal(statsModal));
       
       // Reset progress
@@ -1168,18 +976,7 @@
       resetBtn.addEventListener('click', resetProgress);
       
       // Settings changes
-      graphicsQualitySelect.addEventListener('change', handleGraphicsQualityChange);
       themeSelect.addEventListener('change', handleThemeChange);
-      deviceModeSelect.addEventListener('change', handleDeviceModeChange);
-      
-      // Time filters for statistics
-      timeFilters.forEach(filter => {
-        filter.addEventListener('click', () => {
-          timeFilters.forEach(f => f.classList.remove('active'));
-          filter.classList.add('active');
-          updateStatisticsChart(filter.dataset.period);
-        });
-      });
       
       // Close modals when clicking outside
       document.querySelectorAll('.modal').forEach(modal => {
@@ -1193,253 +990,130 @@
     
     // Handle frog click
     function handleFrogClick(e) {
-      if (!isClickEnabled || currentEnergy <= 0 || isBanned) return;
+      if (isBanned) return;
       
-      // Проверка на античит
       if (antiCheatActive) {
-        // Если античит активен и пользователь кликает - бан на 30 минут
-        triggerBan(30 * 60 * 1000); // 30 минут в миллисекундах
+        triggerBan(30 * 60 * 1000);
         return;
       }
       
-      // Проверка CPS
       const now = Date.now();
       clickTimestamps.push(now);
       
-      // Удаляем старые клики (старше 1 секунды)
       clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
       
-      // Проверяем CPS
       if (clickTimestamps.length > MAX_CPS) {
         cheatDetectionCount++;
         
         if (cheatDetectionCount >= 3) {
-          // Триггерим античит проверку
           triggerAntiCheat();
         } else {
           showToast(`Warning: High CPS detected! (${clickTimestamps.length}/s)`);
         }
       } else {
-        // Сбрасываем счетчик если CPS в норме
         if (cheatDetectionCount > 0) cheatDetectionCount--;
       }
       
-      // Добавляем клик
       clicks++;
-      totalClicks++;
-      currentEnergy--;
+      totalSessionClicks++;
       
-      // Обновляем историю кликов
       updateClickHistory();
-      
-      // Создаем эффект клика
       createClickEffect(e);
-      
-      // Создаем плавающий текст
       createFloatingText(e);
-      
-      // Обновляем UI
       updateUI();
-      
-      // Сохраняем игру
       saveGameData();
-    }
-    
-    // Trigger anti-cheat
-    function triggerAntiCheat() {
-      antiCheatActive = true;
-      antiCheatOverlay.classList.add('active');
-      antiCheatMessage.style.display = 'block';
-      cheaterDetected.style.display = 'none';
-      banTimer.style.display = 'none';
-      
-      // Включаем сирену
-      try {
-        sirenSound.currentTime = 0;
-        sirenSound.play();
-      } catch (e) {
-        console.log("Could not play siren sound:", e);
-      }
-      
-      // Блокируем клики на 5 секунд для проверки
-      isClickEnabled = false;
-      
-      // Если пользователь кликает во время античита - бан
-      document.addEventListener('click', handleAntiCheatClick, true);
-      
-      // Через 5 секунд выключаем античит если не было кликов
-      setTimeout(() => {
-        if (antiCheatActive) {
-          antiCheatActive = false;
-          antiCheatOverlay.classList.remove('active');
-          isClickEnabled = true;
-          document.removeEventListener('click', handleAntiCheatClick, true);
-          
-          // Выключаем сирену
-          sirenSound.pause();
-        }
-      }, 5000);
-    }
-    
-    // Handle clicks during anti-cheat
-    function handleAntiCheatClick(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      
-      // Бан на 30 минут за клик во время античита
-      triggerBan(30 * 60 * 1000);
-    }
-    
-    // Trigger ban
-    function triggerBan(duration) {
-      isBanned = true;
-      banEndTime = Date.now() + duration;
-      antiCheatActive = false;
-      
-      // Показываем бан экран
-      antiCheatOverlay.classList.add('active');
-      antiCheatMessage.style.display = 'none';
-      cheaterDetected.style.display = 'block';
-      banTimer.style.display = 'block';
-      
-      // Сохраняем время бана
-      saveGameData();
-      
-      // Запускаем таймер бана
-      updateBanTimer();
-      const banInterval = setInterval(updateBanTimer, 1000);
-      
-      // Выключаем сирену через 10 секунд
-      setTimeout(() => {
-        sirenSound.pause();
-      }, 10000);
-      
-      function updateBanTimer() {
-        const now = Date.now();
-        const remaining = banEndTime - now;
-        
-        if (remaining <= 0) {
-          // Бан закончился
-          isBanned = false;
-          antiCheatOverlay.classList.remove('active');
-          clearInterval(banInterval);
-          return;
-        }
-        
-        const minutes = Math.floor(remaining / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
-        banTimeElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-      }
-    }
-    
-    // Check ban status on load
-    function checkBanStatus() {
-      if (banEndTime > Date.now()) {
-        triggerBan(banEndTime - Date.now());
-      }
-    }
-    
-    // Create click effect
-    function createClickEffect(e) {
-      const rect = frogElement.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const effect = document.createElement('div');
-      effect.className = 'click-effect';
-      effect.style.left = `${x}px`;
-      effect.style.top = `${y}px`;
-      
-      frogElement.appendChild(effect);
-      
-      setTimeout(() => {
-        effect.remove();
-      }, 500);
-    }
-    
-    // Create floating text
-    function createFloatingText(e) {
-      const rect = frogElement.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const text = document.createElement('div');
-      text.className = 'floating-text';
-      text.textContent = '+1';
-      text.style.left = `${x}px`;
-      text.style.top = `${y}px`;
-      
-      frogElement.appendChild(text);
-      
-      setTimeout(() => {
-        text.remove();
-      }, 1000);
     }
     
     // Update click history
     function updateClickHistory() {
       const now = new Date();
       const today = now.toDateString();
-      const weekStart = getWeekStart(now);
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+      const weekKey = getWeekKey(now);
+      const monthKey = getMonthKey(now);
       
-      // Daily clicks
+      // Today
       if (!clickHistory.daily[today]) {
         clickHistory.daily[today] = 0;
       }
       clickHistory.daily[today]++;
       
-      // Weekly clicks
-      if (clickHistory.weekly.length === 0 || clickHistory.weekly[clickHistory.weekly.length - 1].week !== weekStart) {
-        clickHistory.weekly.push({ week: weekStart, clicks: 0 });
+      // Week
+      if (!clickHistory.weekly[weekKey]) {
+        clickHistory.weekly[weekKey] = 0;
       }
-      clickHistory.weekly[clickHistory.weekly.length - 1].clicks++;
+      clickHistory.weekly[weekKey]++;
       
-      // Monthly clicks
-      if (clickHistory.monthly.length === 0 || clickHistory.monthly[clickHistory.monthly.length - 1].month !== monthStart) {
-        clickHistory.monthly.push({ month: monthStart, clicks: 0 });
+      // Month
+      if (!clickHistory.monthly[monthKey]) {
+        clickHistory.monthly[monthKey] = 0;
       }
-      clickHistory.monthly[clickHistory.monthly.length - 1].clicks++;
+      clickHistory.monthly[monthKey]++;
     }
     
-    // Get week start date
-    function getWeekStart(date) {
+    // Get week key (year + week number)
+    function getWeekKey(date) {
       const d = new Date(date);
-      const day = d.getDay();
-      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-      return new Date(d.setDate(diff)).getTime();
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+      const week1 = new Date(d.getFullYear(), 0, 4);
+      return d.getFullYear() + '-W' + Math.ceil(((d - week1) / 86400000 + 1) / 7);
     }
     
-    // Update energy
-    function updateEnergy() {
+    // Get month key (year + month)
+    function getMonthKey(date) {
+      const d = new Date(date);
+      return d.getFullYear() + '-' + (d.getMonth() + 1);
+    }
+    
+    // Update reward button and timer
+    function updateRewardButton() {
       const now = Date.now();
-      const timePassed = now - lastEnergyUpdate;
+      const oneDay = 24 * 60 * 60 * 1000;
       
-      if (timePassed > ENERGY_REGEN_TIME && currentEnergy < MAX_ENERGY) {
-        // Регенерируем энергию
-        const energyToAdd = Math.floor((timePassed / ENERGY_REGEN_TIME) * MAX_ENERGY);
-        currentEnergy = Math.min(MAX_ENERGY, currentEnergy + energyToAdd);
-        lastEnergyUpdate = now;
-        saveGameData();
+      if (now - lastDailyReward < oneDay) {
+        dailyRewardBtn.disabled = true;
+        dailyRewardBtn.textContent = 'Already Claimed';
+      } else {
+        dailyRewardBtn.disabled = false;
+        dailyRewardBtn.textContent = 'Claim 1000 Clicks';
       }
+    }
+    
+    // Update reward timer
+    function updateRewardTimer() {
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
+      const nextReward = lastDailyReward + oneDay;
       
-      updateUI();
+      if (now < nextReward) {
+        const timeLeft = nextReward - now;
+        const hours = Math.floor(timeLeft / (60 * 60 * 1000));
+        const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
+        
+        rewardTimerElement.textContent = `Next reward in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        rewardTimerElement.style.display = 'block';
+      } else {
+        rewardTimerElement.style.display = 'none';
+      }
+    }
+    
+    // Calculate average CPS
+    function calculateAverageCPS() {
+      const sessionDuration = (Date.now() - sessionStartTime) / 1000;
+      if (sessionDuration > 0) {
+        return totalSessionClicks / sessionDuration;
+      }
+      return 0;
     }
     
     // Start game loop
     function startGameLoop() {
       setInterval(() => {
-        // Update CPS
         const now = Date.now();
         clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
-        cps = clickTimestamps.length;
-        
-        // Update energy
-        updateEnergy();
-        
-        // Update UI
-        updateUI();
-      }, 100);
+        updateRewardTimer();
+      }, 1000);
     }
     
     // Toggle modal
@@ -1453,16 +1127,21 @@
       const oneDay = 24 * 60 * 60 * 1000;
       
       if (now - lastDailyReward < oneDay) {
-        const nextReward = lastDailyReward + oneDay;
-        const timeLeft = nextReward - now;
-        const hoursLeft = Math.floor(timeLeft / (60 * 60 * 1000));
-        showToast(`Daily reward available in ${hoursLeft} hours`);
+        showToast(`Daily reward already claimed!`);
         return;
       }
       
       clicks += 1000;
-      totalClicks += 1000;
+      totalSessionClicks += 1000;
       lastDailyReward = now;
+      
+      // Add to history
+      const today = new Date().toDateString();
+      if (!clickHistory.daily[today]) {
+        clickHistory.daily[today] = 0;
+      }
+      clickHistory.daily[today] += 1000;
+      
       updateUI();
       saveGameData();
       showToast('Daily reward claimed! +1000 clicks');
@@ -1470,7 +1149,7 @@
     }
     
     // Activate promo code
-   function activatePromoCode() {
+    function activatePromoCode() {
       const promoInput = document.getElementById('promo-input');
       const code = promoInput.value.trim().toUpperCase();
       
@@ -1499,68 +1178,23 @@
         case 'COMEBACK':
           reward = 5000;
           break;
-        // Новые промокоды на 100 кликов
-        case 'EPICCLICK500':
-        case 'MEGACLICK1000':
-        case 'SUPERCLICK750':
-        case 'ULTIMATECLICK1500':
-        case 'HYPERCLICK2000':
-        case 'CLICKBOOST550':
-        case 'TURBOCLICK1200':
-        case 'MAXCLICK1800':
-        case 'POWERCLICK950':
-        case 'MEGABOOST1100':
-        case 'CLICKSTORM800':
-        case 'VOLTCLICK1300':
-        case 'QUANTUMCLICK1600':
-        case 'NEOCLICK1400':
-        case 'CYBERCLICK1700':
-        case 'PROCLICK600':
-        case 'CLICKMASTER1900':
-        case 'CLICKBURST850':
-        case 'CLICKFORCE2200':
-        case 'CLICKWAVE900':
-        case 'CLICKRUSH1500':
-        case 'CLICKSPIKE700':
-        case 'CLICKVORTEX1100':
-        case 'CLICKBLAZE1350':
-        case 'CLICKFURY1650':
-        case 'CLICKIMPULSE1450':
-        case 'CLICKSURGE1550':
-        case 'CLICKASSAULT1850':
-        case 'CLICKDOMINION1950':
-        case 'CLICKTYPHOON1250':
-        case 'CLICKINFERNO1750':
-        case 'CLICKTITAN2100':
-        case 'CLICKABYSS1150':
-        case 'CLICKZENITH2050':
-        case 'CLICKNOVA2250':
-        case 'CLICKPHANTOM1050':
-        case 'CLICKSHADOW1900':
-        case 'CLICKECHO1200':
-        case 'CLICKMIRAGE1400':
-        case 'CLICKSPECTER1600':
-        case 'CLICKWRAITH1800':
-        case 'CLICKPHOENIX2000':
-        case 'CLICKDRAGON2300':
-        case 'CLICKLEGEND2400':
-        case 'CLICKMYTHOS2500':
-        case 'CLICKETERNITY2600':
-        case 'CLICKINFINITY2700':
-        case 'CLICKVOID2800':
-        case 'CLICKZERO2900':
-        case 'CLICKPRIME3000':
-          reward = 100;
-          break;
         default:
           showToast('Invalid promo code');
           return;
       }
       
       clicks += reward;
-      totalClicks += reward;
+      totalSessionClicks += reward;
       usedPromoCodes.push(code);
       promoInput.value = '';
+      
+      // Add to history
+      const today = new Date().toDateString();
+      if (!clickHistory.daily[today]) {
+        clickHistory.daily[today] = 0;
+      }
+      clickHistory.daily[today] += reward;
+      
       updateUI();
       saveGameData();
       showToast(`Promo code activated! +${reward} clicks`);
@@ -1573,18 +1207,16 @@
       }
       
       clicks = 0;
-      totalClicks = 0;
-      currentEnergy = MAX_ENERGY;
-      lastEnergyUpdate = Date.now();
+      totalSessionClicks = 0;
       clickTimestamps = [];
-      cps = 0;
       lastDailyReward = 0;
       usedPromoCodes = [];
       clickHistory = {
         daily: {},
-        weekly: [],
-        monthly: []
+        weekly: {},
+        monthly: {}
       };
+      sessionStartTime = Date.now();
       
       updateUI();
       saveGameData();
@@ -1594,74 +1226,76 @@
     
     // Update statistics
     function updateStatistics() {
-      statTotalElement.textContent = formatNumber(totalClicks);
-      
-      // Today's clicks
       const today = new Date().toDateString();
       const todayClicks = clickHistory.daily[today] || 0;
       statTodayElement.textContent = formatNumber(todayClicks);
       
       // This week's clicks
-      const weekStart = getWeekStart(new Date());
-      const weekData = clickHistory.weekly.find(w => w.week === weekStart);
-      const weekClicks = weekData ? weekData.clicks : 0;
+      const weekKey = getWeekKey(new Date());
+      const weekClicks = clickHistory.weekly[weekKey] || 0;
       statWeekElement.textContent = formatNumber(weekClicks);
       
       // This month's clicks
-      const monthStart = new Date().getMonth();
-      const monthData = clickHistory.monthly.find(m => {
-        const date = new Date(m.month);
-        return date.getMonth() === monthStart;
-      });
-      const monthClicks = monthData ? monthData.clicks : 0;
+      const monthKey = getMonthKey(new Date());
+      const monthClicks = clickHistory.monthly[monthKey] || 0;
       statMonthElement.textContent = formatNumber(monthClicks);
       
-      // Update chart
-      updateStatisticsChart('week');
+      const avgCPS = calculateAverageCPS();
+      statAvgCPSElement.textContent = avgCPS.toFixed(1);
     }
     
     // Update statistics chart
-    function updateStatisticsChart(period) {
+    function updateStatisticsChart() {
       statsChartElement.innerHTML = '';
       
-      let data = [];
+      // Generate real data for the last 7 days
+      const data = [];
+      const labels = [];
+      const today = new Date();
       
-      if (period === 'week') {
-        // Last 7 days
-        for (let i = 6; i >= 0; i--) {
-          const date = new Date();
-          date.setDate(date.getDate() - i);
-          const dateString = date.toDateString();
-          data.push(clickHistory.daily[dateString] || 0);
-        }
-      } else if (period === 'month') {
-        // Last 4 weeks
-        for (let i = 3; i >= 0; i--) {
-          const date = new Date();
-          date.setDate(date.getDate() - (i * 7));
-          const weekStart = getWeekStart(date);
-          const weekData = clickHistory.weekly.find(w => w.week === weekStart);
-          data.push(weekData ? weekData.clicks : 0);
-        }
-      } else {
-        // All time (last 6 months)
-        for (let i = 5; i >= 0; i--) {
-          const date = new Date();
-          date.setMonth(date.getMonth() - i);
-          const monthStart = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
-          const monthData = clickHistory.monthly.find(m => m.month === monthStart);
-          data.push(monthData ? monthData.clicks : 0);
-        }
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(today.getDate() - i);
+        const dateString = date.toDateString();
+        const dayName = getShortDayName(date.getDay());
+        const dateNum = date.getDate();
+        
+        data.push(clickHistory.daily[dateString] || 0);
+        labels.push(`${dayName}\n${dateNum}`);
       }
       
       const maxValue = Math.max(...data, 1);
+      const chartHeight = 100; // Высота графика в пикселях
       
-      data.forEach(value => {
+      data.forEach((value, index) => {
+        const barContainer = document.createElement('div');
+        barContainer.className = 'chart-bar-container';
+        
         const bar = document.createElement('div');
         bar.className = 'chart-bar';
-        bar.style.height = `${(value / maxValue) * 100}%`;
-        statsChartElement.appendChild(bar);
+        const barHeight = maxValue > 0 ? (value / maxValue) * chartHeight : 2;
+        bar.style.height = `${barHeight}px`;
+        bar.title = `${value} clicks`;
+        
+        const valueLabel = document.createElement('div');
+        valueLabel.className = 'chart-value';
+        valueLabel.textContent = value > 0 ? formatNumber(value) : '';
+        
+        const dayLabel = document.createElement('div');
+        dayLabel.className = 'chart-label';
+        dayLabel.textContent = labels[index];
+        
+        bar.appendChild(valueLabel);
+        barContainer.appendChild(bar);
+        barContainer.appendChild(dayLabel);
+        statsChartElement.appendChild(barContainer);
       });
+    }
+    
+    // Get short day name
+    function getShortDayName(dayIndex) {
+      const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+      return days[dayIndex];
     }
     
     // Show toast message
@@ -1672,17 +1306,6 @@
       setTimeout(() => {
         toastElement.classList.remove('show');
       }, 3000);
-    }
-    
-    // Handle graphics quality change
-    function handleGraphicsQualityChange() {
-      const quality = graphicsQualitySelect.value;
-      
-      if (quality === 'low') {
-        document.querySelectorAll('.click-effect, .floating-text').forEach(el => el.remove());
-      }
-      
-      showToast(`Graphics quality set to ${quality}`);
     }
     
     // Handle theme change
@@ -1697,18 +1320,103 @@
         bodyElement.classList.remove('light-theme');
       }
     }
-    
-    // Handle device mode change
-    function handleDeviceModeChange() {
-      const mode = deviceModeSelect.value;
+
+    // Anti-cheat functions
+    function triggerAntiCheat() {
+      antiCheatActive = true;
+      antiCheatOverlay.classList.add('active');
+      antiCheatMessage.style.display = 'block';
+      cheaterDetected.style.display = 'none';
+      banTimer.style.display = 'none';
       
-      if (mode === 'pc') {
-        bodyElement.classList.add('pc-mode');
-        bodyElement.classList.remove('mobile-mode');
-      } else {
-        bodyElement.classList.add('mobile-mode');
-        bodyElement.classList.remove('pc-mode');
+      document.addEventListener('click', handleAntiCheatClick, true);
+      
+      setTimeout(() => {
+        if (antiCheatActive) {
+          antiCheatActive = false;
+          antiCheatOverlay.classList.remove('active');
+          document.removeEventListener('click', handleAntiCheatClick, true);
+        }
+      }, 5000);
+    }
+    
+    function handleAntiCheatClick(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      triggerBan(30 * 60 * 1000);
+    }
+    
+    function triggerBan(duration) {
+      isBanned = true;
+      banEndTime = Date.now() + duration;
+      antiCheatActive = false;
+      
+      antiCheatOverlay.classList.add('active');
+      antiCheatMessage.style.display = 'none';
+      cheaterDetected.style.display = 'block';
+      banTimer.style.display = 'block';
+      
+      saveGameData();
+      
+      updateBanTimer();
+      const banInterval = setInterval(updateBanTimer, 1000);
+      
+      function updateBanTimer() {
+        const now = Date.now();
+        const remaining = banEndTime - now;
+        
+        if (remaining <= 0) {
+          isBanned = false;
+          antiCheatOverlay.classList.remove('active');
+          clearInterval(banInterval);
+          return;
+        }
+        
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        banTimeElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
       }
+    }
+    
+    function checkBanStatus() {
+      if (banEndTime > Date.now()) {
+        triggerBan(banEndTime - Date.now());
+      }
+    }
+
+    function createClickEffect(e) {
+      const rect = frogElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const effect = document.createElement('div');
+      effect.className = 'click-effect';
+      effect.style.left = `${x}px`;
+      effect.style.top = `${y}px`;
+      
+      frogElement.appendChild(effect);
+      
+      setTimeout(() => {
+        effect.remove();
+      }, 600);
+    }
+    
+    function createFloatingText(e) {
+      const rect = frogElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const text = document.createElement('div');
+      text.className = 'floating-text';
+      text.textContent = '+1';
+      text.style.left = `${x}px`;
+      text.style.top = `${y}px`;
+      
+      frogElement.appendChild(text);
+      
+      setTimeout(() => {
+        text.remove();
+      }, 1200);
     }
     
     // Initialize the game when DOM is loaded

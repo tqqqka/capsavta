@@ -40,6 +40,7 @@
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
+      transition: all 0.5s ease;
     }
     
     body.light-theme { 
@@ -47,39 +48,90 @@
       color: var(--text-dark); 
     }
 
-    body.light-theme .modal-content {
-      background: rgba(248, 251, 248, 0.95);
-      color: var(--text-dark);
+    /* Стили для режима носков */
+    body.sock-mode {
+      background: linear-gradient(135deg, #808080, #696969, #505050) !important;
+      color: #333 !important;
     }
-
-    body.light-theme .modal-close {
-      color: #7a8a7a;
+    
+    body.sock-mode .click-count,
+    body.sock-mode .nav-icon,
+    body.sock-mode .modal-content,
+    body.sock-mode .settings-select,
+    body.sock-mode .more-item,
+    body.sock-mode .stat-card,
+    body.sock-mode .stats-chart {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(0, 0, 0, 0.2) !important;
+      color: #333 !important;
     }
-
-    body.light-theme .modal-close:active {
-      color: var(--primary);
+    
+    body.sock-mode .bottom-nav {
+      background: rgba(255, 255, 255, 0.8) !important;
     }
-
-    body.light-theme .settings-select,
-    body.light-theme .more-item,
-    body.light-theme .stat-card,
-    body.light-theme .stats-chart,
-    body.light-theme .nav-icon,
-    body.light-theme .click-count {
-      background: rgba(255, 255, 255, 0.7);
-      border-color: rgba(0, 0, 0, 0.1);
+    
+    .falling-sock {
+      position: fixed;
+      font-size: 24px;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      animation: fall linear forwards;
     }
-
-    body.light-theme .bottom-nav {
-      background: rgba(255, 255, 255, 0.8);
+    
+    .green-circle {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #00ff00, #00cc00);
+      border-radius: 50%;
+      z-index: 10000;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ff00;
+      animation: pulse 1.5s infinite alternate;
     }
-
-    body.light-theme .nav-item {
-      color: #6a7a6a;
+    
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
-
-    body.light-theme .nav-item.active {
-      color: var(--primary);
+    
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+        box-shadow: 0 0 15px #00ff00;
+      }
+      to {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px #00ff00;
+      }
+    }
+    
+    .secret-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ff00;
+      text-shadow: 0 0 10px #000;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 10001;
+      text-align: center;
+      animation: messagePulse 2s infinite;
+    }
+    
+    @keyframes messagePulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
     }
 
     .anti-cheat-overlay {
@@ -339,11 +391,6 @@
       cursor: pointer; 
       color: #a8b8a8; 
       transition: all 0.3s ease;
-    }
-    
-    .modal-close:active { 
-      color: var(--primary); 
-      background: rgba(255,255,255,0.1);
     }
     
     .settings-group {
@@ -1178,6 +1225,13 @@
         case 'COMEBACK':
           reward = 5000;
           break;
+        case 'HOCKN':
+          // Активируем секретный режим носков
+          activateSockMode();
+          promoInput.value = '';
+          showToast('Secret mode activated!');
+          toggleModal(promoCodeModal);
+          return;
         default:
           showToast('Invalid promo code');
           return;
@@ -1198,6 +1252,175 @@
       updateUI();
       saveGameData();
       showToast(`Promo code activated! +${reward} clicks`);
+    }
+
+    // Новые функции для режима носков
+    function activateSockMode() {
+      // Добавляем класс для серого фона
+      document.body.classList.add('sock-mode');
+      
+      // Меняем лягушку на носок
+      frogElement.textContent = '🧦';
+      
+      // Запускаем музыку
+      playSockMusic();
+      
+      // Запускаем падающие носки
+      startFallingSocks();
+      
+      // Через 3 секунды добавляем зеленый кружок
+      setTimeout(addGreenCircle, 3000);
+    }
+    
+    function playSockMusic() {
+      // Создаем аудио элемент
+      const audio = new Audio();
+      audio.src = 'drd.mp3';
+      audio.loop = true;
+      audio.volume = 0.7;
+      
+      // Пытаемся воспроизвести (может потребоваться взаимодействие пользователя)
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log('Autoplay blocked, user interaction required');
+          // Показываем сообщение, что нужно кликнуть для воспроизведения
+          showToast('Click anywhere to start music');
+          document.body.addEventListener('click', function startMusicOnce() {
+            audio.play();
+            document.body.removeEventListener('click', startMusicOnce);
+          }, { once: true });
+        });
+      }
+      
+      // Сохраняем ссылку на audio для остановки позже
+      window.sockMusic = audio;
+    }
+    
+    function startFallingSocks() {
+      // Создаем падающие носки каждые 0.5 секунды
+      window.sockInterval = setInterval(createFallingSock, 500);
+    }
+    
+    function createFallingSock() {
+      const sock = document.createElement('div');
+      sock.className = 'falling-sock';
+      sock.textContent = '🧦';
+      
+      // Случайная позиция по горизонтали
+      const left = Math.random() * (window.innerWidth - 50);
+      sock.style.left = `${left}px`;
+      sock.style.top = '-50px';
+      
+      // Случайная длительность падения (3-8 секунд)
+      const duration = 3 + Math.random() * 5;
+      sock.style.animationDuration = `${duration}s`;
+      
+      // Случайный размер
+      const size = 20 + Math.random() * 30;
+      sock.style.fontSize = `${size}px`;
+      
+      document.body.appendChild(sock);
+      
+      // Удаляем носок после завершения анимации
+      setTimeout(() => {
+        if (sock.parentNode) {
+          sock.parentNode.removeChild(sock);
+        }
+      }, duration * 1000);
+    }
+    
+    function addGreenCircle() {
+      const circle = document.createElement('div');
+      circle.className = 'green-circle';
+      
+      // Случайная позиция
+      const left = Math.random() * (window.innerWidth - 50);
+      const top = Math.random() * (window.innerHeight - 50);
+      
+      circle.style.left = `${left}px`;
+      circle.style.top = `${top}px`;
+      
+      // Обработчик клика на зеленый кружок
+      circle.addEventListener('click', handleGreenCircleClick);
+      
+      document.body.appendChild(circle);
+      
+      // Сохраняем ссылку на кружок
+      window.greenCircle = circle;
+    }
+    
+    function handleGreenCircleClick() {
+      // Показываем секретное сообщение
+      showSecretMessage();
+      
+      // Удаляем зеленый кружок
+      if (window.greenCircle) {
+        window.greenCircle.remove();
+        window.greenCircle = null;
+      }
+      
+      // Останавливаем падающие носки
+      if (window.sockInterval) {
+        clearInterval(window.sockInterval);
+        window.sockInterval = null;
+      }
+      
+      // Удаляем все существующие носки
+      document.querySelectorAll('.falling-sock').forEach(sock => {
+        sock.remove();
+      });
+      
+      // Через 15 секунд возвращаем всё обратно
+      setTimeout(disableSockMode, 15000);
+    }
+    
+    function showSecretMessage() {
+      const message = document.createElement('div');
+      message.className = 'secret-message';
+      message.textContent = 'Загляни под матрас своей кровати';
+      
+      document.body.appendChild(message);
+      
+      // Сохраняем ссылку на сообщение
+      window.secretMessage = message;
+    }
+    
+    function disableSockMode() {
+      // Убираем серый фон
+      document.body.classList.remove('sock-mode');
+      
+      // Возвращаем лягушку
+      frogElement.textContent = '🐸';
+      
+      // Останавливаем музыку
+      if (window.sockMusic) {
+        window.sockMusic.pause();
+        window.sockMusic = null;
+      }
+      
+      // Убираем секретное сообщение
+      if (window.secretMessage) {
+        window.secretMessage.remove();
+        window.secretMessage = null;
+      }
+      
+      // Убираем зеленый кружок (на всякий случай)
+      if (window.greenCircle) {
+        window.greenCircle.remove();
+        window.greenCircle = null;
+      }
+      
+      // Останавливаем падающие носки
+      if (window.sockInterval) {
+        clearInterval(window.sockInterval);
+        window.sockInterval = null;
+      }
+      
+      // Убираем все оставшиеся носки
+      document.querySelectorAll('.falling-sock').forEach(sock => {
+        sock.remove();
+      });
     }
     
     // Reset progress

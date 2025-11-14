@@ -9,7 +9,6 @@
     :root {
       --primary: #6b8e23;
       --primary-dark: #556b2f;
-      --primary-light: #8db446;
       --secondary: #7b9acc;
       --accent: #9f8bc2;
       --danger: #c46c6c;
@@ -20,8 +19,6 @@
       --text-dark: #2f4f2f;
       --bg-dark: radial-gradient(circle at top, #1a2f1a 0%, #1e351e 50%, #152715 100%);
       --bg-light: radial-gradient(circle at top, #f8fbf8 0%, #f0f7f0 50%, #e8f3e8 100%);
-      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      --hover-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     }
     
     * { 
@@ -39,7 +36,7 @@
       overflow: hidden; 
       display: flex; 
       flex-direction: column; 
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; 
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
@@ -49,71 +46,6 @@
     body.light-theme { 
       background: var(--bg-light); 
       color: var(--text-dark); 
-    }
-
-    body.light-theme .click-count,
-    body.light-theme .nav-icon,
-    body.light-theme .modal-content,
-    body.light-theme .settings-select,
-    body.light-theme .more-item,
-    body.light-theme .stat-card,
-    body.light-theme .stats-chart {
-      background: rgba(255, 255, 255, 0.7);
-      border-color: rgba(0, 0, 0, 0.1);
-      color: var(--text-dark);
-    }
-    
-    body.light-theme .bottom-nav {
-      background: rgba(255, 255, 255, 0.8);
-      border-top-color: rgba(0, 0, 0, 0.1);
-    }
-    
-    body.light-theme .modal {
-      background: rgba(0, 0, 0, 0.4);
-    }
-    
-    body.light-theme .modal-content {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-dark);
-    }
-    
-    body.light-theme .modal-header {
-      border-bottom-color: rgba(0, 0, 0, 0.1);
-    }
-    
-    body.light-theme .modal-close {
-      background: rgba(0, 0, 0, 0.05);
-      color: #666;
-    }
-    
-    body.light-theme .nav-item {
-      color: #666;
-    }
-    
-    body.light-theme .nav-item.active {
-      color: var(--primary);
-    }
-    
-    body.light-theme .nav-icon {
-      background: rgba(0, 0, 0, 0.05);
-    }
-    
-    body.light-theme .more-item {
-      background: rgba(255, 255, 255, 0.7);
-    }
-    
-    body.light-theme .stat-card {
-      background: rgba(255, 255, 255, 0.7);
-    }
-    
-    body.light-theme .stats-chart {
-      background: rgba(255, 255, 255, 0.7);
-    }
-    
-    body.light-theme .toast {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-dark);
-      border-color: rgba(0, 0, 0, 0.1);
     }
 
     /* Стили для режима носков */
@@ -262,36 +194,19 @@
     .click-count { 
       font-size: 36px; 
       font-weight: 700; 
-      margin-bottom: 30px; 
+      margin-bottom: 40px; 
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       padding: 18px 30px; 
       border-radius: 20px; 
       border: 1px solid var(--glass-border);
       color: inherit; 
-      box-shadow: var(--card-shadow); 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
       text-align: center;
       width: 90%;
       max-width: 300px;
       transition: all 0.3s ease;
       font-family: 'SF Pro Display', -apple-system, sans-serif;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .click-count::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
-    }
-    
-    .click-count.animate::before {
-      left: 100%;
     }
     
     .click-count.animate { 
@@ -300,17 +215,17 @@
     
     .frog-container { 
       position: relative; 
-      margin: 10px 0 20px; 
+      margin: 20px 0 30px; 
     }
     
     .frog { 
-      width: 280px; 
-      height: 280px; 
+      width: 200px; 
+      height: 200px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       cursor: pointer; 
-      font-size: 180px; 
+      font-size: 120px; 
       animation: breathe 4s infinite ease-in-out; 
       position: relative;
       z-index: 2;
@@ -329,8 +244,8 @@
 
     .click-effect { 
       position: absolute; 
-      width: 70px; 
-      height: 70px; 
+      width: 50px; 
+      height: 50px; 
       background: radial-gradient(circle, rgba(107, 142, 35, 0.4) 0%, transparent 70%); 
       border-radius: 50%; 
       pointer-events: none; 
@@ -347,7 +262,7 @@
       position: absolute; 
       color: var(--primary); 
       font-weight: 700; 
-      font-size: 22px; 
+      font-size: 18px; 
       pointer-events: none; 
       animation: floatUp 1.2s ease-out forwards; 
       text-shadow: 0 1px 5px rgba(0,0,0,0.3); 
@@ -356,7 +271,7 @@
     
     @keyframes floatUp { 
       from { transform: translateY(0) scale(1); opacity: 1; } 
-      to { transform: translateY(-80px) scale(1.2); opacity: 0; } 
+      to { transform: translateY(-60px) scale(1.2); opacity: 0; } 
     }
     
     .bottom-nav { 
@@ -368,9 +283,6 @@
       padding: 15px 0; 
       height: 80px; 
       z-index: 10;
-      border-radius: 25px 25px 0 0;
-      margin: 0 10px;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
     }
     
     .nav-item { 
@@ -383,11 +295,6 @@
       transition: all 0.3s ease; 
       flex: 1; 
       padding: 5px;
-      border-radius: 12px;
-    }
-    
-    .nav-item:hover {
-      background: rgba(255, 255, 255, 0.05);
     }
     
     .nav-item.active { 
@@ -412,7 +319,6 @@
       background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
       color: white; 
       transform: scale(1.05); 
-      box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
     }
     
     .modal { 
@@ -430,7 +336,6 @@
       transition: opacity 0.3s ease; 
       z-index: 1000; 
       padding: 20px;
-      backdrop-filter: blur(5px);
     }
     
     .modal.active { 
@@ -441,18 +346,17 @@
     .modal-content { 
       background: rgba(40, 50, 40, 0.9); 
       backdrop-filter: blur(20px);
-      border-radius: 25px; 
+      border-radius: 20px; 
       padding: 25px; 
       width: 100%; 
-      max-width: 380px; 
+      max-width: 360px; 
       max-height: 80vh; 
       overflow-y: auto; 
       border: 1px solid var(--glass-border);
-      box-shadow: var(--card-shadow); 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
       transform: translateY(30px) scale(0.95); 
       transition: transform 0.3s ease; 
       color: var(--text-light); 
-      position: relative;
     }
     
     .modal.active .modal-content { 
@@ -472,7 +376,6 @@
       font-size: 20px; 
       font-weight: 700; 
       color: var(--primary);
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     
     .modal-close { 
@@ -488,11 +391,6 @@
       cursor: pointer; 
       color: #a8b8a8; 
       transition: all 0.3s ease;
-    }
-    
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: rotate(90deg);
     }
     
     .settings-group {
@@ -516,19 +414,12 @@
       background: var(--glass-bg);
       color: inherit; 
       font-size: 14px; 
-      transition: all 0.3s ease;
-    }
-    
-    .settings-select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(107, 142, 35, 0.2);
     }
     
     .more-grid { 
       display: grid; 
       grid-template-columns: repeat(2, 1fr); 
-      gap: 12px; 
+      gap: 10px; 
       margin-bottom: 20px; 
     }
     
@@ -543,33 +434,11 @@
       cursor: pointer; 
       transition: all 0.3s ease; 
       border: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .more-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .more-item:hover::before {
-      opacity: 1;
-    }
-    
-    .more-item:hover { 
-      transform: translateY(-5px); 
-      box-shadow: var(--hover-shadow);
     }
     
     .more-item:active { 
       transform: scale(0.98); 
+      background: rgba(255,255,255,0.1); 
     }
     
     .more-icon { 
@@ -634,23 +503,6 @@
       text-align: center;
       border: 1px solid var(--glass-border);
       transition: transform 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--primary-light));
-    }
-    
-    .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--hover-shadow);
     }
     
     .stat-card:active {
@@ -751,23 +603,6 @@
       transition: all 0.3s ease; 
       margin-bottom: 10px; 
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn:hover::before {
-      left: 100%;
     }
     
     .btn:active {
@@ -777,11 +612,6 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--secondary), #6a8bc8); 
       color: white; 
-      box-shadow: 0 4px 15px rgba(123, 154, 204, 0.3);
-    }
-    
-    .btn-primary:hover {
-      box-shadow: 0 6px 20px rgba(123, 154, 204, 0.4);
     }
     
     .btn-primary:disabled {
@@ -789,27 +619,16 @@
       color: #bdc3c7;
       cursor: not-allowed;
       transform: none;
-      box-shadow: none;
     }
     
     .btn-accent {
       background: linear-gradient(135deg, var(--accent), #8e7ab8); 
       color: white; 
-      box-shadow: 0 4px 15px rgba(159, 139, 194, 0.3);
-    }
-    
-    .btn-accent:hover {
-      box-shadow: 0 6px 20px rgba(159, 139, 194, 0.4);
     }
     
     .btn-danger {
       background: linear-gradient(135deg, var(--danger), #b85c5c); 
       color: white; 
-      box-shadow: 0 4px 15px rgba(196, 108, 108, 0.3);
-    }
-    
-    .btn-danger:hover {
-      box-shadow: 0 6px 20px rgba(196, 108, 108, 0.4);
     }
     
     .toast { 
@@ -830,7 +649,6 @@
       font-size: 14px;
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
     .toast.show { 
@@ -842,58 +660,18 @@
       margin-top: 10px;
       color: var(--primary);
       font-weight: 600;
-      text-align: center;
     }
     
-    /* Анимированный фон с прозрачными пузырьками */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.15; /* Увеличена прозрачность */
-    }
-    
-    .bg-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--primary), transparent);
-      animation: float 15s infinite linear;
-      opacity: 0.3; /* Увеличена прозрачность пузырьков */
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(0) translateX(0);
-      }
-      25% {
-        transform: translateY(-20px) translateX(10px);
-      }
-      50% {
-        transform: translateY(-40px) translateX(20px);
-      }
-      75% {
-        transform: translateY(-20px) translateX(10px);
-      }
-      100% {
-        transform: translateY(0) translateX(0);
-      }
-    }
-    
-    /* Адаптивность для телефонов */
-    @media (max-width: 480px) {
-      .frog { 
-        width: 240px; 
-        height: 240px; 
-        font-size: 160px; 
-      }
-      
+    @media (max-width: 380px) {
       .click-count {
         font-size: 32px;
         padding: 16px 25px;
-        margin-bottom: 20px;
+      }
+      
+      .frog {
+        width: 180px;
+        height: 180px;
+        font-size: 100px;
       }
       
       .more-grid {
@@ -908,7 +686,6 @@
       
       .modal-content {
         padding: 20px;
-        max-width: 340px;
       }
       
       .stats-chart {
@@ -919,54 +696,10 @@
       .chart-label {
         font-size: 8px;
       }
-      
-      .bottom-nav {
-        height: 70px;
-        padding: 12px 0;
-      }
-    }
-    
-    @media (max-width: 380px) {
-      .frog { 
-        width: 220px; 
-        height: 220px; 
-        font-size: 140px; 
-      }
-      
-      .click-count {
-        font-size: 28px;
-        padding: 14px 20px;
-      }
-      
-      .modal-content {
-        padding: 15px;
-        max-width: 300px;
-      }
-      
-      .nav-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-    }
-    
-    @media (max-height: 700px) {
-      .frog { 
-        width: 200px; 
-        height: 200px; 
-        font-size: 120px; 
-      }
-      
-      .click-count {
-        margin-bottom: 15px;
-      }
     }
   </style>
 </head>
 <body class="dark-theme">
-  <!-- Анимированный фон с прозрачными пузырьками -->
-  <div class="bg-animation" id="bg-animation"></div>
-  
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
       ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
@@ -1008,7 +741,7 @@
       <div class="settings-group">
         <label class="settings-label">Theme</label>
         <select class="settings-select" id="theme-select">
-          <option value="dark">Dark Mode</option>
+          <option value="dark" selected>Dark Mode</option>
           <option value="light">Light Mode</option>
         </select>
       </div>
@@ -1213,43 +946,6 @@
       startGameLoop();
       checkBanStatus();
       updateRewardTimer();
-      createBackgroundAnimation();
-    }
-    
-    // Создание анимированного фона с прозрачными пузырьками
-    function createBackgroundAnimation() {
-      const bgAnimation = document.getElementById('bg-animation');
-      const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
-      
-      for (let i = 0; i < 15; i++) {
-        const circle = document.createElement('div');
-        circle.className = 'bg-circle';
-        
-        // Случайный размер
-        const size = Math.random() * 100 + 20;
-        circle.style.width = `${size}px`;
-        circle.style.height = `${size}px`;
-        
-        // Случайная позиция
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        circle.style.left = `${left}%`;
-        circle.style.top = `${top}%`;
-        
-        // Случайный цвет
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        circle.style.background = `radial-gradient(circle, ${color}, transparent)`;
-        
-        // Случайная длительность анимации
-        const duration = 15 + Math.random() * 15;
-        circle.style.animationDuration = `${duration}s`;
-        
-        // Случайная задержка
-        const delay = Math.random() * 15;
-        circle.style.animationDelay = `${delay}s`;
-        
-        bgAnimation.appendChild(circle);
-      }
     }
     
     // Load game data from localStorage
@@ -1259,17 +955,12 @@
       const savedUsedPromoCodes = localStorage.getItem('cvaptaUsedPromoCodes');
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
       const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
-      const savedTheme = localStorage.getItem('cvaptaTheme');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
       if (savedUsedPromoCodes) usedPromoCodes = JSON.parse(savedUsedPromoCodes);
       if (savedClickHistory) clickHistory = JSON.parse(savedClickHistory);
       if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
-      if (savedTheme) {
-        themeSelect.value = savedTheme;
-        handleThemeChange();
-      }
     }
     
     // Save game data to localStorage
@@ -1279,7 +970,6 @@
       localStorage.setItem('cvaptaUsedPromoCodes', JSON.stringify(usedPromoCodes));
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
       localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
-      localStorage.setItem('cvaptaTheme', themeSelect.value);
     }
     
     // Update UI elements
@@ -1852,8 +1542,6 @@
         bodyElement.classList.add('dark-theme');
         bodyElement.classList.remove('light-theme');
       }
-      
-      saveGameData();
     }
 
     // Anti-cheat functions

@@ -7,22 +7,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #6b8e23;
-      --primary-dark: #556b2f;
-      --primary-light: #8db446;
-      --secondary: #7b9acc;
-      --accent: #9f8bc2;
-      --danger: #c46c6c;
-      --warning: #d2b48c;
-      --yellow: #d4af37;
+      --primary: #27ae60;
+      --primary-dark: #219653;
+      --primary-light: #2ecc71;
+      --secondary: #3498db;
+      --accent: #9b59b6;
+      --danger: #e74c3c;
+      --warning: #f39c12;
+      --yellow: #f1c40f;
       --glass-bg: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.12);
-      --text-light: #f5f5f5;
-      --text-dark: #2f4f2f;
-      --bg-dark: radial-gradient(circle at top, #1a2f1a 0%, #1e351e 50%, #152715 100%);
-      --bg-light: radial-gradient(circle at top, #f8fbf8 0%, #f0f7f0 50%, #e8f3e8 100%);
-      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      --hover-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      --text-light: #ecf0f1;
+      --text-dark: #2c3e50;
+      --bg-dark: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+      --bg-light: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     }
     
     * { 
@@ -40,11 +40,11 @@
       overflow: hidden; 
       display: flex; 
       flex-direction: column; 
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; 
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
-      transition: all 0.5s ease;
+      transition: all 0.4s ease;
     }
     
     body.light-theme { 
@@ -59,14 +59,16 @@
     body.light-theme .more-item,
     body.light-theme .stat-card,
     body.light-theme .stats-chart {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.95);
       border-color: rgba(0, 0, 0, 0.1);
       color: var(--text-dark);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
     
     body.light-theme .bottom-nav {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.98);
       border-top-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
     }
     
     body.light-theme .modal {
@@ -74,8 +76,7 @@
     }
     
     body.light-theme .modal-content {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-dark);
+      background: rgba(255, 255, 255, 0.98);
     }
     
     body.light-theme .modal-header {
@@ -95,159 +96,15 @@
       color: var(--primary);
     }
     
-    body.light-theme .nav-icon {
-      background: rgba(0, 0, 0, 0.05);
-    }
-    
-    body.light-theme .more-item {
-      background: rgba(255, 255, 255, 0.7);
-    }
-    
-    body.light-theme .stat-card {
-      background: rgba(255, 255, 255, 0.7);
-    }
-    
-    body.light-theme .stats-chart {
-      background: rgba(255, 255, 255, 0.7);
+    body.light-theme .daily-reward-banner {
+      background: rgba(52, 152, 219, 0.1);
+      border-color: rgba(52, 152, 219, 0.2);
     }
     
     body.light-theme .toast {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       color: var(--text-dark);
       border-color: rgba(0, 0, 0, 0.1);
-    }
-
-    /* Стили для режима носков */
-    body.sock-mode {
-      background: linear-gradient(135deg, #808080, #696969, #505050) !important;
-      color: #333 !important;
-    }
-    
-    body.sock-mode .click-count,
-    body.sock-mode .nav-icon,
-    body.sock-mode .modal-content,
-    body.sock-mode .settings-select,
-    body.sock-mode .more-item,
-    body.sock-mode .stat-card,
-    body.sock-mode .stats-chart {
-      background: rgba(255, 255, 255, 0.7) !important;
-      border-color: rgba(0, 0, 0, 0.2) !important;
-      color: #333 !important;
-    }
-    
-    body.sock-mode .bottom-nav {
-      background: rgba(255, 255, 255, 0.8) !important;
-    }
-    
-    .falling-sock {
-      position: fixed;
-      font-size: 24px;
-      z-index: 9999;
-      pointer-events: none;
-      user-select: none;
-      animation: fall linear forwards;
-    }
-    
-    .green-circle {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, #00ff00, #00cc00);
-      border-radius: 50%;
-      z-index: 10000;
-      cursor: pointer;
-      box-shadow: 0 0 15px #00ff00;
-      animation: pulse 1.5s infinite alternate;
-    }
-    
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-    
-    @keyframes pulse {
-      from {
-        transform: scale(1);
-        box-shadow: 0 0 15px #00ff00;
-      }
-      to {
-        transform: scale(1.1);
-        box-shadow: 0 0 25px #00ff00;
-      }
-    }
-    
-    .secret-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      font-weight: bold;
-      color: #00ff00;
-      text-shadow: 0 0 10px #000;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 10001;
-      text-align: center;
-      animation: messagePulse 2s infinite;
-    }
-    
-    @keyframes messagePulse {
-      0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.05);
-      }
-    }
-
-    .anti-cheat-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #8b4513, #a0522d);
-      z-index: 10000;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(20px);
-    }
-
-    .anti-cheat-overlay.active {
-      display: flex;
-      animation: alarmPulse 0.5s infinite alternate;
-    }
-
-    @keyframes alarmPulse {
-      0% { background: linear-gradient(45deg, #8b4513, #a0522d); }
-      100% { background: linear-gradient(45deg, #a0522d, #8b4513); }
-    }
-
-    .anti-cheat-message {
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      color: #fff;
-    }
-
-    .cheater-detected {
-      font-size: 28px;
-      color: white;
-      font-weight: 900;
-      text-align: center;
-    }
-
-    .ban-timer {
-      font-size: 20px;
-      margin-top: 20px;
-      color: white;
     }
     
     .main-content { 
@@ -256,47 +113,26 @@
       flex-direction: column; 
       align-items: center; 
       justify-content: center; 
-      padding: 20px;
+      padding: 10px 16px;
       position: relative;
     }
     
+    /* Уменьшенный счетчик кликов */
     .click-count { 
-      font-size: 36px; 
+      font-size: clamp(32px, 10vw, 48px); /* Уменьшено */
       font-weight: 700; 
-      margin-bottom: 30px; 
+      margin-bottom: 15px; 
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      padding: 18px 30px; 
+      backdrop-filter: blur(12px);
+      padding: 16px 28px; /* Уменьшено */
       border-radius: 20px; 
       border: 1px solid var(--glass-border);
       color: inherit; 
       box-shadow: var(--card-shadow); 
       text-align: center;
-      width: 90%;
-      max-width: 300px;
-      transition: all 0.3s ease;
-      font-family: 'SF Pro Display', -apple-system, sans-serif;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .click-count::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
-    }
-    
-    .click-count.animate::before {
-      left: 100%;
-    }
-    
-    .click-count.animate { 
-      transform: scale(1.05);
+      width: min(90%, 320px);
+      transition: all 0.2s ease;
+      line-height: 1.1;
     }
     
     .frog-container { 
@@ -304,60 +140,60 @@
       margin: 10px 0 20px; 
     }
     
+    /* Лягушка */
     .frog { 
-      width: 280px; 
-      height: 280px; 
+      width: min(280px, 70vw); 
+      height: min(280px, 70vw); 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       cursor: pointer; 
-      font-size: 180px; 
+      font-size: min(160px, 40vw); 
       animation: breathe 4s infinite ease-in-out; 
       position: relative;
       z-index: 2;
       transition: transform 0.1s ease;
-      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
     }
     
     @keyframes breathe { 
       0%, 100% { transform: scale(1); } 
-      50% { transform: scale(1.05); } 
+      50% { transform: scale(1.04); } 
     }
     
     .frog:active { 
-      transform: scale(0.9); 
+      transform: scale(0.96); 
     }
 
     .click-effect { 
       position: absolute; 
-      width: 70px; 
-      height: 70px; 
-      background: radial-gradient(circle, rgba(107, 142, 35, 0.4) 0%, transparent 70%); 
+      width: 80px; 
+      height: 80px; 
+      background: radial-gradient(circle, rgba(39, 174, 96, 0.3) 0%, transparent 70%); 
       border-radius: 50%; 
       pointer-events: none; 
-      animation: ripple 0.6s ease-out; 
+      animation: ripple 0.4s ease-out; 
       z-index: 3;
     }
     
     @keyframes ripple { 
-      from { transform: scale(0.3); opacity: 1; } 
-      to { transform: scale(2); opacity: 0; } 
+      0% { transform: scale(0.3); opacity: 1; } 
+      100% { transform: scale(2.0); opacity: 0; } 
     }
     
     .floating-text { 
       position: absolute; 
-      color: var(--primary); 
+      color: var(--primary-light); 
       font-weight: 700; 
-      font-size: 22px; 
+      font-size: clamp(20px, 6vw, 28px); 
       pointer-events: none; 
-      animation: floatUp 1.2s ease-out forwards; 
-      text-shadow: 0 1px 5px rgba(0,0,0,0.3); 
+      animation: floatUp 0.8s ease-out forwards; 
       z-index: 4;
     }
     
     @keyframes floatUp { 
-      from { transform: translateY(0) scale(1); opacity: 1; } 
-      to { transform: translateY(-80px) scale(1.2); opacity: 0; } 
+      0% { transform: translateY(0) scale(1); opacity: 1; } 
+      100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
     }
     
     .bottom-nav { 
@@ -366,29 +202,24 @@
       background: rgba(255,255,255,0.06); 
       backdrop-filter: blur(15px);
       border-top: 1px solid var(--glass-border); 
-      padding: 15px 0; 
-      height: 80px; 
+      padding: 12px 0; 
+      height: 70px; 
       z-index: 10;
-      border-radius: 25px 25px 0 0;
-      margin: 0 10px;
-      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+      margin: 0 12px 8px;
+      border-radius: 20px;
     }
     
     .nav-item { 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
-      font-size: 12px; 
-      color: #b8c4b8; 
+      font-size: 11px; 
+      color: #bdc3c7; 
       cursor: pointer; 
-      transition: all 0.3s ease; 
+      transition: all 0.2s ease; 
       flex: 1; 
-      padding: 5px;
+      padding: 4px;
       border-radius: 12px;
-    }
-    
-    .nav-item:hover {
-      background: rgba(255, 255, 255, 0.05);
     }
     
     .nav-item.active { 
@@ -396,24 +227,21 @@
     }
     
     .nav-icon { 
-      font-size: 20px; 
-      margin-bottom: 6px; 
-      width: 48px; 
-      height: 48px; 
+      font-size: 16px; 
+      margin-bottom: 4px; 
+      width: 40px; 
+      height: 40px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
       background: var(--glass-bg);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-      transition: all 0.3s ease; 
+      transition: all 0.2s ease; 
     }
     
     .nav-item.active .nav-icon { 
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+      background: var(--primary); 
       color: white; 
-      transform: scale(1.05); 
-      box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
     }
     
     .modal { 
@@ -422,7 +250,7 @@
       left: 0; 
       width: 100%; 
       height: 100%; 
-      background: rgba(0,0,0,0.6); 
+      background: rgba(0,0,0,0.5); 
       display: flex; 
       align-items: center; 
       justify-content: center; 
@@ -430,8 +258,7 @@
       pointer-events: none; 
       transition: opacity 0.3s ease; 
       z-index: 1000; 
-      padding: 20px;
-      backdrop-filter: blur(5px);
+      padding: 16px;
     }
     
     .modal.active { 
@@ -440,20 +267,19 @@
     }
     
     .modal-content { 
-      background: rgba(40, 50, 40, 0.9); 
+      background: rgba(44, 62, 80, 0.95); 
       backdrop-filter: blur(20px);
-      border-radius: 25px; 
-      padding: 25px; 
+      border-radius: 20px; 
+      padding: 20px; 
       width: 100%; 
-      max-width: 380px; 
+      max-width: min(360px, 94vw); 
       max-height: 80vh; 
       overflow-y: auto; 
       border: 1px solid var(--glass-border);
       box-shadow: var(--card-shadow); 
-      transform: translateY(30px) scale(0.95); 
+      transform: translateY(20px) scale(0.98); 
       transition: transform 0.3s ease; 
       color: var(--text-light); 
-      position: relative;
     }
     
     .modal.active .modal-content { 
@@ -465,118 +291,57 @@
       justify-content: space-between; 
       align-items: center; 
       margin-bottom: 20px; 
-      border-bottom: 1px solid var(--glass-border); 
       padding-bottom: 12px; 
+      border-bottom: 1px solid var(--glass-border);
     }
     
     .modal-title { 
-      font-size: 20px; 
-      font-weight: 700; 
+      font-size: 18px; 
+      font-weight: 600; 
       color: var(--primary);
-      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     
     .modal-close { 
       border: none; 
       background: var(--glass-bg);
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px; 
+      font-size: 16px; 
       cursor: pointer; 
-      color: #a8b8a8; 
-      transition: all 0.3s ease;
+      color: #95a5a6; 
     }
     
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: rotate(90deg);
-    }
-    
-    .settings-group {
-      margin-bottom: 18px;
-    }
-    
-    .settings-label { 
-      font-weight: 600; 
-      margin-bottom: 6px; 
-      display: block; 
-      font-size: 14px;
-      color: var(--text-light);
-      opacity: 0.9;
-    }
-    
-    .settings-select { 
-      width: 100%; 
-      padding: 12px; 
-      border-radius: 12px; 
-      border: 1px solid var(--glass-border); 
-      background: var(--glass-bg);
-      color: inherit; 
-      font-size: 14px; 
-      transition: all 0.3s ease;
-    }
-    
-    .settings-select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(107, 142, 35, 0.2);
-    }
-    
-    /* Новая горизонтальная кнопка ежедневной награды */
     .daily-reward-banner {
       display: flex;
       align-items: center;
       background: var(--glass-bg);
       border-radius: 16px;
-      padding: 15px;
+      padding: 16px;
       margin-bottom: 20px;
       border: 1px solid var(--glass-border);
       cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.2s ease;
     }
     
-    .daily-reward-banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(123, 154, 204, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .daily-reward-banner:hover::before {
-      opacity: 1;
-    }
-    
-    .daily-reward-banner:hover { 
-      transform: translateY(-3px); 
-      box-shadow: var(--hover-shadow);
-    }
-    
-    .daily-reward-banner:active { 
-      transform: scale(0.98); 
+    .daily-reward-banner:active {
+      transform: scale(0.98);
     }
     
     .daily-reward-icon { 
-      font-size: 24px; 
-      width: 50px; 
-      height: 50px; 
+      font-size: 20px; 
+      width: 44px; 
+      height: 44px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
-      background: rgba(123, 154, 204, 0.1);
+      background: rgba(52, 152, 219, 0.1);
       color: var(--secondary);
-      margin-right: 15px;
+      margin-right: 14px;
       flex-shrink: 0;
     }
     
@@ -586,7 +351,7 @@
     
     .daily-reward-title { 
       font-weight: 600; 
-      font-size: 16px; 
+      font-size: 15px; 
       margin-bottom: 4px; 
     }
     
@@ -597,7 +362,7 @@
     
     .daily-reward-timer {
       font-size: 11px;
-      margin-top: 5px;
+      margin-top: 4px;
       color: var(--primary);
       font-weight: 600;
     }
@@ -611,60 +376,37 @@
     
     .more-item { 
       background: var(--glass-bg);
-      border-radius: 16px; 
-      padding: 16px; 
+      border-radius: 14px; 
+      padding: 16px 12px; 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
       text-align: center; 
       cursor: pointer; 
-      transition: all 0.3s ease; 
+      transition: all 0.2s ease; 
       border: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
     }
     
-    .more-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .more-item:hover::before {
-      opacity: 1;
-    }
-    
-    .more-item:hover { 
-      transform: translateY(-5px); 
-      box-shadow: var(--hover-shadow);
-    }
-    
-    .more-item:active { 
-      transform: scale(0.98); 
+    .more-item:active {
+      transform: scale(0.96);
     }
     
     .more-icon { 
-      font-size: 22px; 
+      font-size: 18px; 
       margin-bottom: 8px; 
-      width: 48px; 
-      height: 48px; 
+      width: 44px; 
+      height: 44px; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
       background: var(--glass-bg);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
     
     .more-title { 
       font-weight: 600; 
-      font-size: 14px; 
+      font-size: 13px; 
       margin-bottom: 4px; 
     }
     
@@ -675,24 +417,79 @@
     
     .promo-code-item .more-icon { 
       color: var(--accent); 
-      background: rgba(159, 139, 194, 0.1); 
+      background: rgba(155, 89, 182, 0.1); 
     }
     
     .stats-item .more-icon { 
       color: var(--primary); 
-      background: rgba(107, 142, 35, 0.1); 
+      background: rgba(39, 174, 96, 0.1); 
     }
     
     .yellow-item .more-icon { 
       color: var(--yellow); 
-      background: rgba(212, 175, 55, 0.1); 
+      background: rgba(241, 196, 15, 0.1); 
     }
     
     .reset-item .more-icon { 
       color: var(--danger); 
-      background: rgba(196, 108, 108, 0.1); 
+      background: rgba(231, 76, 60, 0.1); 
     }
 
+    .btn {
+      width: 100%; 
+      padding: 14px; 
+      border-radius: 14px; 
+      border: none; 
+      font-size: 15px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      margin-bottom: 12px; 
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-primary {
+      background: var(--secondary); 
+      color: white; 
+    }
+    
+    .btn-primary:disabled {
+      background: #95a5a6;
+      color: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-accent {
+      background: var(--accent); 
+      color: white; 
+    }
+    
+    .settings-select { 
+      width: 100%; 
+      padding: 12px; 
+      border-radius: 12px; 
+      border: 1px solid var(--glass-border); 
+      background: var(--glass-bg);
+      color: inherit; 
+      font-size: 14px; 
+    }
+    
+    .reward-timer {
+      font-size: 13px;
+      margin-top: 12px;
+      color: var(--primary);
+      font-weight: 600;
+      text-align: center;
+      padding: 8px;
+      background: rgba(39, 174, 96, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Statistics Styles */
     .stats-section {
       margin-bottom: 0;
     }
@@ -710,32 +507,10 @@
       padding: 15px;
       text-align: center;
       border: 1px solid var(--glass-border);
-      transition: transform 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--primary-light));
-    }
-    
-    .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--hover-shadow);
-    }
-    
-    .stat-card:active {
-      transform: scale(0.98);
     }
     
     .stat-value {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       margin: 5px 0;
       color: var(--primary);
@@ -747,17 +522,16 @@
     }
 
     .stats-chart {
-      height: 140px;
+      height: 120px;
       background: var(--glass-bg);
       border-radius: 12px;
       margin-bottom: 15px;
-      padding: 15px 10px 5px 10px;
+      padding: 12px 8px 5px 8px;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 4px;
       border: 1px solid var(--glass-border);
-      position: relative;
     }
     
     .chart-bar-container {
@@ -771,22 +545,9 @@
     .chart-bar {
       width: 100%;
       background: linear-gradient(to top, var(--primary), var(--primary-dark));
-      border-radius: 3px 3px 0 0;
+      border-radius: 4px 4px 0 0;
       transition: height 0.5s ease;
       min-height: 2px;
-      position: relative;
-      flex-shrink: 0;
-    }
-    
-    .chart-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 15px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
-      border-radius: 3px 3px 0 0;
     }
     
     .chart-label {
@@ -794,298 +555,101 @@
       margin-top: 4px;
       opacity: 0.7;
       text-align: center;
-      line-height: 1;
-    }
-    
-    .chart-value {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--primary);
-      background: rgba(0,0,0,0.7);
-      padding: 2px 4px;
-      border-radius: 3px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    
-    .chart-bar-container:hover .chart-value {
-      opacity: 1;
-    }
-    
-    .btn {
-      width: 100%; 
-      padding: 14px; 
-      border-radius: 14px; 
-      border: none; 
-      font-size: 15px; 
-      font-weight: 600; 
-      cursor: pointer; 
-      transition: all 0.3s ease; 
-      margin-bottom: 10px; 
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn:hover::before {
-      left: 100%;
-    }
-    
-    .btn:active {
-      transform: scale(0.98);
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--secondary), #6a8bc8); 
-      color: white; 
-      box-shadow: 0 4px 15px rgba(123, 154, 204, 0.3);
-    }
-    
-    .btn-primary:hover {
-      box-shadow: 0 6px 20px rgba(123, 154, 204, 0.4);
-    }
-    
-    .btn-primary:disabled {
-      background: #95a5a6;
-      color: #bdc3c7;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-    
-    .btn-accent {
-      background: linear-gradient(135deg, var(--accent), #8e7ab8); 
-      color: white; 
-      box-shadow: 0 4px 15px rgba(159, 139, 194, 0.3);
-    }
-    
-    .btn-accent:hover {
-      box-shadow: 0 6px 20px rgba(159, 139, 194, 0.4);
-    }
-    
-    .btn-danger {
-      background: linear-gradient(135deg, var(--danger), #b85c5c); 
-      color: white; 
-      box-shadow: 0 4px 15px rgba(196, 108, 108, 0.3);
-    }
-    
-    .btn-danger:hover {
-      box-shadow: 0 6px 20px rgba(196, 108, 108, 0.4);
     }
     
     .toast { 
       position: fixed; 
-      bottom: 100px; 
+      bottom: 90px; 
       left: 50%; 
       transform: translateX(-50%); 
-      background: rgba(40, 50, 40, 0.9); 
+      background: rgba(44, 62, 80, 0.95); 
       color: white; 
       padding: 12px 20px; 
       border-radius: 10px; 
       z-index: 1000; 
       opacity: 0; 
       transition: opacity 0.3s ease; 
-      max-width: 80%;
+      max-width: 85%;
       text-align: center;
       font-weight: 600;
       font-size: 14px;
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
     .toast.show { 
       opacity: 1; 
     }
 
-    .reward-timer {
-      font-size: 14px;
-      margin-top: 10px;
-      color: var(--primary);
-      font-weight: 600;
-      text-align: center;
-    }
-    
-    /* Анимированный фон с прозрачными пузырьками */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.15; /* Увеличена прозрачность */
-    }
-    
-    .bg-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--primary), transparent);
-      animation: float 15s infinite linear;
-      opacity: 0.3; /* Увеличена прозрачность пузырьков */
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(0) translateX(0);
-      }
-      25% {
-        transform: translateY(-20px) translateX(10px);
-      }
-      50% {
-        transform: translateY(-40px) translateX(20px);
-      }
-      75% {
-        transform: translateY(-20px) translateX(10px);
-      }
-      100% {
-        transform: translateY(0) translateX(0);
-      }
-    }
-    
-    /* Адаптивность для телефонов */
+    /* Оптимизация для мобильных */
     @media (max-width: 480px) {
       .frog { 
-        width: 200px; 
-        height: 200px; 
-        font-size: 140px; 
+        width: min(240px, 60vw); 
+        height: min(240px, 60vw); 
+        font-size: min(140px, 35vw); 
       }
       
       .click-count {
-        font-size: 28px;
-        padding: 14px 20px;
-        margin-bottom: 20px;
+        font-size: clamp(28px, 8vw, 40px);
+        padding: 14px 24px;
+        margin-bottom: 12px;
       }
       
       .more-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
       }
       
-      .nav-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-      }
-      
-      .modal-content {
-        padding: 20px;
-        max-width: 340px;
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
       }
       
       .stats-chart {
-        height: 120px;
-        padding: 12px 8px 3px 8px;
-      }
-      
-      .chart-label {
-        font-size: 8px;
-      }
-      
-      .bottom-nav {
-        height: 70px;
-        padding: 12px 0;
-      }
-      
-      .daily-reward-banner {
-        padding: 12px;
-      }
-      
-      .daily-reward-icon {
-        width: 44px;
-        height: 44px;
-        font-size: 20px;
-        margin-right: 12px;
+        height: 100px;
+        padding: 10px 6px 3px 6px;
       }
     }
     
     @media (max-width: 380px) {
       .frog { 
-        width: 180px; 
-        height: 180px; 
-        font-size: 120px; 
+        width: min(200px, 50vw); 
+        height: min(200px, 50vw); 
+        font-size: min(120px, 30vw); 
       }
       
       .click-count {
-        font-size: 24px;
-        padding: 12px 16px;
+        font-size: clamp(24px, 7vw, 36px);
+        padding: 12px 20px;
       }
       
       .modal-content {
-        padding: 15px;
-        max-width: 300px;
-      }
-      
-      .nav-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
-      }
-      
-      .daily-reward-banner {
-        padding: 10px;
-      }
-      
-      .daily-reward-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        margin-right: 10px;
-      }
-      
-      .daily-reward-title {
-        font-size: 14px;
-      }
-      
-      .daily-reward-desc {
-        font-size: 11px;
+        padding: 16px;
       }
     }
     
     @media (max-height: 700px) {
       .frog { 
-        width: 180px; 
-        height: 180px; 
-        font-size: 120px; 
+        width: min(180px, 45vw); 
+        height: min(180px, 45vw); 
+        font-size: min(100px, 25vw); 
       }
       
       .click-count {
-        margin-bottom: 15px;
+        margin-bottom: 8px;
+      }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body class="dark-theme">
-  <!-- Анимированный фон с прозрачными пузырьками -->
-  <div class="bg-animation" id="bg-animation"></div>
-  
-  <div class="anti-cheat-overlay" id="anti-cheat-overlay">
-    <div class="anti-cheat-message" id="anti-cheat-message">
-      ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
-    </div>
-    <div class="cheater-detected" id="cheater-detected" style="display: none;">
-      CHEATER DETECTED!
-    </div>
-    <div class="ban-timer" id="ban-timer" style="display: none;">
-      Ban time remaining: <span id="ban-time">30:00</span>
-    </div>
-  </div>
-
   <div class="main-content">
     <div class="click-count" id="click-count">0</div>
     
@@ -1130,7 +694,6 @@
         <button class="modal-close" id="close-more">×</button>
       </div>
       
-      <!-- Новая горизонтальная кнопка ежедневной награды -->
       <div class="daily-reward-banner" id="daily-reward-banner">
         <div class="daily-reward-icon"><i class="fas fa-gift"></i></div>
         <div class="daily-reward-content">
@@ -1153,7 +716,6 @@
           <div class="more-desc">View your progress</div>
         </div>
         
-        <!-- Новая кнопка 777 -->
         <div class="more-item yellow-item" id="yellow-item">
           <div class="more-icon"><i class="fas fa-coins"></i></div>
           <div class="more-title">777</div>
@@ -1169,7 +731,7 @@
     </div>
   </div>
 
-  <!-- Daily Reward Submodal -->
+  <!-- Daily Reward Modal -->
   <div class="modal" id="daily-reward-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1184,7 +746,7 @@
     </div>
   </div>
 
-  <!-- Promo Code Submodal -->
+  <!-- Promo Code Modal -->
   <div class="modal" id="promo-code-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1199,7 +761,7 @@
     </div>
   </div>
 
-  <!-- Statistics Submodal -->
+  <!-- Statistics Modal -->
   <div class="modal" id="stats-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1232,7 +794,7 @@
     </div>
   </div>
 
-  <!-- Reset Progress Submodal -->
+  <!-- Reset Progress Modal -->
   <div class="modal" id="reset-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1252,9 +814,10 @@
   <script>
     // Game State
     let clicks = 0;
-    let clickTimestamps = [];
     let lastDailyReward = 0;
     let usedPromoCodes = [];
+    let activeEffects = 0;
+    const MAX_EFFECTS = 3;
     let sessionStartTime = Date.now();
     let totalSessionClicks = 0;
     let clickHistory = {
@@ -1262,28 +825,11 @@
       weekly: {},
       monthly: {}
     };
-    
-    // Античит система
-    const MAX_CPS = 13;
-    let antiCheatActive = false;
-    let cheatDetectionCount = 0;
-    let isBanned = false;
-    let banEndTime = 0;
-    
+
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
     const bodyElement = document.body;
-    const dailyRewardBtn = document.getElementById('daily-reward-btn');
-    const rewardTimerElement = document.getElementById('reward-timer');
-    const dailyRewardTimerElement = document.getElementById('daily-reward-timer');
-    
-    // Античит элементы
-    const antiCheatOverlay = document.getElementById('anti-cheat-overlay');
-    const antiCheatMessage = document.getElementById('anti-cheat-message');
-    const cheaterDetected = document.getElementById('cheater-detected');
-    const banTimer = document.getElementById('ban-timer');
-    const banTimeElement = document.getElementById('ban-time');
 
     // Modals
     const settingsModal = document.getElementById('settings-modal');
@@ -1292,7 +838,7 @@
     const promoCodeModal = document.getElementById('promo-code-modal');
     const statsModal = document.getElementById('stats-modal');
     const resetModal = document.getElementById('reset-modal');
-    
+
     // Buttons
     const settingsBtn = document.getElementById('settings-btn');
     const moreBtn = document.getElementById('more-btn');
@@ -1302,122 +848,82 @@
     const closePromo = document.getElementById('close-promo');
     const closeStats = document.getElementById('close-stats');
     const closeReset = document.getElementById('close-reset');
+    const dailyRewardBtn = document.getElementById('daily-reward-btn');
     const promoBtn = document.getElementById('promo-btn');
     const resetBtn = document.getElementById('reset-btn');
     const dailyRewardBanner = document.getElementById('daily-reward-banner');
     const yellowItem = document.getElementById('yellow-item');
-    
-    // Settings Elements
-    const themeSelect = document.getElementById('theme-select');
-    
-    // More Items
     const promoCodeItem = document.getElementById('promo-code-item');
     const statsItem = document.getElementById('stats-item');
     const resetItem = document.getElementById('reset-item');
-    
+
     // Statistics Elements
     const statTodayElement = document.getElementById('stat-today');
     const statWeekElement = document.getElementById('stat-week');
     const statMonthElement = document.getElementById('stat-month');
     const statAvgCPSElement = document.getElementById('stat-avg-cps');
     const statsChartElement = document.getElementById('stats-chart');
-    
+
+    // Timers
+    const dailyRewardTimerElement = document.getElementById('daily-reward-timer');
+    const rewardTimerElement = document.getElementById('reward-timer');
+
+    // Settings
+    const themeSelect = document.getElementById('theme-select');
+
     // Toast
     const toastElement = document.getElementById('toast');
-    
+
     // Initialize the game
     function initGame() {
       loadGameData();
       updateUI();
       setupEventListeners();
-      startGameLoop();
-      checkBanStatus();
-      updateRewardTimer();
-      updateDailyRewardBanner();
-      createBackgroundAnimation();
+      startTimerLoop();
     }
-    
-    // Создание анимированного фона с прозрачными пузырьками
-    function createBackgroundAnimation() {
-      const bgAnimation = document.getElementById('bg-animation');
-      const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
-      
-      for (let i = 0; i < 15; i++) {
-        const circle = document.createElement('div');
-        circle.className = 'bg-circle';
-        
-        // Случайный размер
-        const size = Math.random() * 100 + 20;
-        circle.style.width = `${size}px`;
-        circle.style.height = `${size}px`;
-        
-        // Случайная позиция
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        circle.style.left = `${left}%`;
-        circle.style.top = `${top}%`;
-        
-        // Случайный цвет
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        circle.style.background = `radial-gradient(circle, ${color}, transparent)`;
-        
-        // Случайная длительность анимации
-        const duration = 15 + Math.random() * 15;
-        circle.style.animationDuration = `${duration}s`;
-        
-        // Случайная задержка
-        const delay = Math.random() * 15;
-        circle.style.animationDelay = `${delay}s`;
-        
-        bgAnimation.appendChild(circle);
-      }
-    }
-    
-    // Load game data from localStorage
+
+    // Load game data
     function loadGameData() {
       const savedClicks = localStorage.getItem('cvaptaClicks');
       const savedLastDailyReward = localStorage.getItem('cvaptaLastDailyReward');
       const savedUsedPromoCodes = localStorage.getItem('cvaptaUsedPromoCodes');
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
-      const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
       const savedTheme = localStorage.getItem('cvaptaTheme');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
       if (savedUsedPromoCodes) usedPromoCodes = JSON.parse(savedUsedPromoCodes);
       if (savedClickHistory) clickHistory = JSON.parse(savedClickHistory);
-      if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
       if (savedTheme) {
         themeSelect.value = savedTheme;
         handleThemeChange();
       }
     }
-    
-    // Save game data to localStorage
+
+    // Save game data
     function saveGameData() {
       localStorage.setItem('cvaptaClicks', clicks.toString());
       localStorage.setItem('cvaptaLastDailyReward', lastDailyReward.toString());
       localStorage.setItem('cvaptaUsedPromoCodes', JSON.stringify(usedPromoCodes));
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
-      localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
       localStorage.setItem('cvaptaTheme', themeSelect.value);
     }
-    
-    // Update UI elements
+
+    // Update UI
     function updateUI() {
       clickCountElement.textContent = formatNumber(clicks);
       updateRewardButton();
-      updateDailyRewardBanner();
+      updateRewardTimers();
     }
-    
-    // Format large numbers with commas
+
+    // Format numbers
     function formatNumber(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    
+
     // Setup event listeners
     function setupEventListeners() {
-      // Frog click event
+      // Frog click
       frogElement.addEventListener('click', handleFrogClick);
       
       // Settings
@@ -1428,13 +934,11 @@
       moreBtn.addEventListener('click', () => toggleModal(moreModal));
       closeMore.addEventListener('click', () => toggleModal(moreModal));
       
-      // Daily reward banner
+      // Daily reward
       dailyRewardBanner.addEventListener('click', () => {
-        updateRewardTimer();
+        updateRewardTimers();
         toggleModal(dailyRewardModal);
       });
-      
-      // Daily reward
       closeDaily.addEventListener('click', () => toggleModal(dailyRewardModal));
       dailyRewardBtn.addEventListener('click', claimDailyReward);
       
@@ -1451,18 +955,18 @@
       });
       closeStats.addEventListener('click', () => toggleModal(statsModal));
       
+      // 777 Button
+      yellowItem.addEventListener('click', redirectToTelegram);
+      
       // Reset progress
       resetItem.addEventListener('click', () => toggleModal(resetModal));
       closeReset.addEventListener('click', () => toggleModal(resetModal));
       resetBtn.addEventListener('click', resetProgress);
       
-      // Новая кнопка 777
-      yellowItem.addEventListener('click', redirectToTelegram);
-      
-      // Settings changes
+      // Theme change
       themeSelect.addEventListener('change', handleThemeChange);
       
-      // Close modals when clicking outside
+      // Close modals on background click
       document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
           if (e.target === modal) {
@@ -1471,48 +975,24 @@
         });
       });
     }
-    
-    // Функция для перенаправления на Telegram
-    function redirectToTelegram() {
-      window.open('https://t.me/dsfzfghsfgh', '_blank');
-    }
-    
+
     // Handle frog click
     function handleFrogClick(e) {
-      if (isBanned) return;
-      
-      if (antiCheatActive) {
-        triggerBan(30 * 60 * 1000);
-        return;
-      }
-      
-      const now = Date.now();
-      clickTimestamps.push(now);
-      
-      clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
-      
-      if (clickTimestamps.length > MAX_CPS) {
-        cheatDetectionCount++;
-        
-        if (cheatDetectionCount >= 3) {
-          triggerAntiCheat();
-        } else {
-          showToast(`Warning: High CPS detected! (${clickTimestamps.length}/s)`);
-        }
-      } else {
-        if (cheatDetectionCount > 0) cheatDetectionCount--;
-      }
-      
       clicks++;
       totalSessionClicks++;
       
       updateClickHistory();
-      createClickEffect(e);
-      createFloatingText(e);
       updateUI();
+      
+      // Ограничение количества эффектов для оптимизации
+      if (activeEffects < MAX_EFFECTS) {
+        createClickEffect(e);
+        createFloatingText(e);
+      }
+      
       saveGameData();
     }
-    
+
     // Update click history
     function updateClickHistory() {
       const now = new Date();
@@ -1553,23 +1033,72 @@
       const d = new Date(date);
       return d.getFullYear() + '-' + (d.getMonth() + 1);
     }
-    
-    // Update reward button and timer
+
+    // Create click effect
+    function createClickEffect(e) {
+      activeEffects++;
+      
+      const rect = frogElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const effect = document.createElement('div');
+      effect.className = 'click-effect';
+      effect.style.left = `${x}px`;
+      effect.style.top = `${y}px`;
+      
+      frogElement.appendChild(effect);
+      
+      setTimeout(() => {
+        effect.remove();
+        activeEffects--;
+      }, 400);
+    }
+
+    // Create floating text
+    function createFloatingText(e) {
+      activeEffects++;
+      
+      const rect = frogElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const text = document.createElement('div');
+      text.className = 'floating-text';
+      text.textContent = '+1';
+      text.style.left = `${x}px`;
+      text.style.top = `${y}px`;
+      
+      frogElement.appendChild(text);
+      
+      setTimeout(() => {
+        text.remove();
+        activeEffects--;
+      }, 800);
+    }
+
+    // Toggle modal
+    function toggleModal(modal) {
+      modal.classList.toggle('active');
+    }
+
+    // Update reward button state
     function updateRewardButton() {
       const now = Date.now();
       const oneDay = 24 * 60 * 60 * 1000;
+      const canClaim = (now - lastDailyReward) >= oneDay;
       
-      if (now - lastDailyReward < oneDay) {
-        dailyRewardBtn.disabled = true;
-        dailyRewardBtn.textContent = 'Already Claimed';
-      } else {
-        dailyRewardBtn.disabled = false;
+      dailyRewardBtn.disabled = !canClaim;
+      
+      if (canClaim) {
         dailyRewardBtn.textContent = 'Claim 1000 Clicks';
+      } else {
+        dailyRewardBtn.textContent = 'Already Claimed';
       }
     }
-    
-    // Update reward timer
-    function updateRewardTimer() {
+
+    // Update reward timers
+    function updateRewardTimers() {
       const now = Date.now();
       const oneDay = 24 * 60 * 60 * 1000;
       const nextReward = lastDailyReward + oneDay;
@@ -1580,63 +1109,32 @@
         const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
         const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
         
+        // Timer в баннере
+        dailyRewardTimerElement.textContent = `Available in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Timer в модальном окне
         rewardTimerElement.textContent = `Next reward in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         rewardTimerElement.style.display = 'block';
       } else {
+        dailyRewardTimerElement.textContent = 'Available now!';
         rewardTimerElement.style.display = 'none';
       }
     }
-    
-    // Update daily reward banner
-    function updateDailyRewardBanner() {
-      const now = Date.now();
-      const oneDay = 24 * 60 * 60 * 1000;
-      const nextReward = lastDailyReward + oneDay;
-      
-      if (now < nextReward) {
-        const timeLeft = nextReward - now;
-        const hours = Math.floor(timeLeft / (60 * 60 * 1000));
-        const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
-        
-        dailyRewardTimerElement.textContent = `Available in: ${hours}h ${minutes}m`;
-        dailyRewardTimerElement.style.display = 'block';
-      } else {
-        dailyRewardTimerElement.textContent = 'Available now!';
-        dailyRewardTimerElement.style.display = 'block';
-      }
-    }
-    
-    // Calculate average CPS
-    function calculateAverageCPS() {
-      const sessionDuration = (Date.now() - sessionStartTime) / 1000;
-      if (sessionDuration > 0) {
-        return totalSessionClicks / sessionDuration;
-      }
-      return 0;
-    }
-    
-    // Start game loop
-    function startGameLoop() {
+
+    // Start timer loop
+    function startTimerLoop() {
       setInterval(() => {
-        const now = Date.now();
-        clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
-        updateRewardTimer();
-        updateDailyRewardBanner();
+        updateRewardTimers();
       }, 1000);
     }
-    
-    // Toggle modal
-    function toggleModal(modal) {
-      modal.classList.toggle('active');
-    }
-    
+
     // Claim daily reward
     function claimDailyReward() {
       const now = Date.now();
       const oneDay = 24 * 60 * 60 * 1000;
       
-      if (now - lastDailyReward < oneDay) {
-        showToast(`Daily reward already claimed!`);
+      if ((now - lastDailyReward) < oneDay) {
+        showToast('Daily reward already claimed!');
         return;
       }
       
@@ -1656,7 +1154,7 @@
       showToast('Daily reward claimed! +1000 clicks');
       toggleModal(dailyRewardModal);
     }
-    
+
     // Activate promo code
     function activatePromoCode() {
       const promoInput = document.getElementById('promo-input');
@@ -1674,6 +1172,7 @@
       
       let reward = 0;
       
+      // Basic promo codes
       switch(code) {
         case 'FROG250':
           reward = 250;
@@ -1684,16 +1183,9 @@
         case 'GREEN1000':
           reward = 1000;
           break;
-        case 'COMEBACK':
-          reward = 5000;
+        case 'WELCOME':
+          reward = 500;
           break;
-        case 'HOCKN':
-          // Активируем секретный режим носков
-          activateSockMode();
-          promoInput.value = '';
-          showToast('Secret mode activated!');
-          toggleModal(promoCodeModal);
-          return;
         default:
           showToast('Invalid promo code');
           return;
@@ -1716,199 +1208,6 @@
       showToast(`Promo code activated! +${reward} clicks`);
     }
 
-    // Новые функции для режима носков
-    function activateSockMode() {
-      // Добавляем класс для серого фона
-      document.body.classList.add('sock-mode');
-      
-      // Меняем лягушку на носок
-      frogElement.textContent = '🧦';
-      
-      // Запускаем музыку
-      playSockMusic();
-      
-      // Запускаем падающие носки
-      startFallingSocks();
-      
-      // Через 3 секунды добавляем зеленый кружок
-      setTimeout(addGreenCircle, 3000);
-    }
-    
-    function playSockMusic() {
-      // Создаем аудио элемент
-      const audio = new Audio();
-      audio.src = 'drd.mp3';
-      audio.loop = true;
-      audio.volume = 0.7;
-      
-      // Пытаемся воспроизвести (может потребоваться взаимодействие пользователя)
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log('Autoplay blocked, user interaction required');
-          // Показываем сообщение, что нужно кликнуть для воспроизведения
-          showToast('Click anywhere to start music');
-          document.body.addEventListener('click', function startMusicOnce() {
-            audio.play();
-            document.body.removeEventListener('click', startMusicOnce);
-          }, { once: true });
-        });
-      }
-      
-      // Сохраняем ссылку на audio для остановки позже
-      window.sockMusic = audio;
-    }
-    
-    function startFallingSocks() {
-      // Создаем падающие носки каждые 0.5 секунды
-      window.sockInterval = setInterval(createFallingSock, 500);
-    }
-    
-    function createFallingSock() {
-      const sock = document.createElement('div');
-      sock.className = 'falling-sock';
-      sock.textContent = '🧦';
-      
-      // Случайная позиция по горизонтали
-      const left = Math.random() * (window.innerWidth - 50);
-      sock.style.left = `${left}px`;
-      sock.style.top = '-50px';
-      
-      // Случайная длительность падения (3-8 секунд)
-      const duration = 3 + Math.random() * 5;
-      sock.style.animationDuration = `${duration}s`;
-      
-      // Случайный размер
-      const size = 20 + Math.random() * 30;
-      sock.style.fontSize = `${size}px`;
-      
-      document.body.appendChild(sock);
-      
-      // Удаляем носок после завершения анимации
-      setTimeout(() => {
-        if (sock.parentNode) {
-          sock.parentNode.removeChild(sock);
-        }
-      }, duration * 1000);
-    }
-    
-    function addGreenCircle() {
-      const circle = document.createElement('div');
-      circle.className = 'green-circle';
-      
-      // Случайная позиция
-      const left = Math.random() * (window.innerWidth - 50);
-      const top = Math.random() * (window.innerHeight - 50);
-      
-      circle.style.left = `${left}px`;
-      circle.style.top = `${top}px`;
-      
-      // Обработчик клика на зеленый кружок
-      circle.addEventListener('click', handleGreenCircleClick);
-      
-      document.body.appendChild(circle);
-      
-      // Сохраняем ссылку на кружок
-      window.greenCircle = circle;
-    }
-    
-    function handleGreenCircleClick() {
-      // Показываем секретное сообщение
-      showSecretMessage();
-      
-      // Удаляем зеленый кружок
-      if (window.greenCircle) {
-        window.greenCircle.remove();
-        window.greenCircle = null;
-      }
-      
-      // Останавливаем падающие носки
-      if (window.sockInterval) {
-        clearInterval(window.sockInterval);
-        window.sockInterval = null;
-      }
-      
-      // Удаляем все существующие носки
-      document.querySelectorAll('.falling-sock').forEach(sock => {
-        sock.remove();
-      });
-      
-      // Через 15 секунд возвращаем всё обратно
-      setTimeout(disableSockMode, 15000);
-    }
-    
-    function showSecretMessage() {
-      const message = document.createElement('div');
-      message.className = 'secret-message';
-      message.textContent = 'Загляни под матрас своей кровати';
-      
-      document.body.appendChild(message);
-      
-      // Сохраняем ссылку на сообщение
-      window.secretMessage = message;
-    }
-    
-    function disableSockMode() {
-      // Убираем серый фон
-      document.body.classList.remove('sock-mode');
-      
-      // Возвращаем лягушку
-      frogElement.textContent = '🐸';
-      
-      // Останавливаем музыку
-      if (window.sockMusic) {
-        window.sockMusic.pause();
-        window.sockMusic = null;
-      }
-      
-      // Убираем секретное сообщение
-      if (window.secretMessage) {
-        window.secretMessage.remove();
-        window.secretMessage = null;
-      }
-      
-      // Убираем зеленый кружок (на всякий случай)
-      if (window.greenCircle) {
-        window.greenCircle.remove();
-        window.greenCircle = null;
-      }
-      
-      // Останавливаем падающие носки
-      if (window.sockInterval) {
-        clearInterval(window.sockInterval);
-        window.sockInterval = null;
-      }
-      
-      // Убираем все оставшиеся носки
-      document.querySelectorAll('.falling-sock').forEach(sock => {
-        sock.remove();
-      });
-    }
-    
-    // Reset progress
-    function resetProgress() {
-      if (!confirm('Are you sure you want to reset all progress? This cannot be undone!')) {
-        return;
-      }
-      
-      clicks = 0;
-      totalSessionClicks = 0;
-      clickTimestamps = [];
-      lastDailyReward = 0;
-      usedPromoCodes = [];
-      clickHistory = {
-        daily: {},
-        weekly: {},
-        monthly: {}
-      };
-      sessionStartTime = Date.now();
-      
-      updateUI();
-      saveGameData();
-      showToast('Progress reset successfully');
-      toggleModal(resetModal);
-    }
-    
     // Update statistics
     function updateStatistics() {
       const today = new Date().toDateString();
@@ -1925,8 +1224,18 @@
       const monthClicks = clickHistory.monthly[monthKey] || 0;
       statMonthElement.textContent = formatNumber(monthClicks);
       
+      // Average CPS
       const avgCPS = calculateAverageCPS();
       statAvgCPSElement.textContent = avgCPS.toFixed(1);
+    }
+    
+    // Calculate average CPS
+    function calculateAverageCPS() {
+      const sessionDuration = (Date.now() - sessionStartTime) / 1000;
+      if (sessionDuration > 0) {
+        return totalSessionClicks / sessionDuration;
+      }
+      return 0;
     }
     
     // Update statistics chart
@@ -1950,7 +1259,7 @@
       }
       
       const maxValue = Math.max(...data, 1);
-      const chartHeight = 100; // Высота графика в пикселях
+      const chartHeight = 80;
       
       data.forEach((value, index) => {
         const barContainer = document.createElement('div');
@@ -1960,17 +1269,11 @@
         bar.className = 'chart-bar';
         const barHeight = maxValue > 0 ? (value / maxValue) * chartHeight : 2;
         bar.style.height = `${barHeight}px`;
-        bar.title = `${value} clicks`;
-        
-        const valueLabel = document.createElement('div');
-        valueLabel.className = 'chart-value';
-        valueLabel.textContent = value > 0 ? formatNumber(value) : '';
         
         const dayLabel = document.createElement('div');
         dayLabel.className = 'chart-label';
         dayLabel.textContent = labels[index];
         
-        bar.appendChild(valueLabel);
         barContainer.appendChild(bar);
         barContainer.appendChild(dayLabel);
         statsChartElement.appendChild(barContainer);
@@ -1982,17 +1285,32 @@
       const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
       return days[dayIndex];
     }
-    
-    // Show toast message
-    function showToast(message) {
-      toastElement.textContent = message;
-      toastElement.classList.add('show');
-      
-      setTimeout(() => {
-        toastElement.classList.remove('show');
-      }, 3000);
+
+    // Redirect to Telegram
+    function redirectToTelegram() {
+      window.open('https://t.me/dsfzfghsfgh', '_blank');
     }
-    
+
+    // Reset progress
+    function resetProgress() {
+      if (confirm('Are you sure you want to reset all progress? This cannot be undone!')) {
+        clicks = 0;
+        lastDailyReward = 0;
+        usedPromoCodes = [];
+        totalSessionClicks = 0;
+        sessionStartTime = Date.now();
+        clickHistory = {
+          daily: {},
+          weekly: {},
+          monthly: {}
+        };
+        updateUI();
+        saveGameData();
+        showToast('Progress reset successfully');
+        toggleModal(resetModal);
+      }
+    }
+
     // Handle theme change
     function handleThemeChange() {
       const theme = themeSelect.value;
@@ -2008,105 +1326,17 @@
       saveGameData();
     }
 
-    // Anti-cheat functions
-    function triggerAntiCheat() {
-      antiCheatActive = true;
-      antiCheatOverlay.classList.add('active');
-      antiCheatMessage.style.display = 'block';
-      cheaterDetected.style.display = 'none';
-      banTimer.style.display = 'none';
-      
-      document.addEventListener('click', handleAntiCheatClick, true);
+    // Show toast message
+    function showToast(message) {
+      toastElement.textContent = message;
+      toastElement.classList.add('show');
       
       setTimeout(() => {
-        if (antiCheatActive) {
-          antiCheatActive = false;
-          antiCheatOverlay.classList.remove('active');
-          document.removeEventListener('click', handleAntiCheatClick, true);
-        }
-      }, 5000);
-    }
-    
-    function handleAntiCheatClick(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      triggerBan(30 * 60 * 1000);
-    }
-    
-    function triggerBan(duration) {
-      isBanned = true;
-      banEndTime = Date.now() + duration;
-      antiCheatActive = false;
-      
-      antiCheatOverlay.classList.add('active');
-      antiCheatMessage.style.display = 'none';
-      cheaterDetected.style.display = 'block';
-      banTimer.style.display = 'block';
-      
-      saveGameData();
-      
-      updateBanTimer();
-      const banInterval = setInterval(updateBanTimer, 1000);
-      
-      function updateBanTimer() {
-        const now = Date.now();
-        const remaining = banEndTime - now;
-        
-        if (remaining <= 0) {
-          isBanned = false;
-          antiCheatOverlay.classList.remove('active');
-          clearInterval(banInterval);
-          return;
-        }
-        
-        const minutes = Math.floor(remaining / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
-        banTimeElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-      }
-    }
-    
-    function checkBanStatus() {
-      if (banEndTime > Date.now()) {
-        triggerBan(banEndTime - Date.now());
-      }
+        toastElement.classList.remove('show');
+      }, 3000);
     }
 
-    function createClickEffect(e) {
-      const rect = frogElement.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const effect = document.createElement('div');
-      effect.className = 'click-effect';
-      effect.style.left = `${x}px`;
-      effect.style.top = `${y}px`;
-      
-      frogElement.appendChild(effect);
-      
-      setTimeout(() => {
-        effect.remove();
-      }, 600);
-    }
-    
-    function createFloatingText(e) {
-      const rect = frogElement.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const text = document.createElement('div');
-      text.className = 'floating-text';
-      text.textContent = '+1';
-      text.style.left = `${x}px`;
-      text.style.top = `${y}px`;
-      
-      frogElement.appendChild(text);
-      
-      setTimeout(() => {
-        text.remove();
-      }, 1200);
-    }
-    
-    // Initialize the game when DOM is loaded
+    // Initialize game when page loads
     document.addEventListener('DOMContentLoaded', initGame);
   </script>
 </body>

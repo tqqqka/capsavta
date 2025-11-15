@@ -15,8 +15,13 @@
       --danger: #e74c3c;
       --warning: #f39c12;
       --yellow: #f1c40f;
+      
+      /* Glass Variables */
       --glass-bg: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-bg-light: rgba(255, 255, 255, 0.05);
+      --glass-border-light: rgba(255, 255, 255, 0.08);
+      
       --text-light: #ecf0f1;
       --text-dark: #2c3e50;
       --bg-dark: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
@@ -52,59 +57,53 @@
       color: var(--text-dark); 
     }
 
-    body.light-theme .click-count,
-    body.light-theme .nav-icon,
-    body.light-theme .modal-content,
-    body.light-theme .settings-select,
-    body.light-theme .more-item,
-    body.light-theme .stat-card,
-    body.light-theme .stats-chart {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: rgba(0, 0, 0, 0.1);
-      color: var(--text-dark);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Anti-Cheat Overlay Styles */
+    .anti-cheat-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #8b4513, #a0522d);
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(20px);
     }
-    
-    body.light-theme .bottom-nav {
-      background: rgba(255, 255, 255, 0.98);
-      border-top-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+
+    .anti-cheat-overlay.active {
+      display: flex;
+      animation: alarmPulse 0.5s infinite alternate;
     }
-    
-    body.light-theme .modal {
-      background: rgba(0, 0, 0, 0.4);
+
+    @keyframes alarmPulse {
+      0% { background: linear-gradient(45deg, #8b4513, #a0522d); }
+      100% { background: linear-gradient(45deg, #a0522d, #8b4513); }
     }
-    
-    body.light-theme .modal-content {
-      background: rgba(255, 255, 255, 0.98);
+
+    .anti-cheat-message {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      color: #fff;
     }
-    
-    body.light-theme .modal-header {
-      border-bottom-color: rgba(0, 0, 0, 0.1);
+
+    .cheater-detected {
+      font-size: 32px;
+      color: white;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 20px;
     }
-    
-    body.light-theme .modal-close {
-      background: rgba(0, 0, 0, 0.05);
-      color: #666;
-    }
-    
-    body.light-theme .nav-item {
-      color: #666;
-    }
-    
-    body.light-theme .nav-item.active {
-      color: var(--primary);
-    }
-    
-    body.light-theme .daily-reward-banner {
-      background: rgba(52, 152, 219, 0.1);
-      border-color: rgba(52, 152, 219, 0.2);
-    }
-    
-    body.light-theme .toast {
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--text-dark);
-      border-color: rgba(0, 0, 0, 0.1);
+
+    .ban-timer {
+      font-size: 20px;
+      color: white;
+      text-align: center;
     }
     
     .main-content { 
@@ -117,14 +116,13 @@
       position: relative;
     }
     
-    /* Уменьшенный счетчик кликов */
     .click-count { 
-      font-size: clamp(32px, 10vw, 48px); /* Уменьшено */
+      font-size: clamp(32px, 10vw, 48px);
       font-weight: 700; 
       margin-bottom: 15px; 
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
-      padding: 16px 28px; /* Уменьшено */
+      padding: 16px 28px;
       border-radius: 20px; 
       border: 1px solid var(--glass-border);
       color: inherit; 
@@ -140,7 +138,6 @@
       margin: 10px 0 20px; 
     }
     
-    /* Лягушка */
     .frog { 
       width: min(280px, 70vw); 
       height: min(280px, 70vw); 
@@ -244,7 +241,8 @@
       color: white; 
     }
     
-    .modal { 
+    /* Glass Modal Styles */
+    .glass-modal { 
       position: fixed; 
       top: 0; 
       left: 0; 
@@ -261,68 +259,105 @@
       padding: 16px;
     }
     
-    .modal.active { 
+    .glass-modal.active { 
       opacity: 1; 
       pointer-events: all; 
     }
     
-    .modal-content { 
-      background: rgba(44, 62, 80, 0.95); 
+    .glass-content {
+      width: min(360px, 94vw);
+      max-height: 80vh;
+      border-radius: 24px;
+      background: rgba(30, 35, 48, 0.85);
       backdrop-filter: blur(20px);
-      border-radius: 20px; 
-      padding: 20px; 
-      width: 100%; 
-      max-width: min(360px, 94vw); 
-      max-height: 80vh; 
-      overflow-y: auto; 
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--card-shadow); 
-      transform: translateY(20px) scale(0.98); 
-      transition: transform 0.3s ease; 
-      color: var(--text-light); 
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.3s ease;
     }
     
-    .modal.active .modal-content { 
-      transform: translateY(0) scale(1); 
+    .glass-modal.active .glass-content {
+      transform: translateY(0) scale(1);
     }
     
-    .modal-header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      margin-bottom: 20px; 
-      padding-bottom: 12px; 
-      border-bottom: 1px solid var(--glass-border);
+    .glass-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
     }
     
-    .modal-title { 
-      font-size: 18px; 
-      font-weight: 600; 
+    .glass-title {
+      font-size: 18px;
+      font-weight: 600;
       color: var(--primary);
     }
     
-    .modal-close { 
-      border: none; 
-      background: var(--glass-bg);
+    .glass-close {
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
       width: 32px;
       height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px; 
-      cursor: pointer; 
-      color: #95a5a6; 
+      font-size: 16px;
+      cursor: pointer;
+      color: #95a5a6;
+      backdrop-filter: blur(10px);
+    }
+    
+    .glass-body {
+      padding: 20px;
+      max-height: calc(80vh - 80px);
+      overflow-y: auto;
+    }
+
+    /* Light theme adjustments */
+    body.light-theme .glass-content {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    body.light-theme .glass-header {
+      background: rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Content styles */
+    .settings-group {
+      margin-bottom: 15px;
+    }
+    
+    .settings-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .settings-select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: inherit;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
     }
     
     .daily-reward-banner {
       display: flex;
       align-items: center;
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 20px;
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -375,7 +410,7 @@
     }
     
     .more-item { 
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 14px; 
       padding: 16px 12px; 
       display: flex; 
@@ -384,7 +419,10 @@
       text-align: center; 
       cursor: pointer; 
       transition: all 0.2s ease; 
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      /* Ensure square aspect ratio */
+      aspect-ratio: 1 / 1;
+      justify-content: center;
     }
     
     .more-item:active {
@@ -400,7 +438,7 @@
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.05);
       transition: all 0.2s ease;
     }
     
@@ -445,6 +483,7 @@
       cursor: pointer; 
       transition: all 0.2s ease; 
       margin-bottom: 12px; 
+      backdrop-filter: blur(10px);
     }
     
     .btn:active {
@@ -468,14 +507,9 @@
       color: white; 
     }
     
-    .settings-select { 
-      width: 100%; 
-      padding: 12px; 
-      border-radius: 12px; 
-      border: 1px solid var(--glass-border); 
-      background: var(--glass-bg);
-      color: inherit; 
-      font-size: 14px; 
+    .btn-danger {
+      background: var(--danger);
+      color: white;
     }
     
     .reward-timer {
@@ -502,11 +536,11 @@
     }
     
     .stat-card {
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 15px;
       text-align: center;
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .stat-value {
@@ -523,7 +557,7 @@
 
     .stats-chart {
       height: 120px;
-      background: var(--glass-bg);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       margin-bottom: 15px;
       padding: 12px 8px 5px 8px;
@@ -531,7 +565,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 4px;
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .chart-bar-container {
@@ -574,14 +608,14 @@
       font-weight: 600;
       font-size: 14px;
       backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .toast.show { 
       opacity: 1; 
     }
 
-    /* Оптимизация для мобильных */
+    /* Responsive adjustments */
     @media (max-width: 480px) {
       .frog { 
         width: min(240px, 60vw); 
@@ -596,8 +630,31 @@
       }
       
       .more-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+      }
+      
+      /* FIXED: Ensure square buttons on mobile */
+      .more-item {
+        aspect-ratio: 1 / 1;
+        padding: 12px 8px;
+        justify-content: center;
+      }
+      
+      .more-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+      
+      .more-title {
+        font-size: 12px;
+        margin-bottom: 3px;
+      }
+      
+      .more-desc {
+        font-size: 10px;
       }
       
       .stats-grid {
@@ -623,8 +680,27 @@
         padding: 12px 20px;
       }
       
-      .modal-content {
+      .glass-body {
         padding: 16px;
+      }
+      
+      /* FIXED: Smaller but still square buttons on very small screens */
+      .more-item {
+        padding: 10px 6px;
+      }
+      
+      .more-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+      }
+      
+      .more-title {
+        font-size: 11px;
+      }
+      
+      .more-desc {
+        font-size: 9px;
       }
     }
     
@@ -650,6 +726,19 @@
   </style>
 </head>
 <body class="dark-theme">
+  <!-- Anti-Cheat Overlay -->
+  <div class="anti-cheat-overlay" id="anti-cheat-overlay">
+    <div class="anti-cheat-message" id="anti-cheat-message">
+      ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
+    </div>
+    <div class="cheater-detected" id="cheater-detected" style="display: none;">
+      CHEATER DETECTED!
+    </div>
+    <div class="ban-timer" id="ban-timer" style="display: none;">
+      Ban time remaining: <span id="ban-time">30:00</span>
+    </div>
+  </div>
+
   <div class="main-content">
     <div class="click-count" id="click-count">0</div>
     
@@ -670,75 +759,79 @@
   </div>
 
   <!-- Settings Modal -->
-  <div class="modal" id="settings-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Settings</h2>
-        <button class="modal-close" id="close-settings">×</button>
+  <div class="glass-modal" id="settings-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">Settings</h2>
+        <button class="glass-close" id="close-settings">×</button>
       </div>
-      <div class="settings-group">
-        <label class="settings-label">Theme</label>
-        <select class="settings-select" id="theme-select">
-          <option value="dark">Dark Mode</option>
-          <option value="light">Light Mode</option>
-        </select>
+      <div class="glass-body">
+        <div class="settings-group">
+          <label class="settings-label">Theme</label>
+          <select class="settings-select" id="theme-select">
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- More Modal -->
-  <div class="modal" id="more-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">More</h2>
-        <button class="modal-close" id="close-more">×</button>
+  <!-- More Modal - Original Structure with Liquid Glass -->
+  <div class="glass-modal" id="more-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">More</h2>
+        <button class="glass-close" id="close-more">×</button>
       </div>
       
-      <div class="daily-reward-banner" id="daily-reward-banner">
-        <div class="daily-reward-icon"><i class="fas fa-gift"></i></div>
-        <div class="daily-reward-content">
-          <div class="daily-reward-title">Daily Reward</div>
-          <div class="daily-reward-desc">Claim your daily 1000 clicks!</div>
-          <div class="daily-reward-timer" id="daily-reward-timer"></div>
-        </div>
-      </div>
-      
-      <div class="more-grid">
-        <div class="more-item promo-code-item" id="promo-code-item">
-          <div class="more-icon"><i class="fas fa-tag"></i></div>
-          <div class="more-title">Promo Codes</div>
-          <div class="more-desc">Redeem bonus codes</div>
+      <div class="glass-body">
+        <div class="daily-reward-banner" id="daily-reward-banner">
+          <div class="daily-reward-icon"><i class="fas fa-gift"></i></div>
+          <div class="daily-reward-content">
+            <div class="daily-reward-title">Daily Reward</div>
+            <div class="daily-reward-desc">Claim your daily 1000 clicks!</div>
+            <div class="daily-reward-timer" id="daily-reward-timer"></div>
+          </div>
         </div>
         
-        <div class="more-item stats-item" id="stats-item">
-          <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
-          <div class="more-title">Statistics</div>
-          <div class="more-desc">View your progress</div>
-        </div>
-        
-        <div class="more-item yellow-item" id="yellow-item">
-          <div class="more-icon"><i class="fas fa-coins"></i></div>
-          <div class="more-title">777</div>
-          <div class="more-desc">Telegram game</div>
-        </div>
-        
-        <div class="more-item reset-item" id="reset-item">
-          <div class="more-icon"><i class="fas fa-undo"></i></div>
-          <div class="more-title">Reset Progress</div>
-          <div class="more-desc">Start over</div>
+        <div class="more-grid">
+          <div class="more-item promo-code-item" id="promo-code-item">
+            <div class="more-icon"><i class="fas fa-tag"></i></div>
+            <div class="more-title">Promo Codes</div>
+            <div class="more-desc">Redeem bonus codes</div>
+          </div>
+          
+          <div class="more-item stats-item" id="stats-item">
+            <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="more-title">Statistics</div>
+            <div class="more-desc">View your progress</div>
+          </div>
+          
+          <div class="more-item yellow-item" id="yellow-item">
+            <div class="more-icon"><i class="fas fa-coins"></i></div>
+            <div class="more-title">777</div>
+            <div class="more-desc">Telegram game</div>
+          </div>
+          
+          <div class="more-item reset-item" id="reset-item">
+            <div class="more-icon"><i class="fas fa-undo"></i></div>
+            <div class="more-title">Reset Progress</div>
+            <div class="more-desc">Start over</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Daily Reward Modal -->
-  <div class="modal" id="daily-reward-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Daily Reward</h2>
-        <button class="modal-close" id="close-daily">×</button>
+  <div class="glass-modal" id="daily-reward-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">Daily Reward</h2>
+        <button class="glass-close" id="close-daily">×</button>
       </div>
-      <div class="reward-section">
+      <div class="glass-body">
         <p style="margin-bottom: 20px; text-align: center; opacity: 0.9;">Claim your daily reward of 1000 clicks!</p>
         <button class="btn btn-primary" id="daily-reward-btn">Claim 1000 Clicks</button>
         <div class="reward-timer" id="reward-timer"></div>
@@ -747,13 +840,13 @@
   </div>
 
   <!-- Promo Code Modal -->
-  <div class="modal" id="promo-code-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Promo Codes</h2>
-        <button class="modal-close" id="close-promo">×</button>
+  <div class="glass-modal" id="promo-code-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">Promo Codes</h2>
+        <button class="glass-close" id="close-promo">×</button>
       </div>
-      <div class="promo-section">
+      <div class="glass-body">
         <p style="margin-bottom: 15px; text-align: center; opacity: 0.9;">Enter a promo code to get bonus clicks!</p>
         <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;">
         <button class="btn btn-accent" id="promo-btn">Activate</button>
@@ -762,32 +855,34 @@
   </div>
 
   <!-- Statistics Modal -->
-  <div class="modal" id="stats-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Statistics</h2>
-        <button class="modal-close" id="close-stats">×</button>
+  <div class="glass-modal" id="stats-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">Statistics</h2>
+        <button class="glass-close" id="close-stats">×</button>
       </div>
-      <div class="stats-section">
-        <div class="stats-chart" id="stats-chart">
-          <!-- Chart bars will be generated here -->
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-value" id="stat-today">0</div>
-            <div class="stat-label">Today</div>
+      <div class="glass-body">
+        <div class="stats-section">
+          <div class="stats-chart" id="stats-chart">
+            <!-- Chart bars will be generated here -->
           </div>
-          <div class="stat-card">
-            <div class="stat-value" id="stat-week">0</div>
-            <div class="stat-label">This Week</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="stat-month">0</div>
-            <div class="stat-label">This Month</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="stat-avg-cps">0.0</div>
-            <div class="stat-label">Avg CPS</div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="stat-today">0</div>
+              <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="stat-week">0</div>
+              <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="stat-month">0</div>
+              <div class="stat-label">This Month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="stat-avg-cps">0.0</div>
+              <div class="stat-label">Avg CPS</div>
+            </div>
           </div>
         </div>
       </div>
@@ -795,13 +890,13 @@
   </div>
 
   <!-- Reset Progress Modal -->
-  <div class="modal" id="reset-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Reset Progress</h2>
-        <button class="modal-close" id="close-reset">×</button>
+  <div class="glass-modal" id="reset-modal">
+    <div class="glass-content">
+      <div class="glass-header">
+        <h2 class="glass-title">Reset Progress</h2>
+        <button class="glass-close" id="close-reset">×</button>
       </div>
-      <div class="reset-section">
+      <div class="glass-body">
         <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">This will permanently delete all your progress. This action cannot be undone!</p>
         <button class="btn btn-danger" id="reset-btn">Reset Progress</button>
       </div>
@@ -825,13 +920,21 @@
       weekly: {},
       monthly: {}
     };
+    
+    // Anti-Cheat System
+    const MAX_CPS = 13; // Maximum allowed clicks per second
+    let clickTimestamps = [];
+    let antiCheatActive = false;
+    let cheatDetectionCount = 0;
+    let isBanned = false;
+    let banEndTime = 0;
 
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
     const bodyElement = document.body;
 
-    // Modals
+    // Glass Modals
     const settingsModal = document.getElementById('settings-modal');
     const moreModal = document.getElementById('more-modal');
     const dailyRewardModal = document.getElementById('daily-reward-modal');
@@ -873,6 +976,13 @@
 
     // Toast
     const toastElement = document.getElementById('toast');
+    
+    // Anti-Cheat Elements
+    const antiCheatOverlay = document.getElementById('anti-cheat-overlay');
+    const antiCheatMessage = document.getElementById('anti-cheat-message');
+    const cheaterDetected = document.getElementById('cheater-detected');
+    const banTimer = document.getElementById('ban-timer');
+    const banTimeElement = document.getElementById('ban-time');
 
     // Initialize the game
     function initGame() {
@@ -880,6 +990,7 @@
       updateUI();
       setupEventListeners();
       startTimerLoop();
+      checkBanStatus();
     }
 
     // Load game data
@@ -889,6 +1000,7 @@
       const savedUsedPromoCodes = localStorage.getItem('cvaptaUsedPromoCodes');
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
       const savedTheme = localStorage.getItem('cvaptaTheme');
+      const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
@@ -898,6 +1010,7 @@
         themeSelect.value = savedTheme;
         handleThemeChange();
       }
+      if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
     }
 
     // Save game data
@@ -907,6 +1020,7 @@
       localStorage.setItem('cvaptaUsedPromoCodes', JSON.stringify(usedPromoCodes));
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
       localStorage.setItem('cvaptaTheme', themeSelect.value);
+      localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
     }
 
     // Update UI
@@ -967,7 +1081,7 @@
       themeSelect.addEventListener('change', handleThemeChange);
       
       // Close modals on background click
-      document.querySelectorAll('.modal').forEach(modal => {
+      document.querySelectorAll('.glass-modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
           if (e.target === modal) {
             toggleModal(modal);
@@ -976,13 +1090,40 @@
       });
     }
 
-    // Handle frog click
+    // Handle frog click with anti-cheat
     function handleFrogClick(e) {
+      if (isBanned) return;
+      
+      if (antiCheatActive) {
+        triggerBan(30 * 60 * 1000); // 30 minute ban
+        return;
+      }
+      
+      const now = Date.now();
+      clickTimestamps.push(now);
+      
+      // Remove timestamps older than 1 second
+      clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
+      
+      // Check if CPS exceeds maximum
+      if (clickTimestamps.length > MAX_CPS) {
+        cheatDetectionCount++;
+        
+        if (cheatDetectionCount >= 3) {
+          triggerAntiCheat();
+        } else {
+          showToast(`Warning: High CPS detected! (${clickTimestamps.length}/s)`);
+        }
+      } else {
+        // Reset cheat detection count if behavior is normal
+        if (cheatDetectionCount > 0) cheatDetectionCount--;
+      }
+      
+      // Process valid click
       clicks++;
       totalSessionClicks++;
       
       updateClickHistory();
-      updateUI();
       
       // Ограничение количества эффектов для оптимизации
       if (activeEffects < MAX_EFFECTS) {
@@ -990,6 +1131,7 @@
         createFloatingText(e);
       }
       
+      updateUI();
       saveGameData();
     }
 
@@ -1125,6 +1267,9 @@
     function startTimerLoop() {
       setInterval(() => {
         updateRewardTimers();
+        // Clean up old timestamps
+        const now = Date.now();
+        clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
       }, 1000);
     }
 
@@ -1185,6 +1330,12 @@
           break;
         case 'WELCOME':
           reward = 500;
+          break;
+        case 'COMEBACK':
+          reward = 5000;
+          break;
+        case 'SPINA123':
+          reward = 1000;
           break;
         default:
           showToast('Invalid promo code');
@@ -1304,6 +1455,8 @@
           weekly: {},
           monthly: {}
         };
+        clickTimestamps = [];
+        cheatDetectionCount = 0;
         updateUI();
         saveGameData();
         showToast('Progress reset successfully');
@@ -1334,6 +1487,74 @@
       setTimeout(() => {
         toastElement.classList.remove('show');
       }, 3000);
+    }
+
+    // Anti-Cheat Functions
+    function triggerAntiCheat() {
+      antiCheatActive = true;
+      antiCheatOverlay.classList.add('active');
+      antiCheatMessage.style.display = 'block';
+      cheaterDetected.style.display = 'none';
+      banTimer.style.display = 'none';
+      
+      // Add click listener to catch any clicks during anti-cheat
+      document.addEventListener('click', handleAntiCheatClick, true);
+      
+      // Auto-disable anti-cheat after 5 seconds if no cheating detected
+      setTimeout(() => {
+        if (antiCheatActive) {
+          antiCheatActive = false;
+          antiCheatOverlay.classList.remove('active');
+          document.removeEventListener('click', handleAntiCheatClick, true);
+          showToast('Anti-cheat check passed');
+        }
+      }, 5000);
+    }
+    
+    function handleAntiCheatClick(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      triggerBan(30 * 60 * 1000); // 30 minute ban
+    }
+    
+    function triggerBan(duration) {
+      isBanned = true;
+      banEndTime = Date.now() + duration;
+      antiCheatActive = false;
+      
+      antiCheatOverlay.classList.add('active');
+      antiCheatMessage.style.display = 'none';
+      cheaterDetected.style.display = 'block';
+      banTimer.style.display = 'block';
+      
+      saveGameData();
+      
+      // Start ban timer
+      updateBanTimer();
+      const banInterval = setInterval(updateBanTimer, 1000);
+      
+      function updateBanTimer() {
+        const now = Date.now();
+        const remaining = banEndTime - now;
+        
+        if (remaining <= 0) {
+          isBanned = false;
+          antiCheatOverlay.classList.remove('active');
+          clearInterval(banInterval);
+          showToast('Ban lifted. You can play again.');
+          return;
+        }
+        
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        banTimeElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }
+    }
+    
+    function checkBanStatus() {
+      if (banEndTime > Date.now()) {
+        triggerBan(banEndTime - Date.now());
+      }
     }
 
     // Initialize game when page loads

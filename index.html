@@ -14,9 +14,8 @@
       --accent: #9b59b6;
       --danger: #e74c3c;
       --warning: #f39c12;
-      --yellow: #f1c40f;
       
-      /* Glass Variables */
+      /* Glass Variables for Dark Theme */
       --glass-bg: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-bg-light: rgba(255, 255, 255, 0.05);
@@ -25,7 +24,7 @@
       --text-light: #ecf0f1;
       --text-dark: #2c3e50;
       --bg-dark: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
-      --bg-light: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      --bg-light: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
       --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     }
@@ -49,12 +48,19 @@
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
-      transition: all 0.4s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     body.light-theme { 
       background: var(--bg-light); 
-      color: var(--text-dark); 
+      color: var(--text-dark);
+      /* Enhanced Glass Variables for Light Theme */
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(0, 0, 0, 0.1);
+      --glass-bg-light: rgba(255, 255, 255, 0.5);
+      --glass-border-light: rgba(0, 0, 0, 0.08);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
 
     /* Anti-Cheat Overlay Styles */
@@ -121,7 +127,7 @@
       font-weight: 700; 
       margin-bottom: 15px; 
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px) saturate(180%);
       padding: 16px 28px;
       border-radius: 20px; 
       border: 1px solid var(--glass-border);
@@ -129,7 +135,7 @@
       box-shadow: var(--card-shadow); 
       text-align: center;
       width: min(90%, 320px);
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       line-height: 1.1;
     }
     
@@ -186,6 +192,7 @@
       pointer-events: none; 
       animation: floatUp 0.8s ease-out forwards; 
       z-index: 4;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
     
     @keyframes floatUp { 
@@ -196,14 +203,15 @@
     .bottom-nav { 
       display: flex; 
       justify-content: space-around; 
-      background: rgba(255,255,255,0.06); 
-      backdrop-filter: blur(15px);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px) saturate(180%);
       border-top: 1px solid var(--glass-border); 
       padding: 12px 0; 
       height: 70px; 
       z-index: 10;
       margin: 0 12px 8px;
       border-radius: 20px;
+      box-shadow: var(--card-shadow);
     }
     
     .nav-item { 
@@ -211,9 +219,10 @@
       flex-direction: column; 
       align-items: center; 
       font-size: 11px; 
-      color: #bdc3c7; 
+      color: inherit; 
+      opacity: 0.8;
       cursor: pointer; 
-      transition: all 0.2s ease; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
       flex: 1; 
       padding: 4px;
       border-radius: 12px;
@@ -221,6 +230,7 @@
     
     .nav-item.active { 
       color: var(--primary); 
+      opacity: 1;
     }
     
     .nav-icon { 
@@ -232,13 +242,17 @@
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
-      background: var(--glass-bg);
-      transition: all 0.2s ease; 
+      background: var(--glass-bg-light);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
     }
     
     .nav-item.active .nav-icon { 
       background: var(--primary); 
       color: white; 
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
     }
     
     /* Glass Modal Styles */
@@ -269,12 +283,12 @@
       max-height: 80vh;
       border-radius: 24px;
       background: rgba(30, 35, 48, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       overflow: hidden;
       transform: translateY(20px) scale(0.98);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .glass-modal.active .glass-content {
@@ -286,8 +300,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--glass-border);
+      background: var(--glass-bg-light);
+      backdrop-filter: blur(10px);
     }
     
     .glass-title {
@@ -298,7 +313,7 @@
     
     .glass-close {
       border: none;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--glass-bg);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -307,8 +322,16 @@
       justify-content: center;
       font-size: 16px;
       cursor: pointer;
-      color: #95a5a6;
+      color: inherit;
+      opacity: 0.7;
       backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
+      transition: all 0.3s ease;
+    }
+    
+    .glass-close:hover {
+      opacity: 1;
+      background: var(--glass-bg-light);
     }
     
     .glass-body {
@@ -317,15 +340,27 @@
       overflow-y: auto;
     }
 
-    /* Light theme adjustments */
+    /* Enhanced Light theme adjustments */
     body.light-theme .glass-content {
       background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(25px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
     }
     
     body.light-theme .glass-header {
-      background: rgba(0, 0, 0, 0.05);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.5);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+    }
+
+    body.light-theme .glass-close {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--text-dark);
     }
 
     /* Content styles */
@@ -337,29 +372,39 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
+      color: inherit;
+      opacity: 0.9;
     }
     
     .settings-select {
       width: 100%;
       padding: 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
       color: inherit;
       font-size: 14px;
-      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .settings-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.1);
     }
     
     .daily-reward-banner {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .daily-reward-banner:active {
@@ -378,6 +423,8 @@
       color: var(--secondary);
       margin-right: 14px;
       flex-shrink: 0;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
     }
     
     .daily-reward-content {
@@ -388,11 +435,13 @@
       font-weight: 600; 
       font-size: 15px; 
       margin-bottom: 4px; 
+      color: inherit;
     }
     
     .daily-reward-desc { 
       font-size: 12px; 
       opacity: 0.8; 
+      color: inherit;
     }
     
     .daily-reward-timer {
@@ -410,7 +459,8 @@
     }
     
     .more-item { 
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
       border-radius: 14px; 
       padding: 16px 12px; 
       display: flex; 
@@ -418,11 +468,16 @@
       align-items: center; 
       text-align: center; 
       cursor: pointer; 
-      transition: all 0.2s ease; 
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      border: 1px solid var(--glass-border);
       /* Ensure square aspect ratio */
       aspect-ratio: 1 / 1;
       justify-content: center;
+    }
+    
+    .more-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
     }
     
     .more-item:active {
@@ -438,19 +493,23 @@
       align-items: center; 
       justify-content: center; 
       border-radius: 12px; 
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.2s ease;
+      background: var(--glass-bg-light);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .more-title { 
       font-weight: 600; 
       font-size: 13px; 
       margin-bottom: 4px; 
+      color: inherit;
     }
     
     .more-desc { 
       font-size: 11px; 
       opacity: 0.8; 
+      color: inherit;
     }
     
     .promo-code-item .more-icon { 
@@ -461,11 +520,6 @@
     .stats-item .more-icon { 
       color: var(--primary); 
       background: rgba(39, 174, 96, 0.1); 
-    }
-    
-    .yellow-item .more-icon { 
-      color: var(--yellow); 
-      background: rgba(241, 196, 15, 0.1); 
     }
     
     .reset-item .more-icon { 
@@ -481,9 +535,11 @@
       font-size: 15px; 
       font-weight: 600; 
       cursor: pointer; 
-      transition: all 0.2s ease; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
       margin-bottom: 12px; 
       backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
     }
     
     .btn:active {
@@ -493,6 +549,7 @@
     .btn-primary {
       background: var(--secondary); 
       color: white; 
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
     }
     
     .btn-primary:disabled {
@@ -500,16 +557,19 @@
       color: #bdc3c7;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
     }
     
     .btn-accent {
       background: var(--accent); 
       color: white; 
+      box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
     }
     
     .btn-danger {
       background: var(--danger);
       color: white;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
     }
     
     .reward-timer {
@@ -521,6 +581,8 @@
       padding: 8px;
       background: rgba(39, 174, 96, 0.1);
       border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
     }
 
     /* Statistics Styles */
@@ -536,11 +598,18 @@
     }
     
     .stat-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
       border-radius: 12px;
       padding: 15px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
     }
     
     .stat-value {
@@ -553,11 +622,13 @@
     .stat-label {
       font-size: 11px;
       opacity: 0.8;
+      color: inherit;
     }
 
     .stats-chart {
       height: 120px;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
       border-radius: 12px;
       margin-bottom: 15px;
       padding: 12px 8px 5px 8px;
@@ -565,7 +636,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
     }
     
     .chart-bar-container {
@@ -589,6 +660,7 @@
       margin-top: 4px;
       opacity: 0.7;
       text-align: center;
+      color: inherit;
     }
     
     .toast { 
@@ -596,8 +668,9 @@
       bottom: 90px; 
       left: 50%; 
       transform: translateX(-50%); 
-      background: rgba(44, 62, 80, 0.95); 
-      color: white; 
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      color: inherit; 
       padding: 12px 20px; 
       border-radius: 10px; 
       z-index: 1000; 
@@ -607,12 +680,76 @@
       text-align: center;
       font-weight: 600;
       font-size: 14px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow);
     }
     
     .toast.show { 
       opacity: 1; 
+    }
+
+    /* Enhanced Light Theme Specific Styles */
+    body.light-theme .click-count {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    body.light-theme .bottom-nav {
+      background: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    body.light-theme .nav-icon {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .more-item {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    body.light-theme .more-icon {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .stat-card {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .stats-chart {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .daily-reward-banner {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .daily-reward-icon {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .settings-select {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.light-theme .reward-timer {
+      background: rgba(39, 174, 96, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     /* Responsive adjustments */
@@ -634,7 +771,6 @@
         gap: 10px;
       }
       
-      /* FIXED: Ensure square buttons on mobile */
       .more-item {
         aspect-ratio: 1 / 1;
         padding: 12px 8px;
@@ -684,7 +820,6 @@
         padding: 16px;
       }
       
-      /* FIXED: Smaller but still square buttons on very small screens */
       .more-item {
         padding: 10px 6px;
       }
@@ -777,7 +912,7 @@
     </div>
   </div>
 
-  <!-- More Modal - Original Structure with Liquid Glass -->
+  <!-- More Modal -->
   <div class="glass-modal" id="more-modal">
     <div class="glass-content">
       <div class="glass-header">
@@ -806,12 +941,6 @@
             <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
             <div class="more-title">Statistics</div>
             <div class="more-desc">View your progress</div>
-          </div>
-          
-          <div class="more-item yellow-item" id="yellow-item">
-            <div class="more-icon"><i class="fas fa-coins"></i></div>
-            <div class="more-title">777</div>
-            <div class="more-desc">Telegram game</div>
           </div>
           
           <div class="more-item reset-item" id="reset-item">
@@ -955,7 +1084,6 @@
     const promoBtn = document.getElementById('promo-btn');
     const resetBtn = document.getElementById('reset-btn');
     const dailyRewardBanner = document.getElementById('daily-reward-banner');
-    const yellowItem = document.getElementById('yellow-item');
     const promoCodeItem = document.getElementById('promo-code-item');
     const statsItem = document.getElementById('stats-item');
     const resetItem = document.getElementById('reset-item');
@@ -1068,9 +1196,6 @@
         toggleModal(statsModal);
       });
       closeStats.addEventListener('click', () => toggleModal(statsModal));
-      
-      // 777 Button
-      yellowItem.addEventListener('click', redirectToTelegram);
       
       // Reset progress
       resetItem.addEventListener('click', () => toggleModal(resetModal));
@@ -1331,12 +1456,6 @@
         case 'WELCOME':
           reward = 500;
           break;
-        case 'COMEBACK':
-          reward = 5000;
-          break;
-        case 'SPINA123':
-          reward = 1000;
-          break;
         default:
           showToast('Invalid promo code');
           return;
@@ -1435,11 +1554,6 @@
     function getShortDayName(dayIndex) {
       const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
       return days[dayIndex];
-    }
-
-    // Redirect to Telegram
-    function redirectToTelegram() {
-      window.open('https://t.me/dsfzfghsfgh', '_blank');
     }
 
     // Reset progress

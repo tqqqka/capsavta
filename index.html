@@ -62,6 +62,26 @@
       --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
+    
+    /* Blur overlay when ad is shown */
+    .blur-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    
+    .blur-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
 
     /* Anti-Cheat Overlay Styles */
     .anti-cheat-overlay {
@@ -688,6 +708,240 @@
       opacity: 1; 
     }
 
+    /* Новые стили для таймера промокода */
+    .promo-timer-container {
+      margin: 15px 0;
+      padding: 12px;
+      background: rgba(155, 89, 182, 0.1);
+      border-radius: 12px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border-light);
+    }
+    
+    .promo-timer-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 5px;
+      color: inherit;
+    }
+    
+    .promo-timer {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    
+    .promo-expired {
+      font-size: 14px;
+      color: var(--danger);
+      font-weight: 600;
+      margin: 15px 0;
+      text-align: center;
+      padding: 10px;
+      background: rgba(231, 76, 60, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Стили для рекламного виджета */
+    .ad-widget {
+      position: fixed;
+      bottom: -50%;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px) saturate(200%);
+      border-top: 1px solid var(--glass-border);
+      z-index: 2000;
+      transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -5px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 30px 30px 0 0;
+      overflow: hidden;
+    }
+    
+    /* Круглые углы сверху */
+    .ad-widget::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: transparent;
+      border-radius: 0 0 30px 30px;
+      z-index: -1;
+    }
+    
+    .ad-widget.active {
+      bottom: 0;
+    }
+    
+    /* Ручка для свайпа (как в мобильных приложениях) */
+    .ad-handle {
+      width: 100%;
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .ad-handle-bar {
+      width: 40px;
+      height: 4px;
+      background: var(--glass-border);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+    
+    .ad-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .ad-image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 25px;
+      margin-bottom: 15px;
+      border: 3px solid var(--primary);
+      box-shadow: 
+        0 6px 20px rgba(39, 174, 96, 0.4),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+    
+    .ad-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--primary);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .ad-message {
+      font-size: 14px;
+      margin-bottom: 25px;
+      opacity: 0.9;
+      max-width: 90%;
+      line-height: 1.5;
+      padding: 0 10px;
+    }
+    
+    .ad-buttons {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .ad-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 16px;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ad-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .ad-btn-primary {
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      color: #2c3e50;
+      box-shadow: 
+        0 4px 20px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+    
+    .ad-btn-secondary {
+      background: var(--glass-bg);
+      color: inherit;
+      border: 1.5px solid var(--glass-border);
+      backdrop-filter: blur(15px);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .ad-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      color: inherit;
+      opacity: 0.8;
+      backdrop-filter: blur(15px);
+      transition: all 0.3s ease;
+      z-index: 2001;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .ad-close:hover {
+      opacity: 1;
+      background: var(--glass-bg-light);
+      transform: scale(1.1);
+    }
+    
+    /* Light theme adjustments for ad widget */
+    body.light-theme .ad-widget {
+      background: rgba(255, 255, 255, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 
+        0 -5px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    
+    body.light-theme .ad-btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 
+        0 4px 20px rgba(39, 174, 96, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    body.light-theme .ad-btn-secondary {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(0, 0, 0, 0.15);
+      box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    
+    body.light-theme .ad-close {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(0, 0, 0, 0.15);
+      color: var(--text-dark);
+    }
+    
+    body.light-theme .ad-handle-bar {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
     /* Enhanced Light Theme Specific Styles */
     body.light-theme .click-count {
       background: rgba(255, 255, 255, 0.7);
@@ -802,6 +1056,40 @@
         height: 100px;
         padding: 10px 6px 3px 6px;
       }
+      
+      .promo-timer {
+        font-size: 14px;
+      }
+      
+      .ad-widget {
+        border-radius: 25px 25px 0 0;
+      }
+      
+      .ad-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+      }
+      
+      .ad-title {
+        font-size: 18px;
+      }
+      
+      .ad-message {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+      
+      .ad-buttons {
+        max-width: 280px;
+        gap: 12px;
+      }
+      
+      .ad-btn {
+        padding: 12px;
+        font-size: 15px;
+        border-radius: 14px;
+      }
     }
     
     @media (max-width: 380px) {
@@ -837,6 +1125,49 @@
       .more-desc {
         font-size: 9px;
       }
+      
+      .promo-timer {
+        font-size: 13px;
+      }
+      
+      .ad-widget {
+        height: 55%;
+        border-radius: 20px 20px 0 0;
+      }
+      
+      .ad-image {
+        width: 90px;
+        height: 90px;
+        border-radius: 18px;
+      }
+      
+      .ad-title {
+        font-size: 16px;
+      }
+      
+      .ad-message {
+        font-size: 12px;
+        margin-bottom: 15px;
+      }
+      
+      .ad-buttons {
+        flex-direction: column;
+        gap: 10px;
+        max-width: 250px;
+      }
+      
+      .ad-btn {
+        padding: 12px;
+        font-size: 14px;
+      }
+      
+      .ad-close {
+        top: 15px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
     }
     
     @media (max-height: 700px) {
@@ -848,6 +1179,26 @@
       
       .click-count {
         margin-bottom: 8px;
+      }
+      
+      .ad-widget {
+        height: 55%;
+      }
+      
+      .ad-image {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 10px;
+      }
+      
+      .ad-title {
+        font-size: 17px;
+        margin-bottom: 8px;
+      }
+      
+      .ad-message {
+        font-size: 13px;
+        margin-bottom: 15px;
       }
     }
     
@@ -861,6 +1212,9 @@
   </style>
 </head>
 <body class="dark-theme">
+  <!-- Blur overlay for ad -->
+  <div class="blur-overlay" id="blur-overlay"></div>
+
   <!-- Anti-Cheat Overlay -->
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
@@ -871,6 +1225,23 @@
     </div>
     <div class="ban-timer" id="ban-timer" style="display: none;">
       Ban time remaining: <span id="ban-time">30:00</span>
+    </div>
+  </div>
+
+  <!-- Рекламный виджет -->
+  <div class="ad-widget" id="ad-widget">
+    <div class="ad-handle">
+      <div class="ad-handle-bar"></div>
+    </div>
+    <div class="ad-close" id="ad-close">×</div>
+    <div class="ad-content">
+      <img src="ad.png" alt="New Game Coming Soon" class="ad-image" id="ad-image">
+      <h3 class="ad-title">Новая игра уже скоро!</h3>
+      <p class="ad-message">Уже 24 декабря в 20:30 откроется новая игра Cvapta Choice! Не пропустите запуск!</p>
+      <div class="ad-buttons">
+        <button class="ad-btn ad-btn-primary" id="ad-watch-btn">Посмотреть</button>
+        <button class="ad-btn ad-btn-secondary" id="ad-later-btn">В другой раз</button>
+      </div>
     </div>
   </div>
 
@@ -977,8 +1348,20 @@
       </div>
       <div class="glass-body">
         <p style="margin-bottom: 15px; text-align: center; opacity: 0.9;">Enter a promo code to get bonus clicks!</p>
-        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;">
+        
+        <!-- Таймер для промокода VASHDRUG1QQ -->
+        <div class="promo-timer-container" id="vashdrug-timer-container" style="display: none;">
+          <div class="promo-timer-label">Promo code VASHDRUG1QQ expires in:</div>
+          <div class="promo-timer" id="vashdrug-timer">--:--:--</div>
+        </div>
+        
+        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;" oninput="checkVashdrugPromoTimer()">
         <button class="btn btn-accent" id="promo-btn">Activate</button>
+        
+        <!-- Сообщение об истечении срока -->
+        <div class="promo-expired" id="promo-expired-message" style="display: none;">
+          Promo code VASHDRUG1QQ has expired!
+        </div>
       </div>
     </div>
   </div>
@@ -1058,10 +1441,34 @@
     let isBanned = false;
     let banEndTime = 0;
 
+    // VASHDRUG1QQ промокод - действует до 13 декабря 2025 года 00:00 МСК
+    const VASHDRUG_PROMO_CODE = "VASHDRUG1QQ";
+    const VASHDRUG_REWARD = 5000;
+    const VASHDRUG_EXPIRY_DATE = new Date('2025-12-13T00:00:00+03:00'); // 13 декабря 2025, 00:00 МСК
+
+    // Рекламная система
+    let adTimer = null;
+    const AD_INTERVAL = 60 * 1000; // 1 минута
+    let lastAdShown = 0;
+
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
     const bodyElement = document.body;
+    
+    // Элементы для таймера промокода
+    const vashdrugTimerContainer = document.getElementById('vashdrug-timer-container');
+    const vashdrugTimerElement = document.getElementById('vashdrug-timer');
+    const promoExpiredMessage = document.getElementById('promo-expired-message');
+    const promoInput = document.getElementById('promo-input');
+
+    // Элементы для рекламы
+    const adWidget = document.getElementById('ad-widget');
+    const adClose = document.getElementById('ad-close');
+    const adWatchBtn = document.getElementById('ad-watch-btn');
+    const adLaterBtn = document.getElementById('ad-later-btn');
+    const adImage = document.getElementById('ad-image');
+    const blurOverlay = document.getElementById('blur-overlay');
 
     // Glass Modals
     const settingsModal = document.getElementById('settings-modal');
@@ -1119,6 +1526,8 @@
       setupEventListeners();
       startTimerLoop();
       checkBanStatus();
+      startPromoTimer(); // Запускаем таймер промокода
+      startAdTimer(); // Запускаем таймер рекламы
     }
 
     // Load game data
@@ -1129,6 +1538,7 @@
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
       const savedTheme = localStorage.getItem('cvaptaTheme');
       const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
+      const savedLastAdShown = localStorage.getItem('cvaptaLastAdShown');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
@@ -1139,6 +1549,7 @@
         handleThemeChange();
       }
       if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
+      if (savedLastAdShown) lastAdShown = parseInt(savedLastAdShown);
     }
 
     // Save game data
@@ -1149,6 +1560,7 @@
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
       localStorage.setItem('cvaptaTheme', themeSelect.value);
       localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
+      localStorage.setItem('cvaptaLastAdShown', lastAdShown.toString());
     }
 
     // Update UI
@@ -1204,6 +1616,13 @@
       
       // Theme change
       themeSelect.addEventListener('change', handleThemeChange);
+      
+      // Рекламные кнопки
+      adClose.addEventListener('click', closeAd);
+      adLaterBtn.addEventListener('click', closeAd);
+      adWatchBtn.addEventListener('click', () => {
+        window.location.href = 'https://tqqqka.github.io/cvapta-choise/';
+      });
       
       // Close modals on background click
       document.querySelectorAll('.glass-modal').forEach(modal => {
@@ -1398,6 +1817,61 @@
       }, 1000);
     }
 
+    // Проверка и отображение таймера для промокода VASHDRUG1QQ
+    function checkVashdrugPromoTimer() {
+      const inputValue = promoInput.value.trim().toUpperCase();
+      
+      if (inputValue === VASHDRUG_PROMO_CODE) {
+        const now = new Date();
+        const timeLeft = VASHDRUG_EXPIRY_DATE - now;
+        
+        if (timeLeft > 0) {
+          // Промокод еще действителен
+          vashdrugTimerContainer.style.display = 'block';
+          promoExpiredMessage.style.display = 'none';
+          updateVashdrugTimer(); // Обновляем сразу
+        } else {
+          // Промокод истек
+          vashdrugTimerContainer.style.display = 'none';
+          promoExpiredMessage.style.display = 'block';
+        }
+      } else {
+        vashdrugTimerContainer.style.display = 'none';
+        promoExpiredMessage.style.display = 'none';
+      }
+    }
+
+    // Обновление таймера промокода VASHDRUG1QQ
+    function updateVashdrugTimer() {
+      const now = new Date();
+      const timeLeft = VASHDRUG_EXPIRY_DATE - now;
+      
+      if (timeLeft <= 0) {
+        vashdrugTimerElement.textContent = "EXPIRED";
+        vashdrugTimerContainer.style.display = 'none';
+        promoExpiredMessage.style.display = 'block';
+        return;
+      }
+      
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      if (days > 0) {
+        vashdrugTimerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        vashdrugTimerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+    }
+
+    // Запуск таймера промокода
+    function startPromoTimer() {
+      updateVashdrugTimer();
+      // Обновляем каждую секунду
+      setInterval(updateVashdrugTimer, 1000);
+    }
+
     // Claim daily reward
     function claimDailyReward() {
       const now = Date.now();
@@ -1456,6 +1930,15 @@
         case 'WELCOME':
           reward = 500;
           break;
+        case VASHDRUG_PROMO_CODE:
+          // Проверяем срок действия промокода VASHDRUG1QQ
+          const now = new Date();
+          if (now >= VASHDRUG_EXPIRY_DATE) {
+            showToast('This promo code has expired');
+            return;
+          }
+          reward = VASHDRUG_REWARD;
+          break;
         default:
           showToast('Invalid promo code');
           return;
@@ -1465,6 +1948,8 @@
       totalSessionClicks += reward;
       usedPromoCodes.push(code);
       promoInput.value = '';
+      vashdrugTimerContainer.style.display = 'none';
+      promoExpiredMessage.style.display = 'none';
       
       // Add to history
       const today = new Date().toDateString();
@@ -1602,6 +2087,52 @@
         toastElement.classList.remove('show');
       }, 3000);
     }
+
+    // Рекламные функции
+    function showAd() {
+      const now = Date.now();
+      lastAdShown = now;
+      saveGameData();
+      
+      // Показываем блюр
+      blurOverlay.classList.add('active');
+      // Показываем рекламу
+      adWidget.classList.add('active');
+    }
+    
+    function closeAd() {
+      // Скрываем рекламу
+      adWidget.classList.remove('active');
+      // Скрываем блюр через небольшую задержку для плавности
+      setTimeout(() => {
+        blurOverlay.classList.remove('active');
+      }, 300);
+    }
+    
+    function startAdTimer() {
+      const now = Date.now();
+      
+      // Показать рекламу сразу при загрузке (если прошло больше минуты с последнего показа)
+      if (now - lastAdShown > AD_INTERVAL) {
+        setTimeout(() => {
+          showAd();
+        }, 3000); // Задержка 3 секунды при загрузке
+      }
+      
+      // Запустить интервал для показа рекламы каждую минуту
+      adTimer = setInterval(() => {
+        showAd();
+      }, AD_INTERVAL);
+    }
+    
+    // Обработка ошибки загрузки изображения
+    adImage.onerror = function() {
+      // Если изображение не загружается, заменяем его на иконку
+      this.style.display = 'none';
+      const icon = document.createElement('div');
+      icon.innerHTML = '<i class="fas fa-gamepad" style="font-size: 80px; color: var(--primary);"></i>';
+      this.parentNode.insertBefore(icon, this.nextSibling);
+    };
 
     // Anti-Cheat Functions
     function triggerAntiCheat() {

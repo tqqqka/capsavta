@@ -746,10 +746,10 @@
     /* Стили для рекламного виджета (ОБЩИЕ ДЛЯ ОБЕИХ РЕКЛАМ) */
     .ad-widget {
       position: fixed;
-      bottom: -70%; /* Увеличенная высота */
+      bottom: -100%; /* Полностью скрываем внизу */
       left: 0;
       width: 100%;
-      height: 70%; /* Увеличенная высота - теперь 70% экрана */
+      height: 55%; /* Уменьшена высота - теперь 55% экрана */
       background: var(--glass-bg);
       backdrop-filter: blur(30px) saturate(200%);
       border-top: 1px solid var(--glass-border);
@@ -758,25 +758,12 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 -5px 40px rgba(0, 0, 0, 0.3);
-      border-radius: 30px 30px 0 0;
+      border-radius: 25px 25px 0 0;
       overflow: hidden;
     }
     
-    /* Круглые углы сверху */
-    .ad-widget::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      left: 0;
-      width: 100%;
-      height: 40px;
-      background: transparent;
-      border-radius: 0 0 30px 30px;
-      z-index: -1;
-    }
-    
     .ad-widget.active {
-      bottom: 0;
+      bottom: 0; /* Показываем на всю высоту */
     }
     
     /* Ручка для свайпа (как в мобильных приложениях) */
@@ -1117,8 +1104,8 @@
       }
       
       .ad-widget {
-        height: 75%; /* Еще больше на мобильных */
-        border-radius: 25px 25px 0 0;
+        height: 50%; /* Уменьшена высота на мобильных */
+        border-radius: 20px 20px 0 0;
       }
       
       .ad-content {
@@ -1216,7 +1203,7 @@
       }
       
       .ad-widget {
-        height: 80%; /* Максимальная высота на маленьких экранах */
+        height: 55%; /* Оптимизирована высота на маленьких экранах */
         border-radius: 20px 20px 0 0;
       }
       
@@ -1287,7 +1274,7 @@
       }
       
       .ad-widget {
-        height: 75%;
+        height: 50%; /* Уменьшена высота для малой высоты экрана */
       }
       
       .ad-content {
@@ -1318,6 +1305,38 @@
       }
     }
     
+    /* Исправление для очень коротких экранов */
+    @media (max-height: 600px) {
+      .ad-widget {
+        height: 60%; /* Больше для очень коротких экранов */
+      }
+      
+      .ad-content {
+        padding: 8px 12px;
+      }
+      
+      .ad-image {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 8px;
+      }
+      
+      .ad-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      
+      .ad-message {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      
+      .ad-btn-single {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+    
     @media (prefers-reduced-motion: reduce) {
       * {
         animation-duration: 0.01ms !important;
@@ -1344,7 +1363,7 @@
     </div>
   </div>
 
-  <!-- Рекламный виджет (общий для обеих реклам) -->
+  <!-- Рекламный виджет 1 (оригинальный) -->
   <div class="ad-widget" id="ad-widget">
     <div class="ad-handle">
       <div class="ad-handle-bar"></div>
@@ -1352,7 +1371,37 @@
     <div class="ad-close" id="ad-close">×</div>
     <div class="ad-timer" id="ad-timer" style="display: none;"></div>
     <div class="ad-content">
-      <!-- Контент будет подгружаться динамически -->
+      <img src="ad.png" alt="New Game Coming Soon" class="ad-image" id="ad-image">
+      <h3 class="ad-title">Новая игра уже скоро!</h3>
+      <p class="ad-message">Уже 24 декабря в 20:30 откроется новая игра ???? ????! Не пропустите запуск!</p>
+      <div class="ad-single-button">
+        <button class="ad-btn-single" id="ad-watch-btn">Посмотреть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Рекламный виджет 2 (с видео) -->
+  <div class="ad-widget" id="ad-widget2">
+    <div class="ad-handle">
+      <div class="ad-handle-bar"></div>
+    </div>
+    <div class="ad-close" id="ad-close2">×</div>
+    <div class="ad-timer" id="ad-timer2" style="display: none;"></div>
+    <div class="ad-content">
+      <div class="ad-video-container">
+        <video class="ad-video" id="ad-video" autoplay muted loop playsinline disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" oncontextmenu="return false;">
+          <source src="ad2.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+        <div class="sound-indicator" id="sound-indicator">
+          <i class="fas fa-volume-up"></i>
+        </div>
+      </div>
+      <h3 class="ad-title">НАКЛЕЙКИ ПО СКИДКЕ 50%</h3>
+      <p class="ad-message">Акция с ограниченным временем, успей купить!</p>
+      <div class="ad-single-button">
+        <button class="ad-btn-single" id="ad-watch-btn2">Посмотреть</button>
+      </div>
     </div>
   </div>
 
@@ -1557,56 +1606,20 @@
     const VASHDRUG_REWARD = 5000;
     const VASHDRUG_EXPIRY_DATE = new Date('2025-12-13T00:00:00+03:00'); // 13 декабря 2025, 00:00 МСК
 
-    // Рекламная система - последовательное отображение
+    // Рекламная система - РАЗНЫЕ ТАЙМЕРЫ ДЛЯ РАЗНЫХ РЕКЛАМ
     let adTimer = null;
-    let adCountdownTimer = null; // Таймер обратного отсчета для рекламы
-    let currentAd = null; // Текущая активная реклама (null, 'stickers', 'game', 'your-ad')
+    let adTimer2 = null;
+    let currentAd = null; // Текущая активная реклама (null, 'ad1', 'ad2')
     let adActive = false; // Флаг активности рекламы
-    let adSequence = ['stickers', 'game', 'your-ad']; // Последовательность реклам
-    let adSequenceIndex = 0; // Текущий индекс в последовательности
+    const AD_INTERVAL = 60 * 1000; // 1 минута для первой рекламы
+    const AD_INTERVAL2 = 90 * 1000; // 1.5 минуты для второй рекламы
+    const AD_DURATION_AD1 = 3 * 1000; // 3 секунды для рекламы 1
+    const AD_DURATION_AD2 = 13 * 1000; // 13 секунд для рекламы 2 (видео)
+    const AD_LOCK_TIME = 3 * 1000; // 3 секунды нельзя закрыть
+    let lastAdShown = 0;
+    let lastAdShown2 = 0;
+    let adCountdownTimer = null; // Таймер обратного отсчета для рекламы
     let userInteracted = false; // Флаг взаимодействия пользователя для автовоспроизведения звука
-    const AD_INTERVAL = 60 * 1000; // 1 минута между рекламами
-    const AD_DURATION = 13 * 1000; // 13 секунд длительность рекламы
-    const AD_LOCK_TIME = 10 * 1000; // 10 секунд нельзя закрыть
-    
-    // Конфигурация реклам
-    const adsConfig = {
-      stickers: {
-        type: 'video',
-        title: 'НАКЛЕЙКИ ПО СКИДКЕ 50%',
-        message: 'Акция с ограниченным временем, успей купить!',
-        videoUrl: 'ad2.mp4',
-        buttonText: 'Посмотреть',
-        buttonAction: function() {
-          window.open('https://t.me/STUNT_SOKE', '_blank');
-          closeAd();
-        },
-        icon: 'fas fa-tags'
-      },
-      game: {
-        type: 'image',
-        title: 'Новая игра уже скоро!',
-        message: 'Уже 24 декабря в 20:30 откроется новая игра ???? ????! Не пропустите запуск!',
-        imageUrl: 'ad.png',
-        buttonText: 'Посмотреть',
-        buttonAction: function() {
-          window.location.href = 'https://tqqqka.github.io/cvapta-choise/';
-        },
-        icon: 'fas fa-gamepad'
-      },
-      'your-ad': {
-        type: 'image',
-        title: 'Здесь могла бы быть ваша реклама!',
-        message: 'Загружайте свою рекламу с фоткой или 15 секундным видео чтоб прорекламировать свой сервис здесь!',
-        imageUrl: 'ad3.png',
-        buttonText: 'Заказать рекламу',
-        buttonAction: function() {
-          window.open('https://t.me/Cvapik_bot', '_blank');
-          closeAd();
-        },
-        icon: 'fas fa-ad'
-      }
-    };
 
     // DOM Elements
     const frogElement = document.getElementById('frog');
@@ -1619,12 +1632,21 @@
     const promoExpiredMessage = document.getElementById('promo-expired-message');
     const promoInput = document.getElementById('promo-input');
 
-    // Элементы для рекламы
+    // Элементы для рекламы 1
     const adWidget = document.getElementById('ad-widget');
     const adClose = document.getElementById('ad-close');
-    const adContent = document.querySelector('.ad-content');
+    const adWatchBtn = document.getElementById('ad-watch-btn');
+    const adImage = document.getElementById('ad-image');
     const adTimerElement = document.getElementById('ad-timer');
     const blurOverlay = document.getElementById('blur-overlay');
+    
+    // Элементы для рекламы 2
+    const adWidget2 = document.getElementById('ad-widget2');
+    const adClose2 = document.getElementById('ad-close2');
+    const adWatchBtn2 = document.getElementById('ad-watch-btn2');
+    const adVideo = document.getElementById('ad-video');
+    const adTimerElement2 = document.getElementById('ad-timer2');
+    const soundIndicator = document.getElementById('sound-indicator');
 
     // Glass Modals
     const settingsModal = document.getElementById('settings-modal');
@@ -1683,6 +1705,7 @@
       startTimerLoop();
       checkBanStatus();
       startPromoTimer(); // Запускаем таймер промокода
+      setupVideoControls(); // Настраиваем управление видео
       startAdTimers(); // Запускаем таймеры рекламы
       
       // Добавляем обработчик для взаимодействия пользователя
@@ -1704,7 +1727,8 @@
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
       const savedTheme = localStorage.getItem('cvaptaTheme');
       const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
-      const savedAdSequenceIndex = localStorage.getItem('cvaptaAdSequenceIndex');
+      const savedLastAdShown = localStorage.getItem('cvaptaLastAdShown');
+      const savedLastAdShown2 = localStorage.getItem('cvaptaLastAdShown2');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
@@ -1715,7 +1739,8 @@
         handleThemeChange();
       }
       if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
-      if (savedAdSequenceIndex) adSequenceIndex = parseInt(savedAdSequenceIndex);
+      if (savedLastAdShown) lastAdShown = parseInt(savedLastAdShown);
+      if (savedLastAdShown2) lastAdShown2 = parseInt(savedLastAdShown2);
     }
 
     // Save game data
@@ -1726,7 +1751,8 @@
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
       localStorage.setItem('cvaptaTheme', themeSelect.value);
       localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
-      localStorage.setItem('cvaptaAdSequenceIndex', adSequenceIndex.toString());
+      localStorage.setItem('cvaptaLastAdShown', lastAdShown.toString());
+      localStorage.setItem('cvaptaLastAdShown2', lastAdShown2.toString());
     }
 
     // Update UI
@@ -1783,8 +1809,18 @@
       // Theme change
       themeSelect.addEventListener('change', handleThemeChange);
       
-      // Рекламные кнопки
+      // Рекламные кнопки 1
       adClose.addEventListener('click', closeAd);
+      adWatchBtn.addEventListener('click', () => {
+        window.location.href = 'https://tqqqka.github.io/cvapta-choise/';
+      });
+      
+      // Рекламные кнопки 2
+      adClose2.addEventListener('click', closeAd2);
+      adWatchBtn2.addEventListener('click', () => {
+        window.open('https://t.me/STUNT_SOKE', '_blank');
+        closeAd2();
+      });
       
       // Close modals on background click
       document.querySelectorAll('.glass-modal').forEach(modal => {
@@ -1794,6 +1830,47 @@
           }
         });
       });
+    }
+
+    // Настройка управления видео
+    function setupVideoControls() {
+      // Отключаем контекстное меню для видео
+      adVideo.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      });
+      
+      // Отключаем управление видео
+      adVideo.controls = false;
+      adVideo.disablePictureInPicture = true;
+      
+      // Предотвращаем паузу при клике
+      adVideo.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      });
+      
+      // Обновляем индикатор звука
+      adVideo.addEventListener('volumechange', function() {
+        updateSoundIndicator();
+      });
+      
+      // Обновляем индикатор звука при изменении состояния muted
+      adVideo.addEventListener('loadedmetadata', function() {
+        updateSoundIndicator();
+      });
+    }
+    
+    // Обновление индикатора звука
+    function updateSoundIndicator() {
+      if (adVideo.muted || adVideo.volume === 0) {
+        soundIndicator.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        soundIndicator.style.color = '#e74c3c';
+      } else {
+        soundIndicator.innerHTML = '<i class="fas fa-volume-up"></i>';
+        soundIndicator.style.color = '#2ecc71';
+      }
     }
 
     // Handle frog click with anti-cheat
@@ -2225,7 +2302,6 @@
         };
         clickTimestamps = [];
         cheatDetectionCount = 0;
-        adSequenceIndex = 0; // Сбрасываем последовательность реклам
         updateUI();
         saveGameData();
         showToast('Progress reset successfully');
@@ -2262,35 +2338,38 @@
 
     // Рекламные функции
     function startAdTimers() {
-      // Первая реклама через 30 секунд
+      const now = Date.now();
+      
+      // Запускаем таймер для рекламы 2 (приоритетная)
       setTimeout(() => {
         if (!adActive) {
-          showNextAd();
+          showAd2();
         }
-      }, 30000);
+      }, 30000); // 30 секунд после загрузки
       
-      // Интервал для показа рекламы (каждую минуту)
+      // Интервал для рекламы 2 (каждые 1.5 минуты)
+      adTimer2 = setInterval(() => {
+        if (!adActive) {
+          showAd2();
+        }
+      }, AD_INTERVAL2);
+      
+      // Интервал для рекламы 1 (каждую минуту, но с проверкой)
       adTimer = setInterval(() => {
         if (!adActive) {
-          showNextAd();
+          showAd1();
         }
       }, AD_INTERVAL);
     }
     
-    function showNextAd() {
+    function showAd1() {
       if (adActive) return;
       
-      // Получаем текущую рекламу из последовательности
-      const adType = adSequence[adSequenceIndex];
-      currentAd = adType;
+      currentAd = 'ad1';
       adActive = true;
-      
-      // Увеличиваем индекс для следующей рекламы
-      adSequenceIndex = (adSequenceIndex + 1) % adSequence.length;
+      const now = Date.now();
+      lastAdShown = now;
       saveGameData();
-      
-      // Загружаем контент рекламы
-      loadAdContent(adType);
       
       // Показываем блюр
       blurOverlay.classList.add('active');
@@ -2299,171 +2378,106 @@
       adWidget.classList.add('active');
       
       // Запускаем таймер
-      startAdCountdown();
+      startAdCountdown('ad1');
     }
     
-    function loadAdContent(adType) {
-      const config = adsConfig[adType];
-      adContent.innerHTML = '';
+    function showAd2() {
+      if (adActive) return;
       
-      if (config.type === 'video') {
-        // Создаем контейнер для видео
-        const videoContainer = document.createElement('div');
-        videoContainer.className = 'ad-video-container';
-        
-        const video = document.createElement('video');
-        video.className = 'ad-video';
-        video.autoplay = true;
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        video.disablePictureInPicture = true;
-        video.controlsList = 'nodownload nofullscreen noremoteplayback';
-        video.oncontextmenu = () => false;
-        
-        const source = document.createElement('source');
-        source.src = config.videoUrl;
-        source.type = 'video/mp4';
-        
-        video.appendChild(source);
-        video.appendChild(document.createTextNode('Ваш браузер не поддерживает видео.'));
-        
-        const soundIndicator = document.createElement('div');
-        soundIndicator.className = 'sound-indicator';
-        soundIndicator.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        
-        videoContainer.appendChild(video);
-        videoContainer.appendChild(soundIndicator);
-        adContent.appendChild(videoContainer);
-        
-        // Обработка ошибки видео
-        video.onerror = function() {
-          this.style.display = 'none';
-          const placeholder = document.createElement('div');
-          placeholder.innerHTML = `<i class="${config.icon}" style="font-size: 80px; color: var(--accent);"></i><p style="margin-top: 10px; font-size: 14px;">Video not available</p>`;
-          placeholder.style.cssText = 'width: 100%; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--glass-bg-light); border-radius: 15px;';
-          this.parentNode.insertBefore(placeholder, this.nextSibling);
-          soundIndicator.style.display = 'none';
-        };
-        
-        // Настройка звука видео
-        video.addEventListener('volumechange', function() {
-          updateVideoSoundIndicator(video, soundIndicator);
-        });
-        
-        // Воспроизведение видео
-        setTimeout(() => {
-          if (userInteracted) {
-            video.muted = false;
-            video.volume = 0.7;
-          }
-          video.play().catch(e => {
-            console.log('Cannot play video:', e);
+      currentAd = 'ad2';
+      adActive = true;
+      const now = Date.now();
+      lastAdShown2 = now;
+      saveGameData();
+      
+      // Показываем блюр
+      blurOverlay.classList.add('active');
+      
+      // Показываем рекламу
+      adWidget2.classList.add('active');
+      
+      // Запускаем видео со звуком
+      playVideoWithSound();
+      
+      // Запускаем таймер
+      startAdCountdown('ad2');
+    }
+    
+    // Воспроизведение видео со звуком
+    function playVideoWithSound() {
+      // Сбрасываем видео
+      adVideo.currentTime = 0;
+      
+      // Сначала пытаемся воспроизвести со звуком
+      adVideo.muted = false;
+      adVideo.volume = 0.7; // 70% громкости
+      
+      const playPromise = adVideo.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Видео успешно воспроизводится
+          console.log('Video playing with sound');
+          updateSoundIndicator();
+        }).catch(error => {
+          // Если не удалось воспроизвести со звуком, пытаемся без звука
+          console.log('Cannot play with sound, trying muted:', error);
+          adVideo.muted = true;
+          adVideo.play().then(() => {
+            console.log('Video playing muted');
+            updateSoundIndicator();
+          }).catch(e => {
+            console.log('Cannot play video at all:', e);
           });
-        }, 500);
-        
-      } else if (config.type === 'image') {
-        // Создаем изображение
-        const image = document.createElement('img');
-        image.src = config.imageUrl;
-        image.alt = config.title;
-        image.className = 'ad-image';
-        adContent.appendChild(image);
-        
-        // Обработка ошибки изображения
-        image.onerror = function() {
-          this.style.display = 'none';
-          const icon = document.createElement('div');
-          icon.innerHTML = `<i class="${config.icon}" style="font-size: 80px; color: var(--primary);"></i>`;
-          this.parentNode.insertBefore(icon, this.nextSibling);
-        };
-      }
-      
-      // Добавляем заголовок
-      const title = document.createElement('h3');
-      title.className = 'ad-title';
-      title.textContent = config.title;
-      adContent.appendChild(title);
-      
-      // Добавляем сообщение
-      const message = document.createElement('p');
-      message.className = 'ad-message';
-      message.textContent = config.message;
-      adContent.appendChild(message);
-      
-      // Добавляем кнопку
-      const buttonContainer = document.createElement('div');
-      buttonContainer.className = 'ad-single-button';
-      
-      const button = document.createElement('button');
-      button.className = 'ad-btn-single';
-      button.id = 'ad-action-btn';
-      button.textContent = config.buttonText;
-      
-      buttonContainer.appendChild(button);
-      adContent.appendChild(buttonContainer);
-      
-      // Назначаем действие на кнопку
-      button.onclick = config.buttonAction;
-    }
-    
-    function updateVideoSoundIndicator(video, indicator) {
-      if (video.muted || video.volume === 0) {
-        indicator.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        indicator.style.color = '#e74c3c';
-      } else {
-        indicator.innerHTML = '<i class="fas fa-volume-up"></i>';
-        indicator.style.color = '#2ecc71';
+        });
       }
     }
     
-    function startAdCountdown() {
-      let timeLeft = AD_DURATION / 1000; // 13 секунд
+    function startAdCountdown(adType) {
+      // РАЗНЫЕ ТАЙМЕРЫ ДЛЯ РАЗНЫХ РЕКЛАМ
+      let adDuration = adType === 'ad1' ? AD_DURATION_AD1 : AD_DURATION_AD2;
+      let timeLeft = adDuration / 1000;
+      const timerElement = adType === 'ad1' ? adTimerElement : adTimerElement2;
+      const closeButton = adType === 'ad1' ? adClose : adClose2;
       
       // Показываем таймер
-      adTimerElement.style.display = 'flex';
-      adTimerElement.textContent = timeLeft;
+      timerElement.style.display = 'flex';
+      timerElement.textContent = timeLeft;
       
-      // Блокируем кнопку закрытия на первые 10 секунд
-      adClose.classList.add('disabled');
+      // Блокируем кнопку закрытия на первые 3 секунды
+      closeButton.classList.add('disabled');
       
       // Запускаем обратный отсчет
       adCountdownTimer = setInterval(() => {
         timeLeft--;
-        adTimerElement.textContent = timeLeft;
+        timerElement.textContent = timeLeft;
         
-        // После 10 секунд разблокируем кнопку закрытия
-        if (timeLeft === AD_DURATION / 1000 - AD_LOCK_TIME / 1000) {
-          adClose.classList.remove('disabled');
+        // После 3 секунд разблокируем кнопку закрытия
+        if (timeLeft === adDuration / 1000 - AD_LOCK_TIME / 1000) {
+          closeButton.classList.remove('disabled');
         }
         
-        // После 13 секунд автоматически закрываем рекламу
+        // По истечении времени автоматически закрываем рекламу
         if (timeLeft <= 0) {
-          closeAd();
+          if (adType === 'ad1') {
+            closeAd();
+          } else {
+            closeAd2();
+          }
         }
       }, 1000);
     }
     
     function closeAd() {
-      if (!adActive) return;
+      if (currentAd !== 'ad1') return;
       
       // Останавливаем таймер
       clearInterval(adCountdownTimer);
-      
-      // Останавливаем видео если есть
-      const video = adContent.querySelector('video');
-      if (video) {
-        video.pause();
-        video.currentTime = 0;
-      }
       
       // Скрываем рекламу
       adWidget.classList.remove('active');
       adTimerElement.style.display = 'none';
       adClose.classList.remove('disabled');
-      
-      // Очищаем контент
-      adContent.innerHTML = '';
       
       // Скрываем блюр
       setTimeout(() => {
@@ -2474,6 +2488,51 @@
       currentAd = null;
       adActive = false;
     }
+    
+    function closeAd2() {
+      if (currentAd !== 'ad2') return;
+      
+      // Останавливаем таймер
+      clearInterval(adCountdownTimer);
+      
+      // Паузим видео
+      adVideo.pause();
+      adVideo.currentTime = 0;
+      
+      // Скрываем рекламу
+      adWidget2.classList.remove('active');
+      adTimerElement2.style.display = 'none';
+      adClose2.classList.remove('disabled');
+      
+      // Скрываем блюр
+      setTimeout(() => {
+        blurOverlay.classList.remove('active');
+      }, 300);
+      
+      // Сбрасываем флаги
+      currentAd = null;
+      adActive = false;
+    }
+    
+    // Обработка ошибки загрузки изображения
+    adImage.onerror = function() {
+      // Если изображение не загружается, заменяем его на иконку
+      this.style.display = 'none';
+      const icon = document.createElement('div');
+      icon.innerHTML = '<i class="fas fa-gamepad" style="font-size: 80px; color: var(--primary);"></i>';
+      this.parentNode.insertBefore(icon, this.nextSibling);
+    };
+    
+    // Обработка ошибки загрузки видео
+    adVideo.onerror = function() {
+      // Если видео не загружается, заменяем его на заглушку
+      this.style.display = 'none';
+      const placeholder = document.createElement('div');
+      placeholder.innerHTML = '<i class="fas fa-video" style="font-size: 80px; color: var(--accent);"></i><p style="margin-top: 10px; font-size: 14px;">Video not available</p>';
+      placeholder.style.cssText = 'width: 100%; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--glass-bg-light); border-radius: 15px;';
+      this.parentNode.insertBefore(placeholder, this.nextSibling);
+      soundIndicator.style.display = 'none';
+    };
 
     // Anti-Cheat Functions
     function triggerAntiCheat() {

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cvapta Frog</title>
+  <title>Лягушка Кликер</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -471,7 +471,6 @@
       cursor: pointer; 
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
       border: 1px solid var(--glass-border);
-      /* Ensure square aspect ratio */
       aspect-ratio: 1 / 1;
       justify-content: center;
     }
@@ -512,7 +511,7 @@
       border: 1px solid var(--glass-border-light);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       padding: 8px;
-      margin-bottom: 8px; /* Добавлен отступ как у других иконок */
+      margin-bottom: 8px;
     }
     
     .star-icon svg {
@@ -825,7 +824,7 @@
         width: 40px;
         height: 40px;
         padding: 6px;
-        margin-bottom: 6px; /* Соответствует другим иконкам */
+        margin-bottom: 6px;
       }
       
       .more-title {
@@ -879,7 +878,7 @@
         width: 36px;
         height: 36px;
         padding: 5px;
-        margin-bottom: 5px; /* Соответствует другим иконкам */
+        margin-bottom: 5px;
       }
       
       .more-title {
@@ -916,13 +915,13 @@
   <!-- Anti-Cheat Overlay -->
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
-      ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
+      АНТИ-ЧИТ АКТИВИРОВАН!<br>Никуда не нажимайте!
     </div>
     <div class="cheater-detected" id="cheater-detected" style="display: none;">
-      CHEATER DETECTED!
+      ЧИТЕР ОБНАРУЖЕН!
     </div>
     <div class="ban-timer" id="ban-timer" style="display: none;">
-      Ban time remaining: <span id="ban-time">30:00</span>
+      До разблокировки: <span id="ban-time">30:00</span>
     </div>
   </div>
 
@@ -937,11 +936,11 @@
   <div class="bottom-nav">
     <div class="nav-item" id="more-btn">
       <div class="nav-icon"><i class="fas fa-ellipsis-h"></i></div>
-      <div>More</div>
+      <div>Ещё</div>
     </div>
     <div class="nav-item" id="settings-btn">
       <div class="nav-icon"><i class="fas fa-cog"></i></div>
-      <div>Settings</div>
+      <div>Настройки</div>
     </div>
   </div>
 
@@ -949,15 +948,15 @@
   <div class="glass-modal" id="settings-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Settings</h2>
+        <h2 class="glass-title">Настройки</h2>
         <button class="glass-close" id="close-settings">×</button>
       </div>
       <div class="glass-body">
         <div class="settings-group">
-          <label class="settings-label">Theme</label>
+          <label class="settings-label">Тема</label>
           <select class="settings-select" id="theme-select">
-            <option value="dark">Dark Mode</option>
-            <option value="light">Light Mode</option>
+            <option value="dark">Тёмная</option>
+            <option value="light">Светлая</option>
           </select>
         </div>
       </div>
@@ -968,7 +967,7 @@
   <div class="glass-modal" id="more-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">More</h2>
+        <h2 class="glass-title">Ещё</h2>
         <button class="glass-close" id="close-more">×</button>
       </div>
       
@@ -976,8 +975,8 @@
         <div class="daily-reward-banner" id="daily-reward-banner">
           <div class="daily-reward-icon"><i class="fas fa-gift"></i></div>
           <div class="daily-reward-content">
-            <div class="daily-reward-title">Daily Reward</div>
-            <div class="daily-reward-desc">Claim your daily 1000 clicks!</div>
+            <div class="daily-reward-title">Ежедневная награда</div>
+            <div class="daily-reward-desc">Заберите свои 1000 кликов!</div>
             <div class="daily-reward-timer" id="daily-reward-timer"></div>
           </div>
         </div>
@@ -985,20 +984,20 @@
         <div class="more-grid">
           <div class="more-item promo-code-item" id="promo-code-item">
             <div class="more-icon"><i class="fas fa-tag"></i></div>
-            <div class="more-title">Promo Codes</div>
-            <div class="more-desc">Redeem bonus codes</div>
+            <div class="more-title">Промокоды</div>
+            <div class="more-desc">Активируйте бонусные коды</div>
           </div>
           
           <div class="more-item stats-item" id="stats-item">
             <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
-            <div class="more-title">Statistics</div>
-            <div class="more-desc">View your progress</div>
+            <div class="more-title">Статистика</div>
+            <div class="more-desc">Просмотр прогресса</div>
           </div>
           
           <div class="more-item reset-item" id="reset-item">
             <div class="more-icon"><i class="fas fa-undo"></i></div>
-            <div class="more-title">Reset Progress</div>
-            <div class="more-desc">Start over</div>
+            <div class="more-title">Сбросить прогресс</div>
+            <div class="more-desc">Начать заново</div>
           </div>
           
           <div class="more-item stars-item" id="stars-item">
@@ -1007,8 +1006,8 @@
                 <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
               </svg>
             </div>
-            <div class="more-title">Stars</div>
-            <div class="more-desc">Conclusion of stars</div>
+            <div class="more-title">Звёзды</div>
+            <div class="more-desc">В разработке</div>
           </div>
         </div>
       </div>
@@ -1019,12 +1018,12 @@
   <div class="glass-modal" id="daily-reward-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Daily Reward</h2>
+        <h2 class="glass-title">Ежедневная награда</h2>
         <button class="glass-close" id="close-daily">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 20px; text-align: center; opacity: 0.9;">Claim your daily reward of 1000 clicks!</p>
-        <button class="btn btn-primary" id="daily-reward-btn">Claim 1000 Clicks</button>
+        <p style="margin-bottom: 20px; text-align: center; opacity: 0.9;">Получите ежедневную награду в 1000 кликов!</p>
+        <button class="btn btn-primary" id="daily-reward-btn">Получить 1000 кликов</button>
         <div class="reward-timer" id="reward-timer"></div>
       </div>
     </div>
@@ -1034,14 +1033,14 @@
   <div class="glass-modal" id="promo-code-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Promo Codes</h2>
+        <h2 class="glass-title">Промокоды</h2>
         <button class="glass-close" id="close-promo">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 15px; text-align: center; opacity: 0.9;">Enter a promo code to get bonus clicks!</p>
+        <p style="margin-bottom: 15px; text-align: center; opacity: 0.9;">Введите промокод, чтобы получить бонусные клики!</p>
         
-        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;">
-        <button class="btn btn-accent" id="promo-btn">Activate</button>
+        <input type="text" class="settings-select" id="promo-input" placeholder="Введите промокод" style="margin-bottom: 15px;">
+        <button class="btn btn-accent" id="promo-btn">Активировать</button>
       </div>
     </div>
   </div>
@@ -1050,7 +1049,7 @@
   <div class="glass-modal" id="stats-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Statistics</h2>
+        <h2 class="glass-title">Статистика</h2>
         <button class="glass-close" id="close-stats">×</button>
       </div>
       <div class="glass-body">
@@ -1061,19 +1060,19 @@
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-value" id="stat-today">0</div>
-              <div class="stat-label">Today</div>
+              <div class="stat-label">Сегодня</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="stat-week">0</div>
-              <div class="stat-label">This Week</div>
+              <div class="stat-label">За неделю</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="stat-month">0</div>
-              <div class="stat-label">This Month</div>
+              <div class="stat-label">За месяц</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="stat-avg-cps">0.0</div>
-              <div class="stat-label">Avg CPS</div>
+              <div class="stat-label">Средн. КПС</div>
             </div>
           </div>
         </div>
@@ -1085,12 +1084,12 @@
   <div class="glass-modal" id="reset-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Reset Progress</h2>
+        <h2 class="glass-title">Сброс прогресса</h2>
         <button class="glass-close" id="close-reset">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">This will permanently delete all your progress. This action cannot be undone!</p>
-        <button class="btn btn-danger" id="reset-btn">Reset Progress</button>
+        <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">Это навсегда удалит весь ваш прогресс. Это действие нельзя отменить!</p>
+        <button class="btn btn-danger" id="reset-btn">Сбросить прогресс</button>
       </div>
     </div>
   </div>
@@ -1114,7 +1113,7 @@
     };
     
     // Anti-Cheat System
-    const MAX_CPS = 13; // Maximum allowed clicks per second
+    const MAX_CPS = 13; // Максимально допустимое количество кликов в секунду
     let clickTimestamps = [];
     let antiCheatActive = false;
     let cheatDetectionCount = 0;
@@ -1268,7 +1267,7 @@
       
       // Stars (неактивная кнопка)
       starsItem.addEventListener('click', () => {
-        showToast('Stars feature is coming soon!');
+        showToast('Функция "Звёзды" скоро появится!');
       });
       
       // Theme change
@@ -1289,31 +1288,31 @@
       if (isBanned) return;
       
       if (antiCheatActive) {
-        triggerBan(30 * 60 * 1000); // 30 minute ban
+        triggerBan(30 * 60 * 1000); // Бан на 30 минут
         return;
       }
       
       const now = Date.now();
       clickTimestamps.push(now);
       
-      // Remove timestamps older than 1 second
+      // Удаляем временные метки старше 1 секунды
       clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < 1000);
       
-      // Check if CPS exceeds maximum
+      // Проверяем, не превышает ли КПС максимальный
       if (clickTimestamps.length > MAX_CPS) {
         cheatDetectionCount++;
         
         if (cheatDetectionCount >= 3) {
           triggerAntiCheat();
         } else {
-          showToast(`Warning: High CPS detected! (${clickTimestamps.length}/s)`);
+          showToast(`Внимание: Обнаружена высокая скорость кликов! (${clickTimestamps.length}/с)`);
         }
       } else {
-        // Reset cheat detection count if behavior is normal
+        // Сбрасываем счётчик обнаружения читов, если поведение нормальное
         if (cheatDetectionCount > 0) cheatDetectionCount--;
       }
       
-      // Process valid click
+      // Обрабатываем валидный клик
       clicks++;
       totalSessionClicks++;
       
@@ -1336,19 +1335,19 @@
       const weekKey = getWeekKey(now);
       const monthKey = getMonthKey(now);
       
-      // Today
+      // Сегодня
       if (!clickHistory.daily[today]) {
         clickHistory.daily[today] = 0;
       }
       clickHistory.daily[today]++;
       
-      // Week
+      // Неделя
       if (!clickHistory.weekly[weekKey]) {
         clickHistory.weekly[weekKey] = 0;
       }
       clickHistory.weekly[weekKey]++;
       
-      // Month
+      // Месяц
       if (!clickHistory.monthly[monthKey]) {
         clickHistory.monthly[monthKey] = 0;
       }
@@ -1427,9 +1426,9 @@
       dailyRewardBtn.disabled = !canClaim;
       
       if (canClaim) {
-        dailyRewardBtn.textContent = 'Claim 1000 Clicks';
+        dailyRewardBtn.textContent = 'Получить 1000 кликов';
       } else {
-        dailyRewardBtn.textContent = 'Already Claimed';
+        dailyRewardBtn.textContent = 'Уже получено';
       }
     }
 
@@ -1445,14 +1444,14 @@
         const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
         const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
         
-        // Timer в баннере
-        dailyRewardTimerElement.textContent = `Available in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // Таймер в баннере
+        dailyRewardTimerElement.textContent = `Доступно через: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         
-        // Timer в модальном окне
-        rewardTimerElement.textContent = `Next reward in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // Таймер в модальном окне
+        rewardTimerElement.textContent = `Следующая награда через: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         rewardTimerElement.style.display = 'block';
       } else {
-        dailyRewardTimerElement.textContent = 'Available now!';
+        dailyRewardTimerElement.textContent = 'Доступно сейчас!';
         rewardTimerElement.style.display = 'none';
       }
     }
@@ -1473,7 +1472,7 @@
       const oneDay = 24 * 60 * 60 * 1000;
       
       if ((now - lastDailyReward) < oneDay) {
-        showToast('Daily reward already claimed!');
+        showToast('Ежедневная награда уже получена!');
         return;
       }
       
@@ -1481,7 +1480,7 @@
       totalSessionClicks += 1000;
       lastDailyReward = now;
       
-      // Add to history
+      // Добавляем в историю
       const today = new Date().toDateString();
       if (!clickHistory.daily[today]) {
         clickHistory.daily[today] = 0;
@@ -1490,7 +1489,7 @@
       
       updateUI();
       saveGameData();
-      showToast('Daily reward claimed! +1000 clicks');
+      showToast('Ежедневная награда получена! +1000 кликов');
       toggleModal(dailyRewardModal);
     }
 
@@ -1500,18 +1499,18 @@
       const code = promoInput.value.trim().toUpperCase();
       
       if (!code) {
-        showToast('Please enter a promo code');
+        showToast('Пожалуйста, введите промокод');
         return;
       }
       
       if (usedPromoCodes.includes(code)) {
-        showToast('Promo code already used');
+        showToast('Промокод уже использован');
         return;
       }
       
       let reward = 0;
       
-      // Basic promo codes
+      // Базовые промокоды
       switch(code) {
         case 'FROG250':
           reward = 250;
@@ -1535,7 +1534,7 @@
           reward = 200;
           break;
         default:
-          showToast('Invalid promo code');
+          showToast('Неверный промокод');
           return;
       }
       
@@ -1544,7 +1543,7 @@
       usedPromoCodes.push(code);
       promoInput.value = '';
       
-      // Add to history
+      // Добавляем в историю
       const today = new Date().toDateString();
       if (!clickHistory.daily[today]) {
         clickHistory.daily[today] = 0;
@@ -1553,7 +1552,7 @@
       
       updateUI();
       saveGameData();
-      showToast(`Promo code activated! +${reward} clicks`);
+      showToast(`Промокод активирован! +${reward} кликов`);
     }
 
     // Update statistics
@@ -1562,17 +1561,17 @@
       const todayClicks = clickHistory.daily[today] || 0;
       statTodayElement.textContent = formatNumber(todayClicks);
       
-      // This week's clicks
+      // Клики за эту неделю
       const weekKey = getWeekKey(new Date());
       const weekClicks = clickHistory.weekly[weekKey] || 0;
       statWeekElement.textContent = formatNumber(weekClicks);
       
-      // This month's clicks
+      // Клики за этот месяц
       const monthKey = getMonthKey(new Date());
       const monthClicks = clickHistory.monthly[monthKey] || 0;
       statMonthElement.textContent = formatNumber(monthClicks);
       
-      // Average CPS
+      // Средний КПС
       const avgCPS = calculateAverageCPS();
       statAvgCPSElement.textContent = avgCPS.toFixed(1);
     }
@@ -1590,7 +1589,7 @@
     function updateStatisticsChart() {
       statsChartElement.innerHTML = '';
       
-      // Generate real data for the last 7 days
+      // Генерируем реальные данные за последние 7 дней
       const data = [];
       const labels = [];
       const today = new Date();
@@ -1630,13 +1629,13 @@
     
     // Get short day name
     function getShortDayName(dayIndex) {
-      const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+      const days = ['В', 'П', 'В', 'С', 'Ч', 'П', 'С'];
       return days[dayIndex];
     }
 
     // Reset progress
     function resetProgress() {
-      if (confirm('Are you sure you want to reset all progress? This cannot be undone!')) {
+      if (confirm('Вы уверены, что хотите сбросить весь прогресс? Это действие нельзя отменить!')) {
         clicks = 0;
         lastDailyReward = 0;
         usedPromoCodes = [];
@@ -1651,7 +1650,7 @@
         cheatDetectionCount = 0;
         updateUI();
         saveGameData();
-        showToast('Progress reset successfully');
+        showToast('Прогресс успешно сброшен');
         toggleModal(resetModal);
       }
     }
@@ -1689,16 +1688,16 @@
       cheaterDetected.style.display = 'none';
       banTimer.style.display = 'none';
       
-      // Add click listener to catch any clicks during anti-cheat
+      // Добавляем слушатель кликов для обнаружения кликов во время анти-чита
       document.addEventListener('click', handleAntiCheatClick, true);
       
-      // Auto-disable anti-cheat after 5 seconds if no cheating detected
+      // Автоматически отключаем анти-чит через 5 секунд, если читерство не обнаружено
       setTimeout(() => {
         if (antiCheatActive) {
           antiCheatActive = false;
           antiCheatOverlay.classList.remove('active');
           document.removeEventListener('click', handleAntiCheatClick, true);
-          showToast('Anti-cheat check passed');
+          showToast('Проверка анти-чита пройдена');
         }
       }, 5000);
     }
@@ -1706,7 +1705,7 @@
     function handleAntiCheatClick(e) {
       e.stopPropagation();
       e.preventDefault();
-      triggerBan(30 * 60 * 1000); // 30 minute ban
+      triggerBan(30 * 60 * 1000); // Бан на 30 минут
     }
     
     function triggerBan(duration) {
@@ -1721,7 +1720,7 @@
       
       saveGameData();
       
-      // Start ban timer
+      // Запускаем таймер бана
       updateBanTimer();
       const banInterval = setInterval(updateBanTimer, 1000);
       
@@ -1733,7 +1732,7 @@
           isBanned = false;
           antiCheatOverlay.classList.remove('active');
           clearInterval(banInterval);
-          showToast('Ban lifted. You can play again.');
+          showToast('Бан снят. Вы можете играть снова.');
           return;
         }
         

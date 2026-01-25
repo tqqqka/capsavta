@@ -113,6 +113,181 @@
       text-align: center;
     }
     
+    /* Ad Modal Styles */
+    .ad-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .ad-overlay.active {
+      display: flex;
+    }
+
+    .ad-container {
+      width: min(320px, 90vw);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transform: scale(0.95);
+      animation: slideUp 0.4s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px) scale(0.95); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .ad-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 15px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .ad-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+
+    .ad-close.enabled {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .ad-close.enabled:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .ad-image {
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ad-image::after {
+      content: "";
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .ad-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .ad-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--primary-light);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .ad-description {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .ad-button {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .ad-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    }
+
+    .ad-button:active {
+      transform: translateY(0);
+    }
+
+    .ad-countdown {
+      font-size: 12px;
+      margin-top: 15px;
+      opacity: 0.7;
+      color: var(--text-light);
+    }
+
+    body.light-theme .ad-container {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-theme .ad-title {
+      color: var(--primary);
+    }
+
+    body.light-theme .ad-countdown {
+      color: var(--text-dark);
+    }
+
+    body.light-theme .ad-close {
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: var(--text-dark);
+    }
+
+    body.light-theme .ad-close.enabled:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    
     .main-content { 
       flex: 1; 
       display: flex; 
@@ -845,6 +1020,22 @@
         height: 100px;
         padding: 10px 6px 3px 6px;
       }
+
+      .ad-container {
+        width: min(300px, 85vw);
+      }
+
+      .ad-image {
+        height: 130px;
+      }
+
+      .ad-title {
+        font-size: 18px;
+      }
+
+      .ad-description {
+        font-size: 13px;
+      }
     }
     
     @media (max-width: 380px) {
@@ -888,6 +1079,23 @@
       .more-desc {
         font-size: 9px;
       }
+
+      .ad-container {
+        width: min(280px, 80vw);
+      }
+
+      .ad-image {
+        height: 120px;
+      }
+
+      .ad-title {
+        font-size: 17px;
+      }
+
+      .ad-button {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
     }
     
     @media (max-height: 700px) {
@@ -899,6 +1107,10 @@
       
       .click-count {
         margin-bottom: 8px;
+      }
+
+      .ad-image {
+        height: 110px;
       }
     }
     
@@ -922,6 +1134,24 @@
     </div>
     <div class="ban-timer" id="ban-timer" style="display: none;">
       До разблокировки: <span id="ban-time">30:00</span>
+    </div>
+  </div>
+
+  <!-- Ad Overlay -->
+  <div class="ad-overlay" id="ad-overlay">
+    <div class="ad-container">
+      <div class="ad-header">
+        <div class="ad-close" id="ad-close">×</div>
+      </div>
+      <div class="ad-image">
+        <i class="fas fa-ad"></i>
+      </div>
+      <div class="ad-content">
+        <div class="ad-title">Здесь могла бы быть ваша реклама!</div>
+        <div class="ad-description">Напишите нам в чат чтоб договориться о сотрудничестве</div>
+        <button class="ad-button" id="ad-button">Посмотреть</button>
+        <div class="ad-countdown" id="ad-countdown">Можно закрыть через 3 секунды</div>
+      </div>
     </div>
   </div>
 
@@ -1120,6 +1350,13 @@
     let isBanned = false;
     let banEndTime = 0;
 
+    // Ad System
+    let adInterval;
+    let adTimer = 0;
+    const AD_INTERVAL = 60 * 1000; // 60 секунд
+    let adCountdown = 3; // 3 секунды до возможности закрытия
+    let adCountdownInterval;
+
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
@@ -1132,6 +1369,12 @@
     const promoCodeModal = document.getElementById('promo-code-modal');
     const statsModal = document.getElementById('stats-modal');
     const resetModal = document.getElementById('reset-modal');
+
+    // Ad Elements
+    const adOverlay = document.getElementById('ad-overlay');
+    const adCloseButton = document.getElementById('ad-close');
+    const adButton = document.getElementById('ad-button');
+    const adCountdownElement = document.getElementById('ad-countdown');
 
     // Buttons
     const settingsBtn = document.getElementById('settings-btn');
@@ -1181,6 +1424,7 @@
       updateUI();
       setupEventListeners();
       startTimerLoop();
+      startAdInterval();
       checkBanStatus();
     }
 
@@ -1192,6 +1436,7 @@
       const savedClickHistory = localStorage.getItem('cvaptaClickHistory');
       const savedTheme = localStorage.getItem('cvaptaTheme');
       const savedBanEndTime = localStorage.getItem('cvaptaBanEndTime');
+      const savedAdTimer = localStorage.getItem('cvaptaAdTimer');
       
       if (savedClicks) clicks = parseInt(savedClicks);
       if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward);
@@ -1202,6 +1447,7 @@
         handleThemeChange();
       }
       if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime);
+      if (savedAdTimer) adTimer = parseInt(savedAdTimer);
     }
 
     // Save game data
@@ -1212,6 +1458,7 @@
       localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
       localStorage.setItem('cvaptaTheme', themeSelect.value);
       localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
+      localStorage.setItem('cvaptaAdTimer', adTimer.toString());
     }
 
     // Update UI
@@ -1273,6 +1520,12 @@
       // Theme change
       themeSelect.addEventListener('change', handleThemeChange);
       
+      // Ad events
+      adCloseButton.addEventListener('click', closeAd);
+      adButton.addEventListener('click', () => {
+        window.open('https://t.me/Cvapik_bot', '_blank');
+      });
+      
       // Close modals on background click
       document.querySelectorAll('.glass-modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
@@ -1281,6 +1534,60 @@
           }
         });
       });
+    }
+
+    // Ad System Functions
+    function startAdInterval() {
+      // Показываем первую рекламу через 1 минуту после начала игры
+      setTimeout(() => {
+        showAd();
+      }, AD_INTERVAL);
+      
+      // Затем каждую минуту
+      adInterval = setInterval(() => {
+        showAd();
+      }, AD_INTERVAL);
+    }
+    
+    function showAd() {
+      // Проверяем, не забанен ли пользователь
+      if (isBanned) return;
+      
+      // Сбрасываем таймер отсчета
+      adCountdown = 3;
+      adCountdownElement.textContent = `Можно закрыть через ${adCountdown} секунды`;
+      
+      // Отключаем кнопку закрытия
+      adCloseButton.classList.remove('enabled');
+      adCloseButton.style.cursor = 'default';
+      
+      // Показываем рекламу
+      adOverlay.classList.add('active');
+      
+      // Запускаем отсчет 3 секунд
+      adCountdownInterval = setInterval(() => {
+        adCountdown--;
+        adCountdownElement.textContent = `Можно закрыть через ${adCountdown} секунды`;
+        
+        if (adCountdown <= 0) {
+          clearInterval(adCountdownInterval);
+          adCountdownElement.textContent = 'Можно закрыть';
+          adCloseButton.classList.add('enabled');
+          adCloseButton.style.cursor = 'pointer';
+        }
+      }, 1000);
+    }
+    
+    function closeAd() {
+      // Проверяем, можно ли закрыть рекламу
+      if (adCountdown > 0) {
+        showToast(`Подождите ${adCountdown} секунды чтобы закрыть рекламу`);
+        return;
+      }
+      
+      adOverlay.classList.remove('active');
+      clearInterval(adCountdownInterval);
+      showToast('Реклама закрыта');
     }
 
     // Handle frog click with anti-cheat
@@ -1529,6 +1836,9 @@
           break;
         case 'SPINA123': // Новый промокод
           reward = 1000;
+          break;
+        case 'SHTORIVVANU324454879': // Новый промокод
+          reward = 10000;
           break;
         case 'CVAPTA': // Новый промокод
           reward = 200;

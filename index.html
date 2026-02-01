@@ -27,6 +27,12 @@
       --bg-light: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
       --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      
+      /* Animation speeds */
+      --anim-slow: 0.6s;
+      --anim-medium: 0.4s;
+      --anim-fast: 0.2s;
+      --anim-very-slow: 0.8s;
     }
     
     * { 
@@ -48,7 +54,7 @@
       position: relative;
       background: var(--bg-dark);
       color: var(--text-light);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--anim-slow) cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     body.light-theme { 
@@ -75,16 +81,24 @@
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(20px);
+      transition: all var(--anim-medium) ease;
+      opacity: 0;
+      transform: scale(0.95);
     }
 
     .anti-cheat-overlay.active {
       display: flex;
-      animation: alarmPulse 0.5s infinite alternate;
+      animation: alarmPulse 0.5s infinite alternate, fadeInScale 0.3s ease forwards;
     }
 
     @keyframes alarmPulse {
       0% { background: linear-gradient(45deg, #8b4513, #a0522d); }
       100% { background: linear-gradient(45deg, #a0522d, #8b4513); }
+    }
+
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     .anti-cheat-message {
@@ -94,6 +108,12 @@
       margin-bottom: 20px;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
       color: #fff;
+      animation: textShake 0.5s infinite alternate;
+    }
+
+    @keyframes textShake {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(5px); }
     }
 
     .cheater-detected {
@@ -102,12 +122,24 @@
       font-weight: 900;
       text-align: center;
       margin-bottom: 20px;
+      animation: pulseRed 0.5s infinite alternate;
+    }
+
+    @keyframes pulseRed {
+      0% { transform: scale(1); text-shadow: 0 0 10px rgba(255,0,0,0.5); }
+      100% { transform: scale(1.05); text-shadow: 0 0 20px rgba(255,0,0,0.8); }
     }
 
     .ban-timer {
       font-size: 20px;
       color: white;
       text-align: center;
+      animation: fadeInOut 2s infinite alternate;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
     
     .main-content { 
@@ -133,7 +165,7 @@
       box-shadow: var(--card-shadow); 
       text-align: center;
       width: min(90%, 320px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1);
       line-height: 1.1;
     }
     
@@ -153,8 +185,9 @@
       animation: breathe 4s infinite ease-in-out; 
       position: relative;
       z-index: 2;
-      transition: transform 0.1s ease;
+      transition: transform var(--anim-fast) ease;
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+      will-change: transform;
     }
     
     @keyframes breathe { 
@@ -173,13 +206,18 @@
       background: radial-gradient(circle, rgba(0, 114, 65, 0.3) 0%, transparent 70%); 
       border-radius: 50%; 
       pointer-events: none; 
-      animation: ripple 0.4s ease-out; 
+      animation: ripple 0.4s ease-out, fadeOut 0.4s ease-out forwards; 
       z-index: 3;
     }
     
     @keyframes ripple { 
-      0% { transform: scale(0.3); opacity: 1; } 
-      100% { transform: scale(2.0); opacity: 0; } 
+      0% { transform: scale(0.3); } 
+      100% { transform: scale(2.0); } 
+    }
+    
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
     
     .floating-text { 
@@ -188,14 +226,19 @@
       font-weight: 700; 
       font-size: clamp(20px, 6vw, 28px); 
       pointer-events: none; 
-      animation: floatUp 0.8s ease-out forwards; 
+      animation: floatUp 0.8s ease-out forwards, textPulse 0.8s ease-out forwards; 
       z-index: 4;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
     
     @keyframes floatUp { 
-      0% { transform: translateY(0) scale(1); opacity: 1; } 
-      100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+      0% { transform: translateY(0) scale(1); } 
+      100% { transform: translateY(-80px) scale(1.1); }
+    }
+    
+    @keyframes textPulse {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
     
     .bottom-nav { 
@@ -210,6 +253,7 @@
       margin: 0 12px 8px;
       border-radius: 20px;
       box-shadow: var(--card-shadow);
+      transition: all var(--anim-medium) ease;
     }
     
     .nav-item { 
@@ -220,10 +264,15 @@
       color: inherit; 
       opacity: 0.8;
       cursor: pointer; 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1); 
       flex: 1; 
       padding: 4px;
       border-radius: 12px;
+    }
+    
+    .nav-item:hover {
+      opacity: 1;
+      transform: translateY(-2px);
     }
     
     .nav-item.active { 
@@ -243,7 +292,7 @@
       background: var(--glass-bg-light);
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border-light);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1); 
     }
     
     .nav-item.active .nav-icon { 
@@ -265,15 +314,22 @@
       justify-content: center; 
       opacity: 0; 
       pointer-events: none; 
-      transition: opacity 0.3s ease; 
+      transition: opacity var(--anim-medium) ease; 
       z-index: 1000; 
       padding: 16px;
+      backdrop-filter: blur(5px);
     }
     
     .glass-modal.active { 
       display: flex;
       opacity: 1; 
       pointer-events: all; 
+      animation: modalFadeIn 0.3s ease;
+    }
+    
+    @keyframes modalFadeIn {
+      0% { opacity: 0; backdrop-filter: blur(0); }
+      100% { opacity: 1; backdrop-filter: blur(5px); }
     }
     
     .glass-content {
@@ -286,7 +342,7 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       overflow: hidden;
       transform: translateY(20px) scale(0.98);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .glass-modal.active .glass-content {
@@ -299,13 +355,13 @@
       padding: 20px;
       margin-bottom: 15px;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       cursor: pointer;
     }
     
     .stars-card:hover:not(.locked) {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.02);
       box-shadow: 0 8px 25px rgba(0, 114, 65, 0.3);
     }
     
@@ -410,6 +466,12 @@
     .stars-notification.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+      animation: notificationSlide 0.5s ease-out;
+    }
+    
+    @keyframes notificationSlide {
+      0% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
     
     .stars-notification-content {
@@ -476,6 +538,11 @@
       justify-content: center;
       cursor: pointer;
       font-size: 14px;
+      transition: all var(--anim-fast) ease;
+    }
+    
+    .stars-notification-close:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
     
     .warning-modal {
@@ -524,6 +591,12 @@
       color: #f39c12;
       margin-top: 20px;
       font-weight: 600;
+      animation: timerPulse 1s infinite alternate;
+    }
+    
+    @keyframes timerPulse {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
     }
     
     .warning-buttons {
@@ -541,25 +614,29 @@
       font-size: 18px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
       opacity: 0.5;
       pointer-events: none;
       flex: 1;
+      transform: scale(0.95);
     }
     
     .warning-btn.active {
       opacity: 1;
       pointer-events: all;
+      transform: scale(1);
     }
     
     .warning-btn-cancel {
       background: linear-gradient(135deg, #e74c3c, #c0392b);
       opacity: 1;
       pointer-events: all;
+      transform: scale(1);
     }
     
     .warning-btn-cancel:hover {
       background: linear-gradient(135deg, #c0392b, #a93226);
+      transform: translateY(-2px);
     }
 
     .receipt-modal .glass-content {
@@ -581,6 +658,12 @@
       font-family: 'Courier New', monospace;
       position: relative;
       overflow-y: auto;
+      animation: receiptFadeIn 0.5s ease-out;
+    }
+    
+    @keyframes receiptFadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     
     .receipt-header {
@@ -614,6 +697,13 @@
       border-bottom: 1px dashed #ccc;
       color: #000;
       font-size: clamp(13px, 3.5vw, 14px);
+      opacity: 0;
+      animation: rowFadeIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.05s + 0.2s);
+    }
+    
+    @keyframes rowFadeIn {
+      100% { opacity: 1; }
     }
     
     .receipt-row.total {
@@ -637,11 +727,19 @@
       border-top: 2px dashed #000;
       font-size: clamp(11px, 3vw, 12px);
       color: #000;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 0.8s forwards;
+    }
+    
+    @keyframes fadeIn {
+      100% { opacity: 1; }
     }
     
     .receipt-close-container {
       text-align: center;
       margin-top: 25px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out 0.9s forwards;
     }
     
     .receipt-close-btn {
@@ -682,12 +780,20 @@
       padding: 15px;
       margin-bottom: 10px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
       cursor: pointer;
+      opacity: 0;
+      animation: itemFadeIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.1s);
+    }
+    
+    @keyframes itemFadeIn {
+      100% { opacity: 1; }
     }
     
     .stars-history-item:hover {
       background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
     }
     
     .stars-history-header {
@@ -753,7 +859,7 @@
       opacity: 0.7;
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border-light);
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
     }
     
     .glass-close:disabled {
@@ -796,6 +902,13 @@
 
     .settings-group {
       margin-bottom: 15px;
+      opacity: 0;
+      animation: settingFadeIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.1s + 0.3s);
+    }
+    
+    @keyframes settingFadeIn {
+      100% { opacity: 1; }
     }
     
     .settings-label {
@@ -815,13 +928,14 @@
       backdrop-filter: blur(10px);
       color: inherit;
       font-size: 14px;
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
     }
     
     .settings-select:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(0, 114, 65, 0.1);
+      transform: translateY(-1px);
     }
     
     .daily-reward-banner {
@@ -834,7 +948,7 @@
       margin-bottom: 20px;
       border: 1px solid var(--glass-border);
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .daily-reward-banner:active {
@@ -898,10 +1012,13 @@
       align-items: center; 
       text-align: center; 
       cursor: pointer; 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1); 
       border: 1px solid var(--glass-border);
       aspect-ratio: 1 / 1;
       justify-content: center;
+      opacity: 0;
+      animation: itemFadeIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.1s + 0.3s);
     }
     
     .more-item:hover:not(.disabled) {
@@ -930,7 +1047,7 @@
       background: var(--glass-bg-light);
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border-light);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .more-item.disabled .more-icon {
@@ -948,7 +1065,7 @@
       background: rgba(149, 165, 166, 0.1);
       backdrop-filter: blur(10px);
       border: 1px solid var(--glass-border-light);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1);
       padding: 8px;
       margin-bottom: 8px;
     }
@@ -1023,7 +1140,7 @@
       font-size: 15px; 
       font-weight: 600; 
       cursor: pointer; 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      transition: all var(--anim-medium) cubic-bezier(0.4, 0, 0.2, 1); 
       margin-bottom: 12px; 
       backdrop-filter: blur(10px);
       position: relative;
@@ -1060,6 +1177,11 @@
       box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
     }
     
+    .btn-danger:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+    
     .reward-timer {
       font-size: 13px;
       margin-top: 12px;
@@ -1091,7 +1213,14 @@
       padding: 15px;
       text-align: center;
       border: 1px solid var(--glass-border);
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
+      opacity: 0;
+      animation: cardFadeIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.1s);
+    }
+    
+    @keyframes cardFadeIn {
+      100% { opacity: 1; }
     }
     
     .stat-card:hover {
@@ -1124,6 +1253,12 @@
       justify-content: space-between;
       gap: 4px;
       border: 1px solid var(--glass-border);
+      opacity: 0;
+      animation: chartFadeIn 0.5s ease-out 0.2s forwards;
+    }
+    
+    @keyframes chartFadeIn {
+      100% { opacity: 1; }
     }
     
     .chart-bar-container {
@@ -1132,6 +1267,13 @@
       align-items: center;
       flex: 1;
       height: 100%;
+      opacity: 0;
+      animation: barFadeIn 0.5s ease-out forwards;
+      animation-delay: calc(var(--i, 0) * 0.1s + 0.4s);
+    }
+    
+    @keyframes barFadeIn {
+      100% { opacity: 1; }
     }
     
     .chart-bar {
@@ -1162,7 +1304,7 @@
       border-radius: 10px; 
       z-index: 1000; 
       opacity: 0; 
-      transition: opacity 0.3s ease; 
+      transition: opacity var(--anim-medium) ease; 
       max-width: 85%;
       text-align: center;
       font-weight: 600;
@@ -1173,6 +1315,12 @@
     
     .toast.show { 
       opacity: 1; 
+      animation: toastSlide 0.3s ease;
+    }
+    
+    @keyframes toastSlide {
+      0% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
     body.light-theme .click-count {
@@ -1377,7 +1525,7 @@
       border: none;
       color: #fff;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all var(--anim-medium) ease;
       padding: 10px 20px;
       width: 100%;
       height: 100%;
@@ -1857,7 +2005,7 @@
         <button class="glass-close" id="close-settings">×</button>
       </div>
       <div class="glass-body">
-        <div class="settings-group">
+        <div class="settings-group" style="--i: 0">
           <label class="settings-label">Тема</label>
           <select class="settings-select" id="theme-select">
             <option value="dark">Тёмная тема</option>
@@ -1886,25 +2034,25 @@
         </div>
         
         <div class="more-grid">
-          <div class="more-item promo-code-item" id="promo-code-item">
+          <div class="more-item promo-code-item" id="promo-code-item" style="--i: 0">
             <div class="more-icon"><i class="fas fa-tag"></i></div>
             <div class="more-title">Промо-коды</div>
             <div class="more-desc">Активируйте бонусы</div>
           </div>
           
-          <div class="more-item stats-item" id="stats-item">
+          <div class="more-item stats-item" id="stats-item" style="--i: 1">
             <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
             <div class="more-title">Статистика</div>
             <div class="more-desc">Просмотр прогресса</div>
           </div>
           
-          <div class="more-item reset-item" id="reset-item">
+          <div class="more-item reset-item" id="reset-item" style="--i: 2">
             <div class="more-icon"><i class="fas fa-undo"></i></div>
             <div class="more-title">Сбросить прогресс</div>
             <div class="more-desc">Начать заново</div>
           </div>
           
-          <div class="more-item stars-item" id="stars-item">
+          <div class="more-item stars-item" id="stars-item" style="--i: 3">
             <div class="star-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
@@ -1957,19 +2105,19 @@
         <div class="stats-section">
           <div class="stats-chart" id="stats-chart"></div>
           <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" style="--i: 0">
               <div class="stat-value" id="stat-today">0</div>
               <div class="stat-label">Сегодня</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" style="--i: 1">
               <div class="stat-value" id="stat-week">0</div>
               <div class="stat-label">Эта неделя</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" style="--i: 2">
               <div class="stat-value" id="stat-month">0</div>
               <div class="stat-label">Этот месяц</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" style="--i: 3">
               <div class="stat-value" id="stat-avg-cps">0.0</div>
               <div class="stat-label">Средний CPS</div>
             </div>
@@ -1999,7 +2147,7 @@
         <button class="glass-close" id="close-stars">×</button>
       </div>
       <div class="glass-body">
-        <div class="stars-card" id="stars-card-1" data-reward="1" data-clicks="60000" data-stars="50">
+        <div class="stars-card" id="stars-card-1" data-reward="1" data-clicks="60000" data-stars="50" style="--i: 0">
           <div class="stars-reward">
             <div class="stars-reward-info">
               <div class="stars-reward-title">🐸 60,000 кликов</div>
@@ -2016,7 +2164,7 @@
           </div>
         </div>
         
-        <div class="stars-card" id="stars-card-2" data-reward="2" data-clicks="110000" data-stars="100">
+        <div class="stars-card" id="stars-card-2" data-reward="2" data-clicks="110000" data-stars="100" style="--i: 1">
           <div class="stars-reward">
             <div class="stars-reward-info">
               <div class="stars-reward-title">🐸 110,000 кликов</div>
@@ -2033,7 +2181,7 @@
           </div>
         </div>
         
-        <div class="stars-card" id="stars-card-3" data-reward="3" data-clicks="160000" data-stars="150">
+        <div class="stars-card" id="stars-card-3" data-reward="3" data-clicks="160000" data-stars="150" style="--i: 2">
           <div class="stars-reward">
             <div class="stars-reward-info">
               <div class="stars-reward-title">🐸 160,000 кликов</div>
@@ -2050,7 +2198,7 @@
           </div>
         </div>
         
-        <div class="stars-card" id="stars-card-4" data-reward="4" data-clicks="210000" data-stars="200">
+        <div class="stars-card" id="stars-card-4" data-reward="4" data-clicks="210000" data-stars="200" style="--i: 3">
           <div class="stars-reward">
             <div class="stars-reward-info">
               <div class="stars-reward-title">🐸 210,000 кликов</div>
@@ -2128,31 +2276,23 @@
           </div>
           
           <div class="receipt-details">
-            <div class="receipt-row">
+            <div class="receipt-row" style="--i: 0">
               <span>ID чека:</span>
               <span id="receipt-id">#000001</span>
             </div>
-            <div class="receipt-row">
+            <div class="receipt-row" style="--i: 1">
               <span>Дата и время:</span>
               <span id="receipt-date">01/01/2024 12:00:00</span>
             </div>
-            <div class="receipt-row">
-              <span>Локация:</span>
-              <span id="receipt-location">Город, Страна</span>
-            </div>
-            <div class="receipt-row">
-              <span>Устройство:</span>
-              <span id="receipt-device">Название устройства</span>
-            </div>
-            <div class="receipt-row">
+            <div class="receipt-row" style="--i: 2">
               <span>Всего банов:</span>
               <span id="receipt-bans">0</span>
             </div>
-            <div class="receipt-row" style="margin-top: 20px;">
+            <div class="receipt-row" style="margin-top: 20px; --i: 3">
               <span>Кликов выведено:</span>
               <span id="receipt-clicks">0</span>
             </div>
-            <div class="receipt-row">
+            <div class="receipt-row" style="--i: 4">
               <span>Звёзд получено:</span>
               <span id="receipt-stars">0 ⭐</span>
             </div>
@@ -2302,8 +2442,6 @@
     // Receipt Elements
     const receiptIdElement = document.getElementById('receipt-id');
     const receiptDateElement = document.getElementById('receipt-date');
-    const receiptLocationElement = document.getElementById('receipt-location');
-    const receiptDeviceElement = document.getElementById('receipt-device');
     const receiptBansElement = document.getElementById('receipt-bans');
     const receiptClicksElement = document.getElementById('receipt-clicks');
     const receiptStarsElement = document.getElementById('receipt-stars');
@@ -2325,7 +2463,6 @@
     // Initialize the game
     function initGame() {
       loadGameData();
-      detectUserInfo();
       updateUI();
       setupEventListeners();
       startTimerLoop();
@@ -2334,6 +2471,26 @@
       setTimeout(() => {
         checkForAvailableStars(true);
       }, 1000);
+      
+      // Add animation delays to stars cards
+      document.querySelectorAll('.stars-card').forEach((card, index) => {
+        card.style.setProperty('--i', index);
+      });
+      
+      // Add animation delays to more items
+      document.querySelectorAll('.more-item').forEach((item, index) => {
+        item.style.setProperty('--i', index);
+      });
+      
+      // Add animation delays to stat cards
+      document.querySelectorAll('.stat-card').forEach((card, index) => {
+        card.style.setProperty('--i', index);
+      });
+      
+      // Add animation delays to receipt rows
+      document.querySelectorAll('.receipt-row').forEach((row, index) => {
+        row.style.setProperty('--i', index);
+      });
     }
 
     // Load game data
@@ -2404,33 +2561,6 @@
         localStorage.setItem('cvaptaAvailableStarsNotifications', JSON.stringify(availableStarsNotifications));
       } catch (error) {
         console.error('Error saving game data:', error);
-      }
-    }
-
-    // Detect user info
-    function detectUserInfo() {
-      try {
-        userInfo.device = navigator.userAgent || 'Неизвестное устройство';
-        userInfo.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Неизвестно';
-        userInfo.location = 'Неизвестно';
-        
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            function(position) {
-              userInfo.location = `Широта: ${position.coords.latitude.toFixed(4)}, Долгота: ${position.coords.longitude.toFixed(4)}`;
-            },
-            function() {
-              userInfo.location = 'Геолокация недоступна';
-            }
-          );
-        } else {
-          userInfo.location = 'Геолокация не поддерживается';
-        }
-      } catch (error) {
-        console.error('Error detecting user info:', error);
-        userInfo.location = 'Неизвестно';
-        userInfo.device = navigator.userAgent || 'Неизвестное устройство';
-        userInfo.timezone = 'Неизвестно';
       }
     }
 
@@ -2811,9 +2941,6 @@
         date: new Date().toISOString(),
         clicks: requiredClicks,
         stars: starsAmount,
-        location: userInfo.location,
-        device: userInfo.device,
-        timezone: userInfo.timezone,
         totalBans: totalBans,
         expiresAt: Date.now() + (3 * 24 * 60 * 60 * 1000)
       };
@@ -2844,8 +2971,6 @@
       const date = new Date(record.date);
       receiptIdElement.textContent = '#' + record.id;
       receiptDateElement.textContent = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-      receiptLocationElement.textContent = record.location;
-      receiptDeviceElement.textContent = record.device;
       receiptBansElement.textContent = record.totalBans;
       receiptClicksElement.textContent = formatNumber(record.clicks);
       receiptStarsElement.textContent = record.stars + ' ⭐';
@@ -2919,9 +3044,10 @@
       
       starsHistoryEmpty.style.display = 'none';
       
-      withdrawalHistory.forEach(record => {
+      withdrawalHistory.forEach((record, index) => {
         const item = document.createElement('div');
         item.className = 'stars-history-item';
+        item.style.setProperty('--i', index);
         
         const date = new Date(record.date);
         const expiresIn = Math.ceil((record.expiresAt - now) / (24 * 60 * 60 * 1000));
@@ -2934,7 +3060,6 @@
           <div class="stars-history-details">
             <div>Кликов: ${formatNumber(record.clicks)}</div>
             <div>ID: ${record.id}</div>
-            <div>Локация: ${record.location}</div>
             <div>Банов: ${record.totalBans}</div>
             ${expiresIn <= 1 ? `<div class="stars-history-expired">⚠️ Истекает через ${expiresIn} день</div>` : ''}
           </div>
@@ -3129,6 +3254,7 @@
       data.forEach((value, index) => {
         const barContainer = document.createElement('div');
         barContainer.className = 'chart-bar-container';
+        barContainer.style.setProperty('--i', index);
         
         const bar = document.createElement('div');
         bar.className = 'chart-bar';

@@ -233,6 +233,13 @@
       transform: scale(0.96); 
     }
 
+    .frog.night-mode {
+      opacity: 0.5;
+      cursor: not-allowed !important;
+      filter: brightness(0.7) grayscale(0.3);
+      animation: none !important;
+    }
+
     .click-effect { 
       position: absolute; 
       width: 80px; 
@@ -1711,6 +1718,71 @@
       transform: translateX(24px);
     }
 
+    /* Ночной режим - ограничение кликов */
+    .night-time-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      z-index: 5;
+      width: 80%;
+      max-width: 280px;
+      border: 2px solid #f39c12;
+      box-shadow: 0 0 30px rgba(243, 156, 18, 0.3);
+    }
+
+    .night-time-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      animation: moonGlow 3s infinite alternate;
+    }
+
+    @keyframes moonGlow {
+      0% { transform: scale(1); opacity: 0.7; text-shadow: 0 0 10px rgba(243, 156, 18, 0.5); }
+      100% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 20px rgba(243, 156, 18, 0.8); }
+    }
+
+    .night-time-text {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #f39c12;
+    }
+
+    .night-time-subtext {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    .night-time-current {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    /* Night mode for banners and buttons */
+    .night-mode-disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      filter: grayscale(0.5) !important;
+    }
+
     @media (max-width: 480px) {
       .frog { 
         width: min(240px, 60vw); 
@@ -1891,6 +1963,25 @@
       .toggle-switch.active::after {
         transform: translateX(20px);
       }
+      
+      /* Ночной режим адаптив */
+      .night-time-overlay {
+        max-width: 250px;
+        padding: 15px;
+      }
+      
+      .night-time-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+      
+      .night-time-text {
+        font-size: 14px;
+      }
+      
+      .night-time-subtext {
+        font-size: 12px;
+      }
     }
     
     @media (max-width: 380px) {
@@ -2011,6 +2102,24 @@
       .toggle-switch.active::after {
         transform: translateX(18px);
       }
+      
+      /* Ночной режим адаптив */
+      .night-time-overlay {
+        max-width: 220px;
+        padding: 12px;
+      }
+      
+      .night-time-icon {
+        font-size: 28px;
+      }
+      
+      .night-time-text {
+        font-size: 13px;
+      }
+      
+      .night-time-subtext {
+        font-size: 11px;
+      }
     }
     
     @media (max-height: 700px) {
@@ -2068,6 +2177,15 @@
       
       .stars-history-label {
         font-size: 10px;
+      }
+      
+      .night-time-overlay {
+        padding: 15px;
+      }
+      
+      .night-time-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
       }
     }
   </style>
@@ -2496,10 +2614,15 @@
     // Animation setting
     let animationsEnabled = false;
 
+    // Night time restriction
+    let isNightTime = false;
+    let nightTimeCheckInterval = null;
+
     // DOM Elements
     const frogElement = document.getElementById('frog');
     const clickCountElement = document.getElementById('click-count');
     const bodyElement = document.body;
+    const frogContainer = document.querySelector('.frog-container');
     
     // Glass Modals
     const settingsModal = document.getElementById('settings-modal');
@@ -2589,6 +2712,74 @@
     let warningTimerInterval = null;
     let receiptTimerInterval = null;
 
+    // Функция для проверки текущего времени
+    function checkTimeRestrictions() {
+      const now = new Date();
+      const currentHour = now.getHours();
+      
+      // Проверяем, находится ли текущее время в запрещенном интервале (22:00-07:00)
+      const wasNightTime = isNightTime;
+      isNightTime = (currentHour >= 22 || currentHour < 7);
+      
+      if (isNightTime) {
+        frogElement.classList.add('night-mode');
+        frogElement.style.cursor = 'not-allowed';
+        frogElement.title = 'Клики доступны только с 07:00 до 22:00';
+        frogElement.style.filter = 'brightness(0.7) grayscale(0.3) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2))';
+        
+        // Отключаем кнопки и баннеры
+        dailyRewardBtn.disabled = true;
+        dailyRewardBtn.classList.add('night-mode-disabled');
+        promoBtn.disabled = true;
+        promoBtn.classList.add('night-mode-disabled');
+        dailyRewardBanner.classList.add('night-mode-disabled');
+        promoCodeItem.classList.add('night-mode-disabled');
+        
+        // Убираем существующие ночные уведомления
+        const existingNotifications = document.querySelectorAll('.night-time-notification');
+        existingNotifications.forEach(notification => notification.remove());
+        
+        // Создаем новое уведомление только если только что вошли в ночной режим
+        if (!wasNightTime) {
+          const nightNotification = document.createElement('div');
+          nightNotification.className = 'night-time-notification';
+          nightNotification.innerHTML = `
+            <div class="night-time-icon">🌙</div>
+            <div class="night-time-text">Ночное время</div>
+            <div class="night-time-subtext">Клики доступны только с 07:00 до 22:00 по местному времени</div>
+            <div class="night-time-current">
+              Текущее время: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+            </div>
+          `;
+          frogContainer.appendChild(nightNotification);
+          
+          // Убираем уведомление через 5 секунд
+          setTimeout(() => {
+            if (nightNotification.parentNode) {
+              nightNotification.remove();
+            }
+          }, 5000);
+        }
+      } else {
+        frogElement.classList.remove('night-mode');
+        frogElement.style.cursor = 'pointer';
+        frogElement.style.filter = 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2))';
+        frogElement.title = '';
+        
+        // Включаем кнопки и баннеры
+        dailyRewardBtn.disabled = false;
+        dailyRewardBtn.classList.remove('night-mode-disabled');
+        promoBtn.disabled = false;
+        promoBtn.classList.remove('night-mode-disabled');
+        dailyRewardBanner.classList.remove('night-mode-disabled');
+        promoCodeItem.classList.remove('night-mode-disabled');
+        
+        // Убираем ночные уведомления если есть
+        const nightNotifications = document.querySelectorAll('.night-time-notification');
+        nightNotifications.forEach(notification => notification.remove());
+      }
+    }
+
     // Initialize the game
     function initGame() {
       loadGameData();
@@ -2596,6 +2787,13 @@
       setupEventListeners();
       startTimerLoop();
       checkBanStatus();
+      
+      // Запускаем проверку времени сразу и каждую минуту
+      checkTimeRestrictions();
+      nightTimeCheckInterval = setInterval(checkTimeRestrictions, 60000); // Проверяем каждую минуту
+      
+      // Также проверяем каждую секунду для более точного отслеживания
+      setInterval(checkTimeRestrictions, 1000);
       
       setTimeout(() => {
         checkForAvailableStars(true);
@@ -2740,13 +2938,23 @@
       closeMore.addEventListener('click', () => toggleModal(moreModal));
       
       dailyRewardBanner.addEventListener('click', () => {
+        if (isNightTime) {
+          showToast('Ночное время! Ежедневные награды доступны только с 07:00 до 22:00');
+          return;
+        }
         updateRewardTimers();
         toggleModal(dailyRewardModal);
       });
       closeDaily.addEventListener('click', () => toggleModal(dailyRewardModal));
       dailyRewardBtn.addEventListener('click', claimDailyReward);
       
-      promoCodeItem.addEventListener('click', () => toggleModal(promoCodeModal));
+      promoCodeItem.addEventListener('click', () => {
+        if (isNightTime) {
+          showToast('Ночное время! Промокоды доступны только с 07:00 до 22:00');
+          return;
+        }
+        toggleModal(promoCodeModal);
+      });
       closePromo.addEventListener('click', () => toggleModal(promoCodeModal));
       promoBtn.addEventListener('click', activatePromoCode);
       
@@ -2825,9 +3033,15 @@
       });
     }
 
-    // Handle frog click with anti-cheat
+    // Handle frog click with anti-cheat and night time restriction
     function handleFrogClick(e) {
       if (isBanned) return;
+      
+      // Проверяем ночное время
+      if (isNightTime) {
+        showToast('Клики доступны только с 07:00 до 22:00 по местному времени');
+        return;
+      }
       
       if (antiCheatActive) {
         triggerBan(30 * 60 * 1000);
@@ -3231,14 +3445,18 @@
     function updateRewardButton() {
       const now = Date.now();
       const oneDay = 24 * 60 * 60 * 1000;
-      const canClaim = (now - lastDailyReward) >= oneDay;
+      const canClaim = (now - lastDailyReward) >= oneDay && !isNightTime;
       
       dailyRewardBtn.disabled = !canClaim;
       
       if (canClaim) {
         dailyRewardBtn.textContent = 'Получить 1000 кликов';
+        dailyRewardBtn.classList.remove('night-mode-disabled');
       } else {
-        dailyRewardBtn.textContent = 'Уже получено';
+        dailyRewardBtn.textContent = isNightTime ? 'Ночное время' : 'Уже получено';
+        if (isNightTime) {
+          dailyRewardBtn.classList.add('night-mode-disabled');
+        }
       }
     }
 
@@ -3282,6 +3500,11 @@
         return;
       }
       
+      if (isNightTime) {
+        showToast('Ночное время! Ежедневные награды доступны только с 07:00 до 22:00');
+        return;
+      }
+      
       clicks += 1000;
       totalSessionClicks += 1000;
       lastDailyReward = now;
@@ -3300,6 +3523,11 @@
 
     // Activate promo code
     function activatePromoCode() {
+      if (isNightTime) {
+        showToast('Ночное время! Промокоды доступны только с 07:00 до 22:00');
+        return;
+      }
+      
       const promoInput = document.getElementById('promo-input');
       const code = promoInput.value.trim().toUpperCase();
       

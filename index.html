@@ -3445,6 +3445,13 @@
       
       themeSelect.addEventListener('change', handleThemeChange);
       
+      // ДОБАВЛЕНО: обработчики для кнопок ежедневной награды и промокода
+      dailyRewardBtn.addEventListener('click', claimDailyReward);
+      promoBtn.addEventListener('click', activatePromoCode);
+      
+      // ДОБАВЛЕНО: обработчик для кнопки сброса прогресса
+      resetBtn.addEventListener('click', resetProgress);
+      
       document.querySelectorAll('.glass-modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
           if (e.target === modal && !isModalTransitioning) {

@@ -1120,8 +1120,9 @@
     }
     
     .more-item.disabled {
-      opacity: 0.3;
+      opacity: 0.6;
       cursor: not-allowed;
+      filter: grayscale(0.8);
     }
     
     .more-item:active:not(.disabled) {
@@ -1202,22 +1203,29 @@
       background: rgba(231, 76, 60, 0.1); 
     }
     
-    .stars-item { 
-      opacity: 1;
-      cursor: pointer;
-    }
-    
-    .stars-item.disabled {
-      opacity: 1;
-      cursor: pointer;
-    }
-    
     .stars-item .star-icon svg {
       fill: #f39c12;
     }
     
-    .stars-item.disabled .star-icon svg {
-      fill: #f39c12;
+    /* СЕРАЯ ЗАБЛОКИРОВАННАЯ КНОПКА ЗВЁЗД */
+    .more-item.stars-item.disabled {
+      opacity: 0.7;
+      background: rgba(100, 100, 100, 0.15);
+      border-color: rgba(150, 150, 150, 0.3);
+    }
+    
+    .more-item.stars-item.disabled .star-icon {
+      background: rgba(149, 165, 166, 0.25);
+      border-color: rgba(149, 165, 166, 0.4);
+    }
+    
+    .more-item.stars-item.disabled .star-icon svg {
+      fill: #95a5a6 !important; /* Серый цвет звезды */
+    }
+    
+    .more-item.stars-item.disabled .more-title,
+    .more-item.stars-item.disabled .more-desc {
+      color: #95a5a6 !important; /* Серый текст */
     }
     
     .stars-item .more-title,
@@ -2510,7 +2518,8 @@
     }
   </style>
 </head>
-<body class="dark-theme">
+<!-- 1. РОЗОВАЯ ТЕМА ПО УМОЛЧАНИЮ -->
+<body class="pink-theme">
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
       АНТИ-ЧИТ АКТИВИРОВАН!<br>Не нажимайте нигде!
@@ -2570,7 +2579,8 @@
           <select class="settings-select" id="theme-select">
             <option value="dark">Тёмная тема</option>
             <option value="light">Светлая тема</option>
-            <option value="pink">Розовая тема</option>
+            <!-- 2. РОЗОВАЯ ТЕМА ВЫБРАНА ПО УМОЛЧАНИЮ -->
+            <option value="pink" selected>Розовая тема</option>
           </select>
         </div>
         
@@ -2620,7 +2630,8 @@
             <div class="more-desc">Начать заново</div>
           </div>
           
-          <div class="more-item stars-item" id="stars-item" style="--i: 3">
+          <!-- 3. КНОПКА ЗВЁЗДЫ ЗАБЛОКИРОВАНА (СЕРАЯ) -->
+          <div class="more-item stars-item disabled" id="stars-item" style="--i: 3">
             <div class="star-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
@@ -3157,6 +3168,16 @@
     // Initialize the game
     function initGame() {
       loadGameData();
+      
+      // 4. ПРИНУДИТЕЛЬНО УСТАНАВЛИВАЕМ РОЗОВУЮ ТЕМУ, ЕСЛИ ОНА НЕ СОХРАНЕНА
+      const savedTheme = localStorage.getItem('cvaptaTheme');
+      if (!savedTheme) {
+        bodyElement.classList.remove('dark-theme', 'light-theme');
+        bodyElement.classList.add('pink-theme');
+        themeSelect.value = 'pink';
+        localStorage.setItem('cvaptaTheme', 'pink');
+      }
+      
       updateUI();
       setupEventListeners();
       startTimerLoop();
@@ -3370,10 +3391,19 @@
         setTimeout(() => toggleModal(moreModal), 300);
       });
       
-      starsItem.addEventListener('click', () => {
-        updateStarsProgress();
-        toggleModal(starsModal);
-      });
+      // 5. ОБРАБОТЧИК ДЛЯ ЗАБЛОКИРОВАННОЙ КНОПКИ ЗВЁЗД (СЕРАЯ, НЕ РАБОТАЕТ)
+      if (starsItem) {
+        starsItem.addEventListener('click', function(e) {
+          if (this.classList.contains('disabled')) {
+            e.stopPropagation();
+            showToast('Звёзды временно недоступны');
+            return;
+          }
+          // Если не заблокировано (но по умолчанию заблокировано)
+          updateStarsProgress();
+          toggleModal(starsModal);
+        });
+      }
       
       closeStars.addEventListener('click', () => {
         toggleModal(starsModal);
@@ -3437,7 +3467,14 @@
       });
       
       starsNotificationClose.addEventListener('click', hideStarsNotification);
-      starsNotificationBtn.addEventListener('click', () => {
+      
+      // 6. ОБРАБОТЧИК ДЛЯ КНОПКИ В УВЕДОМЛЕНИИ - ТОЖЕ БЛОКИРУЕМ
+      starsNotificationBtn.addEventListener('click', function() {
+        if (starsItem && starsItem.classList.contains('disabled')) {
+          hideStarsNotification();
+          showToast('Звёзды временно недоступны');
+          return;
+        }
         hideStarsNotification();
         updateStarsProgress();
         toggleModal(starsModal);

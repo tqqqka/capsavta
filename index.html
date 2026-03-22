@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -1207,7 +1207,7 @@
       fill: #f39c12;
     }
     
-    /* СЕРАЯ ЗАБЛОКИРОВАННАЯ КНОПКА ЗВЁЗД */
+    
     .more-item.stars-item.disabled {
       opacity: 0.7;
       background: rgba(100, 100, 100, 0.15);
@@ -1220,12 +1220,12 @@
     }
     
     .more-item.stars-item.disabled .star-icon svg {
-      fill: #95a5a6 !important; /* Серый цвет звезды */
+      fill: #95a5a6 !important; 
     }
     
     .more-item.stars-item.disabled .more-title,
     .more-item.stars-item.disabled .more-desc {
-      color: #95a5a6 !important; /* Серый текст */
+      color: #95a5a6 !important; 
     }
     
     .stars-item .more-title,
@@ -1575,6 +1575,49 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
+
+    body.light-theme .nav-item,
+    body.light-theme .settings-label,
+    body.light-theme .toggle-label,
+    body.light-theme .daily-reward-title,
+    body.light-theme .daily-reward-desc,
+    body.light-theme .more-title,
+    body.light-theme .more-desc,
+    body.light-theme .stat-label,
+    body.light-theme .chart-label,
+    body.light-theme .reward-timer,
+    body.light-theme .glass-body,
+    body.light-theme .glass-body p,
+    body.light-theme .full-history-header,
+    body.light-theme .full-history-header div {
+      color: var(--text-dark);
+    }
+
+    body.light-theme .more-desc,
+    body.light-theme .stat-label,
+    body.light-theme .chart-label,
+    body.light-theme .daily-reward-desc,
+    body.light-theme .nav-item {
+      opacity: 0.85;
+    }
+
+    body.light-theme .settings-select::placeholder {
+      color: rgba(44, 62, 80, 0.55);
+    }
+
+    body.light-theme #daily-reward-modal .glass-body p,
+    body.light-theme #promo-code-modal .glass-body p,
+    body.light-theme #full-history-modal .full-history-header div {
+      color: var(--text-dark) !important;
+    }
+
+    body.light-theme .toast {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text-dark);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
     #stars-modal,
     #stars-history-modal {
       padding: 0 !important;
@@ -1827,7 +1870,7 @@
       transform: translateX(24px);
     }
 
-    /* Ночной режим - ограничение кликов */
+    
     .night-time-overlay {
       position: absolute;
       top: 50%;
@@ -1892,7 +1935,7 @@
       filter: grayscale(0.5) !important;
     }
 
-    /* Клик-сессии */
+    
     .click-sessions-section {
       margin-top: 25px;
       padding-top: 25px;
@@ -2055,7 +2098,7 @@
       color: var(--text-light);
     }
 
-    /* Стили для светлой темы */
+    
     body.light-theme .click-session-date,
     body.light-theme .click-session-details,
     body.light-theme .history-empty-text h3,
@@ -2072,7 +2115,7 @@
       background: rgba(0, 0, 0, 0.1);
     }
 
-    /* Стили для розовой темы */
+    
     body.pink-theme .click-session-date,
     body.pink-theme .click-session-details,
     body.pink-theme .history-empty-text h3,
@@ -2262,7 +2305,7 @@
         transform: translateX(20px);
       }
       
-      /* Клик-сессии адаптив */
+      
       .click-session-item {
         padding: 12px;
       }
@@ -2279,7 +2322,7 @@
         font-size: 11px;
       }
       
-      /* Ночной режим адаптив */
+      
       .night-time-overlay {
         max-width: 250px;
         padding: 15px;
@@ -2418,7 +2461,7 @@
         transform: translateX(18px);
       }
       
-      /* Клик-сессии адаптив */
+      
       .click-session-item {
         padding: 10px;
       }
@@ -2431,7 +2474,7 @@
         font-size: 11px;
       }
       
-      /* Ночной режим адаптив */
+      
       .night-time-overlay {
         max-width: 220px;
         padding: 12px;
@@ -2518,17 +2561,17 @@
     }
   </style>
 </head>
-<!-- 1. РОЗОВАЯ ТЕМА ПО УМОЛЧАНИЮ -->
-<body class="pink-theme">
+
+<body class="dark-theme">
   <div class="anti-cheat-overlay" id="anti-cheat-overlay">
     <div class="anti-cheat-message" id="anti-cheat-message">
-      АНТИ-ЧИТ АКТИВИРОВАН!<br>Не нажимайте нигде!
+      ANTI-CHEAT ACTIVATED!<br>Do not click anywhere!
     </div>
     <div class="cheater-detected" id="cheater-detected" style="display: none;">
-      ЧИТЕР ОБНАРУЖЕН!
+      CHEATER DETECTED!
     </div>
     <div class="ban-timer" id="ban-timer" style="display: none;">
-      Осталось времени бана: <span id="ban-time">30:00</span>
+      Ban time remaining: <span id="ban-time">30:00</span>
     </div>
   </div>
 
@@ -2539,11 +2582,11 @@
         <i class="fas fa-star"></i>
       </div>
       <div class="stars-notification-text">
-        🎉 Поздравляем! Вы набрали достаточно кликов для вывода звёзд!
+        🎉 Congratulations! You have enough clicks to withdraw stars!
       </div>
       <div class="stars-notification-stars" id="stars-notification-amount">0 ⭐</div>
       <button class="stars-notification-btn" id="stars-notification-btn">
-        ПЕРЕЙТИ К ЗВЁЗДАМ
+        GO TO STARS
       </button>
     </div>
   </div>
@@ -2559,34 +2602,32 @@
   <div class="bottom-nav">
     <div class="nav-item" id="more-btn">
       <div class="nav-icon"><i class="fas fa-ellipsis-h"></i></div>
-      <div>Ещё</div>
+      <div>More</div>
     </div>
     <div class="nav-item" id="settings-btn">
       <div class="nav-icon"><i class="fas fa-cog"></i></div>
-      <div>Настройки</div>
+      <div>Settings</div>
     </div>
   </div>
 
   <div class="glass-modal" id="settings-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Настройки</h2>
+        <h2 class="glass-title">Settings</h2>
         <button class="glass-close" id="close-settings">×</button>
       </div>
       <div class="glass-body">
         <div class="settings-group" style="--i: 0">
-          <label class="settings-label">Тема</label>
+          <label class="settings-label">Theme</label>
           <select class="settings-select" id="theme-select">
-            <option value="dark">Тёмная тема</option>
-            <option value="light">Светлая тема</option>
-            <!-- 2. РОЗОВАЯ ТЕМА ВЫБРАНА ПО УМОЛЧАНИЮ -->
-            <option value="pink" selected>Розовая тема</option>
+            <option value="dark" selected>Dark theme</option>
+            <option value="light">Light theme</option>
           </select>
         </div>
         
         <div class="setting-toggle" style="--i: 1">
           <div class="toggle-label">
-            <span>Улучшение анимаций</span>
+            <span>Enhanced animations</span>
           </div>
           <div class="toggle-switch active" id="animations-toggle"></div>
         </div>
@@ -2597,7 +2638,7 @@
   <div class="glass-modal" id="more-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Ещё</h2>
+        <h2 class="glass-title">More</h2>
         <button class="glass-close" id="close-more">×</button>
       </div>
       
@@ -2605,8 +2646,8 @@
         <div class="daily-reward-banner" id="daily-reward-banner">
           <div class="daily-reward-icon"><i class="fas fa-gift"></i></div>
           <div class="daily-reward-content">
-            <div class="daily-reward-title">Ежедневная награда</div>
-            <div class="daily-reward-desc">Получите 1000 кликов!</div>
+            <div class="daily-reward-title">Daily reward</div>
+            <div class="daily-reward-desc">Get 1,000 clicks!</div>
             <div class="daily-reward-timer" id="daily-reward-timer"></div>
           </div>
         </div>
@@ -2614,31 +2655,31 @@
         <div class="more-grid">
           <div class="more-item promo-code-item" id="promo-code-item" style="--i: 0">
             <div class="more-icon"><i class="fas fa-tag"></i></div>
-            <div class="more-title">Промо-коды</div>
-            <div class="more-desc">Активируйте бонусы</div>
+            <div class="more-title">Promo codes</div>
+            <div class="more-desc">Activate bonuses</div>
           </div>
           
           <div class="more-item stats-item" id="stats-item" style="--i: 1">
             <div class="more-icon"><i class="fas fa-chart-bar"></i></div>
-            <div class="more-title">Статистика</div>
-            <div class="more-desc">Просмотр прогресса</div>
+            <div class="more-title">Statistics</div>
+            <div class="more-desc">View progress</div>
           </div>
           
           <div class="more-item reset-item" id="reset-item" style="--i: 2">
             <div class="more-icon"><i class="fas fa-undo"></i></div>
-            <div class="more-title">Сбросить прогресс</div>
-            <div class="more-desc">Начать заново</div>
+            <div class="more-title">Reset progress</div>
+            <div class="more-desc">Start over</div>
           </div>
           
-          <!-- 3. КНОПКА ЗВЁЗДЫ ЗАБЛОКИРОВАНА (СЕРАЯ) -->
-          <div class="more-item stars-item disabled" id="stars-item" style="--i: 3">
+          
+          <div class="more-item stars-item" id="stars-item" style="--i: 3">
             <div class="star-icon">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
               </svg>
             </div>
-            <div class="more-title">Звёзды</div>
-            <div class="more-desc">Получить награды</div>
+            <div class="more-title">Stars</div>
+            <div class="more-desc">Claim rewards</div>
           </div>
         </div>
       </div>
@@ -2648,12 +2689,12 @@
   <div class="glass-modal" id="daily-reward-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Ежедневная награда</h2>
+        <h2 class="glass-title">Daily reward</h2>
         <button class="glass-close" id="close-daily">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 20px; text-align: center; opacity: 0.9; color: var(--text-light);">Получите ежедневную награду в 1000 кликов!</p>
-        <button class="btn btn-primary" id="daily-reward-btn">Получить 1000 кликов</button>
+        <p style="margin-bottom: 20px; text-align: center; opacity: 0.9; color: var(--text-light);">Claim your daily reward of 1,000 clicks!</p>
+        <button class="btn btn-primary" id="daily-reward-btn">Claim 1,000 clicks</button>
         <div class="reward-timer" id="reward-timer"></div>
       </div>
     </div>
@@ -2662,14 +2703,14 @@
   <div class="glass-modal" id="promo-code-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Промо-коды</h2>
+        <h2 class="glass-title">Promo codes</h2>
         <button class="glass-close" id="close-promo">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 15px; text-align: center; opacity: 0.9; color: var(--text-light);">Введите промо-код для получения бонусных кликов!</p>
+        <p style="margin-bottom: 15px; text-align: center; opacity: 0.9; color: var(--text-light);">Enter a promo code to get bonus clicks!</p>
         
-        <input type="text" class="settings-select" id="promo-input" placeholder="Введите промо-код" style="margin-bottom: 15px;">
-        <button class="btn btn-accent" id="promo-btn">Активировать</button>
+        <input type="text" class="settings-select" id="promo-input" placeholder="Enter promo code" style="margin-bottom: 15px;">
+        <button class="btn btn-accent" id="promo-btn">Activate</button>
       </div>
     </div>
   </div>
@@ -2677,7 +2718,7 @@
   <div class="glass-modal" id="stats-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Статистика</h2>
+        <h2 class="glass-title">Statistics</h2>
         <button class="glass-close" id="close-stats">×</button>
       </div>
       <div class="glass-body">
@@ -2686,31 +2727,31 @@
           <div class="stats-grid">
             <div class="stat-card" style="--i: 0">
               <div class="stat-value" id="stat-today">0</div>
-              <div class="stat-label">Сегодня</div>
+              <div class="stat-label">All time</div>
             </div>
             <div class="stat-card" style="--i: 1">
               <div class="stat-value" id="stat-week">0</div>
-              <div class="stat-label">Эта неделя</div>
+              <div class="stat-label">This week</div>
             </div>
             <div class="stat-card" style="--i: 2">
               <div class="stat-value" id="stat-month">0</div>
-              <div class="stat-label">Этот месяц</div>
+              <div class="stat-label">This month</div>
             </div>
             <div class="stat-card" style="--i: 3">
               <div class="stat-value" id="stat-avg-cps">0.0</div>
-              <div class="stat-label">Средний CPS</div>
+              <div class="stat-label">Average CPS</div>
             </div>
           </div>
         </div>
         
-        <!-- Клик-сессии -->
+        
         <div class="click-sessions-section">
           <div class="click-sessions-title">
-            <span>История клик-сессий</span>
-            <button class="view-all-btn" id="view-all-sessions">Все</button>
+            <span>Click session history</span>
+            <button class="view-all-btn" id="view-all-sessions">All</button>
           </div>
           <div class="click-sessions-list" id="click-sessions-list">
-            <!-- Здесь будут отображаться последние 3 сессии -->
+            
           </div>
         </div>
       </div>
@@ -2720,12 +2761,12 @@
   <div class="glass-modal" id="reset-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Сброс прогресса</h2>
+        <h2 class="glass-title">Reset progress</h2>
         <button class="glass-close" id="close-reset">×</button>
       </div>
       <div class="glass-body">
-        <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">Это навсегда удалит весь ваш прогресс. Это действие нельзя отменить!</p>
-        <button class="btn btn-danger" id="reset-btn">Сбросить прогресс</button>
+        <p style="margin-bottom: 20px; text-align: center; color: var(--danger); opacity: 0.9;">This will permanently delete all your progress. This action cannot be undone!</p>
+        <button class="btn btn-danger" id="reset-btn">Reset progress</button>
       </div>
     </div>
   </div>
@@ -2733,15 +2774,15 @@
   <div class="glass-modal" id="stars-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Награды за звёзды</h2>
+        <h2 class="glass-title">Star rewards</h2>
         <button class="glass-close" id="close-stars">×</button>
       </div>
       <div class="glass-body">
         <div class="stars-card" id="stars-card-1" data-reward="1" data-clicks="60000" data-stars="50" style="--i: 0">
           <div class="stars-reward">
             <div class="stars-reward-info">
-              <div class="stars-reward-title">🐸 60,000 кликов</div>
-              <div class="stars-reward-desc">Достигните 60к кликов</div>
+              <div class="stars-reward-title">🐸 60,000 clicks</div>
+              <div class="stars-reward-desc">Reach 60k clicks</div>
             </div>
             <div class="stars-reward-amount">50 ⭐</div>
           </div>
@@ -2757,8 +2798,8 @@
         <div class="stars-card" id="stars-card-2" data-reward="2" data-clicks="110000" data-stars="100" style="--i: 1">
           <div class="stars-reward">
             <div class="stars-reward-info">
-              <div class="stars-reward-title">🐸 110,000 кликов</div>
-              <div class="stars-reward-desc">Достигните 110к кликов</div>
+              <div class="stars-reward-title">🐸 110,000 clicks</div>
+              <div class="stars-reward-desc">Reach 110k clicks</div>
             </div>
             <div class="stars-reward-amount">100 ⭐</div>
           </div>
@@ -2774,8 +2815,8 @@
         <div class="stars-card" id="stars-card-3" data-reward="3" data-clicks="160000" data-stars="150" style="--i: 2">
           <div class="stars-reward">
             <div class="stars-reward-info">
-              <div class="stars-reward-title">🐸 160,000 кликов</div>
-              <div class="stars-reward-desc">Достигните 160к кликов</div>
+              <div class="stars-reward-title">🐸 160,000 clicks</div>
+              <div class="stars-reward-desc">Reach 160k clicks</div>
             </div>
             <div class="stars-reward-amount">150 ⭐</div>
           </div>
@@ -2791,8 +2832,8 @@
         <div class="stars-card" id="stars-card-4" data-reward="4" data-clicks="210000" data-stars="200" style="--i: 3">
           <div class="stars-reward">
             <div class="stars-reward-info">
-              <div class="stars-reward-title">🐸 210,000 кликов</div>
-              <div class="stars-reward-desc">Достигните 210к кликов</div>
+              <div class="stars-reward-title">🐸 210,000 clicks</div>
+              <div class="stars-reward-desc">Reach 210k clicks</div>
             </div>
             <div class="stars-reward-amount">200 ⭐</div>
           </div>
@@ -2809,7 +2850,7 @@
       <div class="stars-history-bottom-panel">
         <button class="stars-history-btn" id="stars-history-btn">
           <div class="stars-history-icon"><i class="fas fa-history"></i></div>
-          <div class="stars-history-label">История выводов</div>
+          <div class="stars-history-label">Withdrawal history</div>
         </button>
       </div>
     </div>
@@ -2818,15 +2859,15 @@
   <div class="glass-modal" id="stars-history-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">История выводов</h2>
+        <h2 class="glass-title">Withdrawal history</h2>
         <button class="glass-close" id="close-stars-history">×</button>
       </div>
       <div class="glass-body">
         <div class="stars-history-list" id="stars-history-list"></div>
         <div id="stars-history-empty" style="text-align: center; padding: 40px 20px; opacity: 0.7;">
           <i class="fas fa-history" style="font-size: 40px; margin-bottom: 15px; opacity: 0.5;"></i>
-          <h3 style="margin-bottom: 10px; color: var(--text-light);">Выводов ещё не было</h3>
-          <p style="color: var(--text-light);">Ваша история выводов появится здесь</p>
+          <h3 style="margin-bottom: 10px; color: var(--text-light);">No withdrawals yet</h3>
+          <p style="color: var(--text-light);">Your withdrawal history will appear here</p>
         </div>
       </div>
     </div>
@@ -2839,18 +2880,18 @@
           <div class="warning-icon">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
-          <h2 class="warning-title">⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h2>
+          <h2 class="warning-title">⚠️ IMPORTANT WARNING</h2>
           <div class="warning-text">
-            <p>Перед продолжением приготовьтесь сделать <strong>СКРИНШОТ</strong> чека!</p>
-            <p>Вы ДОЛЖНЫ отправить этот скриншот боту <strong>@Cvapik_bot</strong> в Telegram для получения звёзд!</p>
-            <p>Чек содержит всю необходимую информацию для верификации.</p>
-            <p style="color: #f39c12; font-weight: bold; margin-top: 15px;">После получения награды ваши клики обнулятся!</p>
+            <p>Before continuing, get ready to take a <strong>SCREENSHOT</strong> of the receipt!</p>
+            <p>You MUST send this screenshot to <strong>@Cvapik_bot</strong> on Telegram to receive your stars!</p>
+            <p>The receipt contains all the information needed for verification.</p>
+            <p style="color: #f39c12; font-weight: bold; margin-top: 15px;">After receiving the reward, your clicks will be reset!</p>
           </div>
           <div class="warning-buttons">
-            <button class="warning-btn warning-btn-cancel" id="stars-warning-cancel">ОТМЕНА</button>
-            <button class="warning-btn" id="stars-warning-confirm">ПРОДОЛЖИТЬ</button>
+            <button class="warning-btn warning-btn-cancel" id="stars-warning-cancel">CANCEL</button>
+            <button class="warning-btn" id="stars-warning-confirm">CONTINUE</button>
           </div>
-          <div class="warning-timer" id="warning-timer">Пожалуйста, подождите 10 секунд...</div>
+          <div class="warning-timer" id="warning-timer">Please wait 10 seconds...</div>
         </div>
       </div>
     </div>
@@ -2862,49 +2903,49 @@
         <div class="receipt-container" id="stars-receipt">
           <div class="receipt-header">
             <div class="receipt-title">CVAPTA FROG</div>
-            <div class="receipt-subtitle">ЧЕК ВЫВОДА ЗВЁЗД</div>
+            <div class="receipt-subtitle">STAR WITHDRAWAL RECEIPT</div>
           </div>
           
           <div class="receipt-details">
             <div class="receipt-row" style="--i: 0">
-              <span>ID чека:</span>
+              <span>Receipt ID:</span>
               <span id="receipt-id">#000001</span>
             </div>
             <div class="receipt-row" style="--i: 1">
-              <span>Дата и время:</span>
+              <span>Date & Time:</span>
               <span id="receipt-date">01/01/2024 12:00:00</span>
             </div>
             <div class="receipt-row" style="--i: 2">
-              <span>Всего банов:</span>
+              <span>Total bans:</span>
               <span id="receipt-bans">0</span>
             </div>
             <div class="receipt-row" style="margin-top: 20px; --i: 3">
-              <span>Кликов выведено:</span>
+              <span>Clicks withdrawn:</span>
               <span id="receipt-clicks">0</span>
             </div>
             <div class="receipt-row" style="--i: 4">
-              <span>Звёзд получено:</span>
+              <span>Stars received:</span>
               <span id="receipt-stars">0 ⭐</span>
             </div>
             <div class="receipt-row total">
-              <span>ВСЕГО ЗВЁЗД:</span>
+              <span>TOTAL STARS:</span>
               <span id="receipt-total-stars">0 ⭐</span>
             </div>
             <div class="receipt-row warning">
-              <span>ОТПРАВИТЬ:</span>
+              <span>SEND TO:</span>
               <span>@Cvapik_bot</span>
             </div>
           </div>
           
           <div class="receipt-footer">
-            <p>⚠️ СДЕЛАЙТЕ СКРИНШОТ и отправьте @Cvapik_bot!</p>
-            <p>Этот чек действителен 3 дня</p>
-            <p>Для вопросов обратитесь в поддержку с ID чека</p>
+            <p>⚠️ TAKE A SCREENSHOT and send it to @Cvapik_bot!</p>
+            <p>This receipt is valid for 3 days</p>
+            <p>For questions, contact support with the receipt ID</p>
           </div>
           
           <div class="receipt-close-container">
             <button class="receipt-close-btn" id="receipt-close-btn">
-              ЗАКРЫТЬ (Подождите 10 секунд...)
+              CLOSE (Wait 10 seconds...)
             </button>
           </div>
         </div>
@@ -2912,27 +2953,27 @@
     </div>
   </div>
 
-  <!-- Модальное окно для полной истории клик-сессий -->
+  
   <div class="glass-modal full-history-modal" id="full-history-modal">
     <div class="glass-content">
       <div class="glass-header">
-        <h2 class="glass-title">Полная история клик-сессий</h2>
+        <h2 class="glass-title">Full click session history</h2>
         <button class="glass-close" id="close-full-history">×</button>
       </div>
       <div class="glass-body">
         <div class="full-history-header">
-          <div style="color: var(--text-light);">Всего сессий: <span id="total-sessions-count">0</span></div>
+          <div style="color: var(--text-light);">Total sessions: <span id="total-sessions-count">0</span></div>
         </div>
         <div class="full-history-list" id="full-history-list">
-          <!-- Здесь будет полная история -->
+          
         </div>
         <div id="full-history-empty" class="history-empty">
           <div class="history-empty-icon">
             <i class="fas fa-history"></i>
           </div>
           <div class="history-empty-text">
-            <h3>История сессий пуста</h3>
-            <p>Ваши клик-сессии появятся здесь</p>
+            <h3>Session history is empty</h3>
+            <p>Your click sessions will appear here</p>
           </div>
         </div>
       </div>
@@ -2954,14 +2995,15 @@
     let clickHistory = {
       daily: {},
       weekly: {},
-      monthly: {}
+      monthly: {},
+      lifetime: 0
     };
     
-    // Клик-сессии
+
     let clickSessions = [];
     let currentSession = null;
     let sessionTimeout = null;
-    const SESSION_TIMEOUT = 1000; // 1 секунда паузы для завершения сессии
+    const SESSION_TIMEOUT = 1000;
     
     // Stars System
     let starsRewards = [
@@ -2973,7 +3015,7 @@
     
     let withdrawalHistory = [];
     
-    // Уведомления о доступных звёздах
+
     let availableStarsNotifications = [];
     let lastNotificationTime = 0;
     const NOTIFICATION_COOLDOWN = 30000;
@@ -3012,7 +3054,7 @@
     const starsReceiptModal = document.getElementById('stars-receipt-modal');
     const fullHistoryModal = document.getElementById('full-history-modal');
     
-    // Уведомление о звёздах
+
     const starsNotification = document.getElementById('stars-notification');
     const starsNotificationClose = document.getElementById('stars-notification-close');
     const starsNotificationBtn = document.getElementById('stars-notification-btn');
@@ -3094,25 +3136,25 @@
     let warningTimerInterval = null;
     let receiptTimerInterval = null;
 
-    // Флаг для отслеживания ожидания перехода между модальными окнами
+
     let isModalTransitioning = false;
 
-    // Функция для проверки текущего времени
+
     function checkTimeRestrictions() {
       const now = new Date();
       const currentHour = now.getHours();
       
-      // Проверяем, находится ли текущее время в запрещенном интервале (22:00-07:00)
+
       const wasNightTime = isNightTime;
       isNightTime = (currentHour >= 22 || currentHour < 7);
       
       if (isNightTime) {
         frogElement.classList.add('night-mode');
         frogElement.style.cursor = 'not-allowed';
-        frogElement.title = 'Клики доступны только с 07:00 до 22:00';
+        frogElement.title = 'Clicks are available only from 07:00 to 22:00';
         frogElement.style.filter = 'brightness(0.7) grayscale(0.3) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2))';
         
-        // Отключаем кнопки и баннеры
+
         dailyRewardBtn.disabled = true;
         dailyRewardBtn.classList.add('night-mode-disabled');
         promoBtn.disabled = true;
@@ -3120,25 +3162,25 @@
         dailyRewardBanner.classList.add('night-mode-disabled');
         promoCodeItem.classList.add('night-mode-disabled');
         
-        // Убираем существующие ночные уведомления
+
         const existingNotifications = document.querySelectorAll('.night-time-notification');
         existingNotifications.forEach(notification => notification.remove());
         
-        // Создаем новое уведомление только если только что вошли в ночной режим
+
         if (!wasNightTime) {
           const nightNotification = document.createElement('div');
           nightNotification.className = 'night-time-notification';
           nightNotification.innerHTML = `
             <div class="night-time-icon">🌙</div>
-            <div class="night-time-text">Ночное время</div>
-            <div class="night-time-subtext">Клики доступны только с 07:00 до 22:00 по местному времени</div>
+            <div class="night-time-text">Night time</div>
+            <div class="night-time-subtext">Clicks are available only from 07:00 to 22:00 local time</div>
             <div class="night-time-current">
-              Текущее время: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+              Current time: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
             </div>
           `;
           frogContainer.appendChild(nightNotification);
           
-          // Убираем уведомление через 5 секунд
+
           setTimeout(() => {
             if (nightNotification.parentNode) {
               nightNotification.remove();
@@ -3151,7 +3193,7 @@
         frogElement.style.filter = 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2))';
         frogElement.title = '';
         
-        // Включаем кнопки и баннеры
+
         dailyRewardBtn.disabled = false;
         dailyRewardBtn.classList.remove('night-mode-disabled');
         promoBtn.disabled = false;
@@ -3159,7 +3201,7 @@
         dailyRewardBanner.classList.remove('night-mode-disabled');
         promoCodeItem.classList.remove('night-mode-disabled');
         
-        // Убираем ночные уведомления если есть
+
         const nightNotifications = document.querySelectorAll('.night-time-notification');
         nightNotifications.forEach(notification => notification.remove());
       }
@@ -3169,13 +3211,13 @@
     function initGame() {
       loadGameData();
       
-      // 4. ПРИНУДИТЕЛЬНО УСТАНАВЛИВАЕМ РОЗОВУЮ ТЕМУ, ЕСЛИ ОНА НЕ СОХРАНЕНА
+
       const savedTheme = localStorage.getItem('cvaptaTheme');
-      if (!savedTheme) {
-        bodyElement.classList.remove('dark-theme', 'light-theme');
-        bodyElement.classList.add('pink-theme');
-        themeSelect.value = 'pink';
-        localStorage.setItem('cvaptaTheme', 'pink');
+      if (!savedTheme || savedTheme === 'pink') {
+        bodyElement.classList.remove('light-theme', 'pink-theme');
+        bodyElement.classList.add('dark-theme');
+        themeSelect.value = 'dark';
+        localStorage.setItem('cvaptaTheme', 'dark');
       }
       
       updateUI();
@@ -3183,11 +3225,11 @@
       startTimerLoop();
       checkBanStatus();
       
-      // Запускаем проверку времени сразу и каждую минуту
+
       checkTimeRestrictions();
-      nightTimeCheckInterval = setInterval(checkTimeRestrictions, 60000); // Проверяем каждую минуту
+      nightTimeCheckInterval = setInterval(checkTimeRestrictions, 60000);
       
-      // Также проверяем каждую секунду для более точного отслеживания
+
       setInterval(checkTimeRestrictions, 1000);
       
       setTimeout(() => {
@@ -3246,9 +3288,17 @@
         if (savedClicks) clicks = parseInt(savedClicks) || 0;
         if (savedLastDailyReward) lastDailyReward = parseInt(savedLastDailyReward) || 0;
         if (savedUsedPromoCodes) usedPromoCodes = JSON.parse(savedUsedPromoCodes) || [];
-        if (savedClickHistory) clickHistory = JSON.parse(savedClickHistory) || { daily: {}, weekly: {}, monthly: {} };
+        if (savedClickHistory) clickHistory = JSON.parse(savedClickHistory) || { daily: {}, weekly: {}, monthly: {}, lifetime: 0 };
+        if (!clickHistory.daily) clickHistory.daily = {};
+        if (!clickHistory.weekly) clickHistory.weekly = {};
+        if (!clickHistory.monthly) clickHistory.monthly = {};
+        if (typeof clickHistory.lifetime !== 'number' || Number.isNaN(clickHistory.lifetime)) clickHistory.lifetime = clicks;
         if (savedTheme) {
-          themeSelect.value = savedTheme;
+          const normalizedTheme = savedTheme === 'pink' ? 'dark' : savedTheme;
+          themeSelect.value = normalizedTheme;
+          if (savedTheme !== normalizedTheme) {
+            localStorage.setItem('cvaptaTheme', normalizedTheme);
+          }
           handleThemeChange();
         }
         if (savedBanEndTime) banEndTime = parseInt(savedBanEndTime) || 0;
@@ -3284,7 +3334,7 @@
         clicks = 0;
         lastDailyReward = 0;
         usedPromoCodes = [];
-        clickHistory = { daily: {}, weekly: {}, monthly: {} };
+        clickHistory = { daily: {}, weekly: {}, monthly: {}, lifetime: 0 };
         starsRewards = [
           { clicks: 60000, stars: 50 },
           { clicks: 110000, stars: 100 },
@@ -3306,7 +3356,7 @@
         localStorage.setItem('cvaptaLastDailyReward', lastDailyReward.toString());
         localStorage.setItem('cvaptaUsedPromoCodes', JSON.stringify(usedPromoCodes));
         localStorage.setItem('cvaptaClickHistory', JSON.stringify(clickHistory));
-        localStorage.setItem('cvaptaTheme', themeSelect.value);
+        localStorage.setItem('cvaptaTheme', themeSelect.value === 'pink' ? 'dark' : themeSelect.value);
         localStorage.setItem('cvaptaBanEndTime', banEndTime.toString());
         localStorage.setItem('cvaptaTotalBans', totalBans.toString());
         localStorage.setItem('cvaptaStarsRewards', JSON.stringify(starsRewards));
@@ -3346,96 +3396,97 @@
       closeMore.addEventListener('click', () => toggleModal(moreModal));
       
       dailyRewardBanner.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         if (isNightTime) {
-          showToast('Ночное время! Ежедневные награды доступны только с 07:00 до 22:00');
+          showToast('Night time! Daily rewards are only available from 07:00 to 22:00');
           return;
         }
         updateRewardTimers();
         toggleModal(dailyRewardModal);
       });
-      closeDaily.addEventListener('click', () => {
-        toggleModal(dailyRewardModal);
-        // Возвращаемся в "Ещё"
-        setTimeout(() => toggleModal(moreModal), 300);
+      closeDaily.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(dailyRewardModal, moreModal);
       });
       
       promoCodeItem.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         if (isNightTime) {
-          showToast('Ночное время! Промокоды доступны только с 07:00 до 22:00');
+          showToast('Night time! Promo codes are only available from 07:00 to 22:00');
           return;
         }
         toggleModal(promoCodeModal);
       });
-      closePromo.addEventListener('click', () => {
-        toggleModal(promoCodeModal);
-        // Возвращаемся в "Ещё"
-        setTimeout(() => toggleModal(moreModal), 300);
+      closePromo.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(promoCodeModal, moreModal);
       });
       
       statsItem.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         updateStatistics();
         updateStatisticsChart();
         updateClickSessions();
         toggleModal(statsModal);
       });
-      closeStats.addEventListener('click', () => {
-        toggleModal(statsModal);
-        // ВОЗВРАЩАЕМСЯ В "ЕЩЁ" (исправлено!)
-        setTimeout(() => toggleModal(moreModal), 300);
+      closeStats.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(statsModal, moreModal);
       });
       
-      resetItem.addEventListener('click', () => toggleModal(resetModal));
-      closeReset.addEventListener('click', () => {
+      resetItem.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         toggleModal(resetModal);
-        // Возвращаемся в "Ещё"
-        setTimeout(() => toggleModal(moreModal), 300);
+      });
+      closeReset.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(resetModal, moreModal);
       });
       
-      // 5. ОБРАБОТЧИК ДЛЯ ЗАБЛОКИРОВАННОЙ КНОПКИ ЗВЁЗД (СЕРАЯ, НЕ РАБОТАЕТ)
+
       if (starsItem) {
-        starsItem.addEventListener('click', function(e) {
-          if (this.classList.contains('disabled')) {
-            e.stopPropagation();
-            showToast('Звёзды временно недоступны');
-            return;
-          }
-          // Если не заблокировано (но по умолчанию заблокировано)
+        starsItem.addEventListener('click', function() {
+          if (isModalTransitioning) return;
           updateStarsProgress();
           toggleModal(starsModal);
         });
       }
       
-      closeStars.addEventListener('click', () => {
-        toggleModal(starsModal);
-        // Возвращаемся в "Ещё"
-        setTimeout(() => toggleModal(moreModal), 300);
+      closeStars.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(starsModal, moreModal);
       });
       
       starsHistoryBtn.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         updateStarsHistory();
         toggleModal(starsHistoryModal);
       });
       
-      closeStarsHistory.addEventListener('click', () => {
-        toggleModal(starsHistoryModal);
-        // При выходе из истории выводов переходим в основную вкладку звёзд
-        setTimeout(() => {
+      closeStarsHistory.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(starsHistoryModal, starsModal, () => {
           updateStarsProgress();
-          toggleModal(starsModal);
-        }, 300);
+        });
       });
       
-      closeFullHistory.addEventListener('click', () => {
-        toggleModal(fullHistoryModal);
-        // Возвращаемся в статистику
-        setTimeout(() => toggleModal(statsModal), 300);
+      closeFullHistory.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(fullHistoryModal, statsModal);
       });
       
       starsWarningConfirm.addEventListener('click', processStarsWithdrawal);
-      starsWarningCancel.addEventListener('click', () => {
-        toggleModal(starsWarningModal);
-        // Возвращаемся в звёзды
-        setTimeout(() => toggleModal(starsModal), 300);
+      starsWarningCancel.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        switchModal(starsWarningModal, starsModal);
       });
       
       receiptCloseBtn.addEventListener('click', closeReceiptModal);
@@ -3443,6 +3494,7 @@
       animationsToggle.addEventListener('click', toggleAnimations);
       
       viewAllSessionsBtn.addEventListener('click', () => {
+        if (isModalTransitioning) return;
         updateFullHistory();
         toggleModal(fullHistoryModal);
       });
@@ -3450,7 +3502,7 @@
       document.querySelectorAll('.stars-card').forEach(card => {
         card.addEventListener('click', function() {
           if (this.classList.contains('locked')) {
-            showToast('Недостаточно кликов для этой награды');
+            showToast('Not enough clicks for this reward');
             return;
           }
           
@@ -3461,20 +3513,16 @@
           if (clicks >= requiredClicks) {
             showStarsWarning(rewardId, requiredClicks, starsAmount);
           } else {
-            showToast('Недостаточно кликов для этой награды');
+            showToast('Not enough clicks for this reward');
           }
         });
       });
       
       starsNotificationClose.addEventListener('click', hideStarsNotification);
       
-      // 6. ОБРАБОТЧИК ДЛЯ КНОПКИ В УВЕДОМЛЕНИИ - ТОЖЕ БЛОКИРУЕМ
+
       starsNotificationBtn.addEventListener('click', function() {
-        if (starsItem && starsItem.classList.contains('disabled')) {
-          hideStarsNotification();
-          showToast('Звёзды временно недоступны');
-          return;
-        }
+        if (isModalTransitioning) return;
         hideStarsNotification();
         updateStarsProgress();
         toggleModal(starsModal);
@@ -3482,11 +3530,11 @@
       
       themeSelect.addEventListener('change', handleThemeChange);
       
-      // ДОБАВЛЕНО: обработчики для кнопок ежедневной награды и промокода
+
       dailyRewardBtn.addEventListener('click', claimDailyReward);
       promoBtn.addEventListener('click', activatePromoCode);
       
-      // ДОБАВЛЕНО: обработчик для кнопки сброса прогресса
+
       resetBtn.addEventListener('click', resetProgress);
       
       document.querySelectorAll('.glass-modal').forEach(modal => {
@@ -3494,9 +3542,9 @@
           if (e.target === modal && !isModalTransitioning) {
             const modalId = modal.id;
             
-            // Обрабатываем закрытие только если не в процессе перехода
+
             if (modalId === 'stars-history-modal') {
-              // При закрытии истории выводов переходим в звёзды
+
               isModalTransitioning = true;
               toggleModal(starsHistoryModal);
               setTimeout(() => {
@@ -3505,7 +3553,7 @@
                 isModalTransitioning = false;
               }, 300);
             } else if (modalId === 'stars-warning-modal') {
-              // При закрытии предупреждения возвращаемся в звёзды
+
               isModalTransitioning = true;
               toggleModal(starsWarningModal);
               setTimeout(() => {
@@ -3513,7 +3561,7 @@
                 isModalTransitioning = false;
               }, 300);
             } else if (modalId === 'stars-receipt-modal') {
-              // При закрытии чека возвращаемся в звёзды
+
               isModalTransitioning = true;
               toggleModal(starsReceiptModal);
               setTimeout(() => {
@@ -3525,7 +3573,7 @@
                 isModalTransitioning = false;
               }, 300);
             } else if (modalId === 'stars-modal') {
-              // При закрытии звёзд возвращаемся в "Ещё"
+
               isModalTransitioning = true;
               toggleModal(starsModal);
               setTimeout(() => {
@@ -3533,13 +3581,13 @@
                 isModalTransitioning = false;
               }, 300);
             } else if (modalId === 'settings-modal') {
-              // При закрытии настроек просто закрываем
+
               toggleModal(settingsModal);
             } else if (modalId === 'more-modal') {
-              // При закрытии "Ещё" просто закрываем
+
               toggleModal(moreModal);
             } else {
-              // Для всех остальных модальных окон возвращаемся в "Ещё"
+
               isModalTransitioning = true;
               toggleModal(modal);
               setTimeout(() => {
@@ -3562,9 +3610,9 @@
     function handleFrogClick(e) {
       if (isBanned) return;
       
-      // Проверяем ночное время
+
       if (isNightTime) {
-        showToast('Клики доступны только с 07:00 до 22:00 по местному времени');
+        showToast('Clicks are available only from 07:00 to 22:00 local time');
         return;
       }
       
@@ -3584,7 +3632,7 @@
         if (cheatDetectionCount >= 3) {
           triggerAntiCheat();
         } else {
-          showToast(`Предупреждение: Высокий CPS обнаружен! (${clickTimestamps.length}/с)`);
+          showToast(`Warning: High CPS detected! (${clickTimestamps.length}/s)`);
         }
       } else {
         if (cheatDetectionCount > 0) cheatDetectionCount--;
@@ -3595,7 +3643,7 @@
       
       updateClickHistory();
       
-      // Обработка клик-сессии
+
       handleClickSession(now);
       
       if (activeEffects < MAX_EFFECTS && animationsEnabled) {
@@ -3609,10 +3657,10 @@
       checkForAvailableStars();
     }
 
-    // Обработка клик-сессии
+
     function handleClickSession(clickTime) {
       if (!currentSession) {
-        // Начало новой сессии
+
         currentSession = {
           startTime: clickTime,
           endTime: clickTime,
@@ -3620,17 +3668,17 @@
           clicksPerSecond: 0
         };
       } else {
-        // Продолжение текущей сессии
+
         currentSession.endTime = clickTime;
         currentSession.clickCount++;
       }
       
-      // Сбрасываем таймер завершения сессии
+
       if (sessionTimeout) {
         clearTimeout(sessionTimeout);
       }
       
-      // Устанавливаем таймер завершения сессии (1 секунда паузы)
+
       sessionTimeout = setTimeout(() => {
         if (currentSession) {
           endCurrentSession();
@@ -3638,7 +3686,7 @@
       }, SESSION_TIMEOUT);
     }
     
-    // Завершение текущей сессии
+
     function endCurrentSession() {
       if (!currentSession || currentSession.clickCount <= 1) {
         currentSession = null;
@@ -3648,7 +3696,7 @@
       const duration = (currentSession.endTime - currentSession.startTime) / 1000;
       currentSession.clicksPerSecond = duration > 0 ? currentSession.clickCount / duration : currentSession.clickCount;
       
-      // Добавляем сессию в историю
+
       const sessionData = {
         ...currentSession,
         date: new Date().toISOString()
@@ -3656,13 +3704,13 @@
       
       clickSessions.unshift(sessionData);
       
-      // Сохраняем в localStorage
+
       saveGameData();
       
-      // Обновляем отображение сессий
+
       updateClickSessions();
       
-      // Сбрасываем текущую сессию
+
       currentSession = null;
     }
 
@@ -3702,7 +3750,7 @@
       return d.getFullYear() + '-' + (d.getMonth() + 1);
     }
 
-    // Обновление отображения клик-сессий
+
     function updateClickSessions() {
       clickSessionsList.innerHTML = '';
       
@@ -3711,17 +3759,17 @@
         emptyItem.className = 'click-session-item';
         emptyItem.innerHTML = `
           <div class="click-session-header">
-            <div class="click-session-date">Нет сессий</div>
+            <div class="click-session-date">No sessions</div>
           </div>
           <div class="click-session-details">
-            Ваши клик-сессии появятся здесь
+            Your click sessions will appear here
           </div>
         `;
         clickSessionsList.appendChild(emptyItem);
         return;
       }
       
-      // Отображаем только последние 3 сессии
+
       const recentSessions = clickSessions.slice(0, 3);
       
       recentSessions.forEach((session, index) => {
@@ -3735,21 +3783,21 @@
         const duration = (session.endTime - session.startTime) / 1000;
         const avgCPS = session.clicksPerSecond.toFixed(1);
         
-        // Находим максимальное количество кликов в сессиях для прогресс-бара
+
         const maxClicks = Math.max(...clickSessions.map(s => s.clickCount), 1);
         const progressWidth = (session.clickCount / maxClicks) * 100;
         
         item.innerHTML = `
           <div class="click-session-header">
             <div class="click-session-date">${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-            <div class="click-session-count">${formatNumber(session.clickCount)} кликов</div>
+            <div class="click-session-count">${formatNumber(session.clickCount)} clicks</div>
           </div>
           <div class="click-session-details">
-            <div>Начало: ${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
-            <div>Конец: ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
+            <div>Start: ${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
+            <div>End: ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
           </div>
           <div class="click-session-duration">
-            Длительность: ${duration.toFixed(1)} сек | CPS: ${avgCPS}
+            Duration: ${duration.toFixed(1)} sec | CPS: ${avgCPS}
           </div>
           <div class="click-session-progress">
             <div class="click-session-progress-bar" style="width: ${progressWidth}%"></div>
@@ -3760,7 +3808,7 @@
       });
     }
     
-    // Обновление полной истории
+
     function updateFullHistory() {
       fullHistoryList.innerHTML = '';
       totalSessionsCount.textContent = clickSessions.length;
@@ -3772,7 +3820,7 @@
       
       fullHistoryEmpty.style.display = 'none';
       
-      // Находим максимальное количество кликов в сессиях для прогресс-бара
+
       const maxClicks = Math.max(...clickSessions.map(s => s.clickCount), 1);
       
       clickSessions.forEach((session, index) => {
@@ -3791,14 +3839,14 @@
         item.innerHTML = `
           <div class="click-session-header">
             <div class="click-session-date">${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-            <div class="click-session-count">${formatNumber(session.clickCount)} кликов</div>
+            <div class="click-session-count">${formatNumber(session.clickCount)} clicks</div>
           </div>
           <div class="click-session-details">
-            <div>Начало: ${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
-            <div>Конец: ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
+            <div>Start: ${startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
+            <div>End: ${endTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}</div>
           </div>
           <div class="click-session-duration">
-            Длительность: ${duration.toFixed(1)} сек | CPS: ${avgCPS}
+            Duration: ${duration.toFixed(1)} sec | CPS: ${avgCPS}
           </div>
           <div class="click-session-progress">
             <div class="click-session-progress-bar" style="width: ${progressWidth}%"></div>
@@ -3901,14 +3949,14 @@
       
       const isActive = modal.classList.contains('active');
       
-      // Если модальное окно уже активно, просто закрываем его
+
       if (isActive) {
         modal.classList.add('closing');
         setTimeout(() => {
           modal.classList.remove('active', 'closing');
         }, 300);
       } else {
-        // Сначала закрываем все другие активные модальные окна
+
         document.querySelectorAll('.glass-modal').forEach(m => {
           if (m !== modal && m.classList.contains('active')) {
             m.classList.add('closing');
@@ -3918,11 +3966,36 @@
           }
         });
         
-        // Затем открываем нужное модальное окно
+
         setTimeout(() => {
           modal.classList.add('active');
-        }, 50); // Небольшая задержка для плавности
+        }, 50);
       }
+    }
+
+
+    function switchModal(currentModal, nextModal = null, beforeOpen = null, delay = 300) {
+      if (isModalTransitioning) return;
+
+      isModalTransitioning = true;
+
+      if (currentModal) {
+        toggleModal(currentModal);
+      }
+
+      setTimeout(() => {
+        if (typeof beforeOpen === 'function') {
+          beforeOpen();
+        }
+
+        if (nextModal) {
+          toggleModal(nextModal);
+        }
+
+        setTimeout(() => {
+          isModalTransitioning = false;
+        }, 120);
+      }, delay);
     }
 
     // Update stars progress
@@ -3951,7 +4024,7 @@
     // Show stars warning
     function showStarsWarning(rewardId, requiredClicks, starsAmount) {
       if (clicks < requiredClicks) {
-        showToast('Недостаточно кликов для этой награды');
+        showToast('Not enough clicks for this reward');
         return;
       }
       
@@ -3959,7 +4032,7 @@
       
       starsWarningConfirm.classList.remove('active');
       starsWarningConfirm.disabled = true;
-      warningTimer.textContent = 'Пожалуйста, подождите 10 секунд...';
+      warningTimer.textContent = 'Please wait 10 seconds...';
       
       if (warningTimerInterval) {
         clearInterval(warningTimerInterval);
@@ -3968,13 +4041,13 @@
       let secondsLeft = 10;
       warningTimerInterval = setInterval(() => {
         secondsLeft--;
-        warningTimer.textContent = `Пожалуйста, подождите ${secondsLeft} секунд${secondsLeft !== 1 ? '' : 'у'}`;
+        warningTimer.textContent = `Please wait ${secondsLeft} seconds...`;
         
         if (secondsLeft <= 0) {
           clearInterval(warningTimerInterval);
           starsWarningConfirm.classList.add('active');
           starsWarningConfirm.disabled = false;
-          warningTimer.textContent = 'Теперь можете продолжить';
+          warningTimer.textContent = 'You can continue now';
         }
       }, 1000);
       
@@ -4000,7 +4073,7 @@
       const { rewardId, requiredClicks, starsAmount } = currentWithdrawal;
       
       if (clicks < requiredClicks) {
-        showToast('Ошибка: недостаточно кликов');
+        showToast('Error: not enough clicks');
         toggleModal(starsWarningModal);
         return;
       }
@@ -4010,7 +4083,7 @@
         warningTimerInterval = null;
       }
       
-      // Создаём запись в истории
+
       const withdrawalRecord = {
         id: 'W' + Date.now() + Math.floor(Math.random() * 1000),
         date: new Date().toISOString(),
@@ -4022,18 +4095,18 @@
       
       withdrawalHistory.unshift(withdrawalRecord);
       
-      // Сбрасываем клики
+
       clicks -= requiredClicks;
       if (clicks < 0) clicks = 0;
       
-      // Обновляем UI и сохраняем
+
       updateUI();
       saveGameData();
       
-      // Закрываем warning modal
+
       toggleModal(starsWarningModal);
       
-      // Показываем чек
+
       setTimeout(() => {
         showReceipt(withdrawalRecord, false);
       }, 300);
@@ -4061,22 +4134,22 @@
       if (isFromHistory) {
         receiptCloseBtn.classList.add('active');
         receiptCloseBtn.disabled = false;
-        receiptCloseBtn.textContent = 'ЗАКРЫТЬ';
+        receiptCloseBtn.textContent = 'CLOSE';
       } else {
         receiptCloseBtn.classList.remove('active');
         receiptCloseBtn.disabled = true;
-        receiptCloseBtn.textContent = 'ЗАКРЫТЬ (Подождите 10 секунд...)';
+        receiptCloseBtn.textContent = 'CLOSE (Wait 10 seconds...)';
         
         let secondsLeft = 10;
         receiptTimerInterval = setInterval(() => {
           secondsLeft--;
-          receiptCloseBtn.textContent = `ЗАКРЫТЬ (Подождите ${secondsLeft} секунд${secondsLeft !== 1 ? '' : 'у'})`;
+          receiptCloseBtn.textContent = `CLOSE (Wait ${secondsLeft} seconds...)`;
           
           if (secondsLeft <= 0) {
             clearInterval(receiptTimerInterval);
             receiptCloseBtn.classList.add('active');
             receiptCloseBtn.disabled = false;
-            receiptCloseBtn.textContent = 'ЗАКРЫТЬ';
+            receiptCloseBtn.textContent = 'CLOSE';
           }
         }, 1000);
       }
@@ -4099,7 +4172,7 @@
           window.open('https://t.me/Cvapik_bot', '_blank');
         }, 500);
       } else {
-        // Если чек открыт из истории, возвращаемся в историю
+
         toggleModal(starsHistoryModal);
       }
       
@@ -4134,10 +4207,10 @@
             <div class="stars-history-amount">${record.stars} ⭐</div>
           </div>
           <div class="stars-history-details">
-            <div>Кликов: ${formatNumber(record.clicks)}</div>
+            <div>Clicks: ${formatNumber(record.clicks)}</div>
             <div>ID: ${record.id}</div>
-            <div>Банов: ${record.totalBans}</div>
-            ${expiresIn <= 1 ? `<div class="stars-history-expired">⚠️ Истекает через ${expiresIn} день</div>` : ''}
+            <div>Bans: ${record.totalBans}</div>
+            ${expiresIn <= 1 ? `<div class="stars-history-expired">⚠️ Expires in ${expiresIn} day</div>` : ''}
           </div>
         `;
         
@@ -4158,10 +4231,10 @@
       dailyRewardBtn.disabled = !canClaim;
       
       if (canClaim) {
-        dailyRewardBtn.textContent = 'Получить 1000 кликов';
+        dailyRewardBtn.textContent = 'Claim 1,000 clicks';
         dailyRewardBtn.classList.remove('night-mode-disabled');
       } else {
-        dailyRewardBtn.textContent = isNightTime ? 'Ночное время' : 'Уже получено';
+        dailyRewardBtn.textContent = isNightTime ? 'Night time' : 'Already claimed';
         if (isNightTime) {
           dailyRewardBtn.classList.add('night-mode-disabled');
         }
@@ -4180,11 +4253,11 @@
         const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
         const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
         
-        dailyRewardTimerElement.textContent = `Доступно через: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        rewardTimerElement.textContent = `Следующая награда через: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        dailyRewardTimerElement.textContent = `Available in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        rewardTimerElement.textContent = `Next reward in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         rewardTimerElement.style.display = 'block';
       } else {
-        dailyRewardTimerElement.textContent = 'Доступно сейчас!';
+        dailyRewardTimerElement.textContent = 'Available now!';
         rewardTimerElement.style.display = 'none';
       }
     }
@@ -4204,12 +4277,12 @@
       const oneDay = 24 * 60 * 60 * 1000;
       
       if ((now - lastDailyReward) < oneDay) {
-        showToast('Уже получено сегодня!');
+        showToast('Already claimed today!');
         return;
       }
       
       if (isNightTime) {
-        showToast('Ночное время! Ежедневные награды доступны только с 07:00 до 22:00');
+        showToast('Night time! Daily rewards are only available from 07:00 to 22:00');
         return;
       }
       
@@ -4225,14 +4298,14 @@
       
       updateUI();
       saveGameData();
-      showToast('Ежедневная награда получена! +1000 кликов');
+      showToast('Daily reward claimed! +1,000 clicks');
       toggleModal(dailyRewardModal);
     }
 
     // Activate promo code
     function activatePromoCode() {
       if (isNightTime) {
-        showToast('Ночное время! Промокоды доступны только с 07:00 до 22:00');
+        showToast('Night time! Promo codes are only available from 07:00 to 22:00');
         return;
       }
       
@@ -4240,12 +4313,12 @@
       const code = promoInput.value.trim().toUpperCase();
       
       if (!code) {
-        showToast('Пожалуйста, введите промо-код');
+        showToast('Please enter a promo code');
         return;
       }
       
       if (usedPromoCodes.includes(code)) {
-        showToast('Промо-код уже использован');
+        showToast('Promo code already used');
         return;
       }
       
@@ -4274,7 +4347,7 @@
           reward = 200;
           break;
         default:
-          showToast('Неверный промо-код');
+          showToast('Invalid promo code');
           return;
       }
       
@@ -4291,7 +4364,7 @@
       
       updateUI();
       saveGameData();
-      showToast(`Промо-код активирован! +${reward} кликов`);
+      showToast(`Promo code activated! +${reward} clicks`);
     }
 
     // Update statistics
@@ -4362,13 +4435,13 @@
     }
     
     function getShortDayName(dayIndex) {
-      const days = ['В', 'П', 'В', 'С', 'Ч', 'П', 'С'];
+      const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
       return days[dayIndex];
     }
 
     // Reset progress
     function resetProgress() {
-      if (confirm('Вы уверены, что хотите сбросить весь прогресс? Это действие нельзя отменить!')) {
+      if (confirm('Are you sure you want to reset all progress? This action cannot be undone!')) {
         clicks = 0;
         lastDailyReward = 0;
         usedPromoCodes = [];
@@ -4378,14 +4451,15 @@
         clickHistory = {
           daily: {},
           weekly: {},
-          monthly: {}
+          monthly: {},
+          lifetime: 0
         };
         withdrawalHistory = [];
         availableStarsNotifications = [];
         lastNotificationTime = 0;
         clickTimestamps = [];
         cheatDetectionCount = 0;
-        clickSessions = []; // Очищаем историю сессий
+        clickSessions = [];
         if (currentSession) {
           currentSession = null;
         }
@@ -4398,26 +4472,27 @@
         updateClickSessions();
         saveGameData();
         hideStarsNotification();
-        showToast('Прогресс успешно сброшен');
+        showToast('Progress successfully reset');
         toggleModal(resetModal);
       }
     }
 
     // Handle theme change
     function handleThemeChange() {
-      const theme = themeSelect.value;
+      const rawTheme = themeSelect.value;
+      const theme = rawTheme === 'pink' ? 'dark' : rawTheme;
       
       if (theme === 'light') {
         bodyElement.classList.remove('dark-theme', 'pink-theme');
         bodyElement.classList.add('light-theme');
-      } else if (theme === 'pink') {
-        bodyElement.classList.remove('dark-theme', 'light-theme');
-        bodyElement.classList.add('pink-theme');
       } else {
         bodyElement.classList.remove('light-theme', 'pink-theme');
         bodyElement.classList.add('dark-theme');
       }
       
+      if (themeSelect.value !== theme) {
+        themeSelect.value = theme;
+      }
       saveGameData();
     }
 
@@ -4434,7 +4509,7 @@
       }
       
       saveGameData();
-      showToast(animationsEnabled ? 'Улучшение анимаций включено' : 'Улучшение анимаций выключено');
+      showToast(animationsEnabled ? 'Enhanced animations enabled' : 'Enhanced animations disabled');
     }
     
     // Apply animations setting
@@ -4471,7 +4546,7 @@
           antiCheatActive = false;
           antiCheatOverlay.classList.remove('active');
           document.removeEventListener('click', handleAntiCheatClick, true);
-          showToast('Проверка анти-чита пройдена');
+          showToast('Anti-cheat check passed');
         }
       }, 5000);
     }
@@ -4506,7 +4581,7 @@
           isBanned = false;
           antiCheatOverlay.classList.remove('active');
           clearInterval(banInterval);
-          showToast('Бан снят. Вы можете играть снова.');
+          showToast('Ban lifted. You can play again.');
           return;
         }
         
